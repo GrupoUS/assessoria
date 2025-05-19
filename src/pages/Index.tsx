@@ -157,7 +157,7 @@ const Index = () => {
               <div className="relative">
                 <div className="rounded-full overflow-hidden border-4 border-white shadow-lg w-64 h-64 mx-auto mb-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a" 
+                    src="/lovable-uploads/0662397f-6421-4900-8df9-b48038aff791.png" 
                     alt="Maurício Magalhães - Assessor de Investimentos" 
                     className="w-full h-full object-cover object-center"
                   />

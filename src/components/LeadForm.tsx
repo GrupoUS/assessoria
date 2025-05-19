@@ -24,6 +24,10 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+
+    // Registrar o lead quando o Supabase estiver integrado
+    // Aqui você implementaria o código para salvar na tabela após integrar o Supabase
+    
     setSubmitted(true);
     
     // Reset form after submission
@@ -36,7 +40,10 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
     // Reset submitted state after 5 seconds
     setTimeout(() => {
       setSubmitted(false);
-    }, 5000);
+      
+      // Redirecionar para WhatsApp
+      window.location.href = `http://wa.me/64999886688?text=Olá, meu nome é ${encodeURIComponent(formData.name)}. Gostaria de agendar uma consultoria.`;
+    }, 3000);
   };
 
   return (
@@ -47,7 +54,7 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
             <Shield className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-xl font-medium text-gray-900 mb-2">Recebemos sua solicitação!</h3>
-          <p className="text-gray-600">Entraremos em contato em breve para agendar sua consultoria gratuita.</p>
+          <p className="text-gray-600">Você será redirecionado para falar com o assessor em instantes...</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -9,16 +9,24 @@ import {
 const FaqSection = () => {
   const faqs = [
     {
-      question: "A consultoria inicial é realmente gratuita?",
-      answer: "Sim, trata-se de um diagnóstico completo, sem custo e sem compromisso. Queremos que você conheça nosso trabalho sem qualquer risco ou obrigação."
+      question: "Qual o valor mínimo para investir com assessoria no BTG Pactual?",
+      answer: "O valor mínimo recomendado para acessar a assessoria personalizada é a partir de R$ 100 mil. Esse patamar garante que você terá acesso a soluções exclusivas, atendimento consultivo e estratégias avançadas de proteção e crescimento patrimonial, adequadas ao perfil de investidores de alta renda."
     },
     {
-      question: "Preciso transferir meus investimentos para começar?",
-      answer: "Não. Você pode conhecer todas as nossas recomendações detalhadas antes de tomar qualquer decisão. Nosso objetivo é gerar valor antes mesmo de uma eventual parceria formal."
+      question: "Preciso transferir meus investimentos para o BTG para ser atendido?",
+      answer: "Sim, você pode fazer a portabilidade dos investimentos de forma rápida e intuitiva do seu atual banco para o BTG. Porém, Não é obrigatório transferir seus investimentos imediatamente. Você pode iniciar o relacionamento, receber o diagnóstico financeiro e conhecer as propostas sem compromisso. Caso opte por migrar seus ativos, todo o processo é acompanhado por nossa equipe, com suporte completo para garantir uma transição segura e eficiente."
     },
     {
-      question: "Como meus dados são protegidos?",
-      answer: "Seguimos rigorosos padrões de segurança e privacidade. Todas as suas informações são criptografadas e nunca serão compartilhadas com terceiros. Sua privacidade financeira é nossa prioridade absoluta."
+      question: "Como funciona o processo de assessoria personalizada?",
+      answer: "O processo começa com uma conversa para entender seu momento financeiro, objetivos e perfil de risco. Em seguida, realizamos um diagnóstico detalhado do seu patrimônio e sugerimos um plano de ação sob medida, incluindo recomendações de alocação, proteção patrimonial, planejamento sucessório e estratégias de diversificação. O acompanhamento é contínuo, com revisões periódicas e ajustes conforme mudanças no cenário ou em seus objetivos."
+    },
+    {
+      question: "Quais produtos e investimentos estão disponíveis para mim?",
+      answer: "Você terá acesso à prateleira completa do BTG Pactual: a melhor e maior plataforma de renda fixa do mercado, fundos exclusivos, previdência privada, ações, fundos internacionais, alternativas (como fundos imobiliários, multimercados e investimentos no exterior) e soluções customizadas para diversificação global e proteção contra riscos de mercado."
+    },
+    {
+      question: "A assessoria tem algum custo?",
+      answer: "A consultoria e o diagnóstico financeiro são gratuitos e sem compromisso. Caso decida avançar, os custos variam conforme os produtos escolhidos e o volume investido, podendo envolver taxas de administração, performance ou corretagem. Todas as condições são apresentadas de forma transparente, para que você tome decisões com total clareza."
     }
   ];
 
