@@ -57,12 +57,17 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                   color: isDarkMode ? '#E0E1DD' : '#333'
                 }}
               />
-              <Legend />
+              <Legend 
+                formatter={(value) => {
+                  // Aplicar classe CSS específica para melhorar contraste no modo escuro
+                  return <span className={value === "Patrimônio Total" ? "dark:text-white text-navy-dark font-medium" : ""}>{value}</span>;
+                }}
+              />
               <Line 
                 type="monotone" 
                 dataKey="balance" 
                 name="Patrimônio Total" 
-                stroke={isDarkMode ? '#00BFFF' : '#0F2A4A'} 
+                stroke={isDarkMode ? '#33C3F0' : '#0F2A4A'} 
                 strokeWidth={2} 
                 dot={false}
                 activeDot={{ r: 8 }}
