@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from 'react';
-import { formatNumberAsString } from '../utils/currencyUtils';
+import { formatCurrency, formatNumberAsString } from '../utils/currencyUtils';
 
 interface CompoundCalculatorState {
   initialAmount: number;
@@ -19,7 +18,6 @@ interface CompoundCalculatorHandlers {
   handleMonthlyDepositBlur: () => void;
   setInterestRate: (value: number) => void;
   setTimeYears: (value: number) => void;
-  formatFinalAmountDisplay: () => JSX.Element;
 }
 
 export const useCompoundCalculator = (): [CompoundCalculatorState, CompoundCalculatorHandlers] => {
@@ -96,19 +94,6 @@ export const useCompoundCalculator = (): [CompoundCalculatorState, CompoundCalcu
     }
   };
 
-  // Formata o resultado para exibição e garante que números grandes não vão quebrar o layout
-  const formatFinalAmountDisplay = () => {
-    const formattedValue = import('../utils/currencyUtils').then(m => m.formatCurrency(finalAmount)).then(v => v.replace('R$', ''));
-    return (
-      <div className="flex flex-col">
-        <span className="text-lg font-medium">R$</span>
-        <span className="text-2xl font-bold truncate" title={formattedValue.toString().trim()}>
-          {finalAmount ? import('../utils/currencyUtils').then(m => m.formatCurrency(finalAmount)).then(v => v.replace('R$', '')) : ''}
-        </span>
-      </div>
-    );
-  };
-
   return [
     {
       initialAmount,
@@ -125,8 +110,7 @@ export const useCompoundCalculator = (): [CompoundCalculatorState, CompoundCalcu
       handleInitialAmountBlur,
       handleMonthlyDepositBlur,
       setInterestRate,
-      setTimeYears,
-      formatFinalAmountDisplay
+      setTimeYears
     }
   ];
 };

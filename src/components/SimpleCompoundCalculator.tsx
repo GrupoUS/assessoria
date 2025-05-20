@@ -4,7 +4,6 @@ import { useCompoundCalculator } from '@/hooks/useCompoundCalculator';
 import CalculatorInput from '@/components/calculator/CalculatorInput';
 import CalculatorSlider from '@/components/calculator/CalculatorSlider';
 import ResultDisplay from '@/components/calculator/ResultDisplay';
-import { formatCurrency } from '@/utils/currencyUtils';
 
 const SimpleCompoundCalculator = () => {
   const [
