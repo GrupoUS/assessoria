@@ -8,6 +8,13 @@ interface ChartDataPoint {
   deposits: number;
 }
 
+interface ComparisonDataPoint {
+  year: number;
+  baseRate: number;
+  lowerRate: number;
+  higherRate: number;
+}
+
 export interface CalculatorState {
   initialAmount: number;
   monthlyDeposit: number;
@@ -17,6 +24,7 @@ export interface CalculatorState {
   totalDeposits: number;
   totalInterest: number;
   chartData: ChartDataPoint[];
+  comparisonData: ComparisonDataPoint[];
 }
 
 export const useCompoundInterestCalculator = () => {
@@ -28,26 +36,43 @@ export const useCompoundInterestCalculator = () => {
   const [totalDeposits, setTotalDeposits] = useState<number>(0);
   const [totalInterest, setTotalInterest] = useState<number>(0);
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
+  const [comparisonData, setComparisonData] = useState<ComparisonDataPoint[]>([]);
 
   const calculateCompoundInterest = () => {
     let balance = initialAmount;
     let totalDeposited = initialAmount;
     const monthlyRate = interestRate / 100;
     const months = timeYears * 12;
-    const data = [];
+    const chartPoints = [];
+    
+    // Para taxas comparativas
+    const lowerRate = interestRate * 0.75 / 100; // 25% menor
+    const higherRate = interestRate * 1.25 / 100; // 25% maior
+    let balanceLower = initialAmount;
+    let balanceHigher = initialAmount;
+    const comparisonPoints = [];
 
     for (let i = 0; i <= months; i++) {
       // No primeiro mês, só temos o valor inicial
       if (i > 0) {
         balance = balance * (1 + monthlyRate) + monthlyDeposit;
+        balanceLower = balanceLower * (1 + lowerRate) + monthlyDeposit;
+        balanceHigher = balanceHigher * (1 + higherRate) + monthlyDeposit;
         totalDeposited += monthlyDeposit;
       }
 
       if (i % 12 === 0) {
-        data.push({
+        chartPoints.push({
           year: i / 12,
           balance: Math.round(balance),
           deposits: Math.round(totalDeposited)
+        });
+        
+        comparisonPoints.push({
+          year: i / 12,
+          baseRate: Math.round(balance),
+          lowerRate: Math.round(balanceLower),
+          higherRate: Math.round(balanceHigher)
         });
       }
     }
@@ -55,7 +80,8 @@ export const useCompoundInterestCalculator = () => {
     setFinalAmount(balance);
     setTotalDeposits(totalDeposited);
     setTotalInterest(balance - totalDeposited);
-    setChartData(data);
+    setChartData(chartPoints);
+    setComparisonData(comparisonPoints);
   };
 
   // Recalcular quando qualquer input mudar
@@ -84,6 +110,7 @@ export const useCompoundInterestCalculator = () => {
     totalDeposits,
     totalInterest,
     chartData,
+    comparisonData,
     setInterestRate,
     setTimeYears,
     handleInitialAmountChange,
