@@ -50,7 +50,7 @@ const Navbar = () => {
             Calculadora
           </Link>
           <a href="https://wa.me/64999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-2 px-4 rounded-md transition-all duration-300">
-            Quero proteger e multiplicar meu dinheiro
+            Agendar Reunião
           </a>
           <ThemeSwitch />
         </div>
@@ -82,7 +82,7 @@ const Navbar = () => {
               Calculadora
             </Link>
             <a href="https://wa.me/64999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-4 rounded-md transition-all duration-300 text-center">
-              Quero proteger e multiplicar meu dinheiro
+              Agendar Reunião
             </a>
           </div>
         </div>

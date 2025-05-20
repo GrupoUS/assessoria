@@ -13,7 +13,7 @@ const CallToAction = () => {
         className="bg-[#588157] hover:bg-[#4e7048] py-3 px-6"
         onClick={() => window.open('https://wa.me/64999886688', '_blank')}
       >
-        Quero proteger e multiplicar meu dinheiro
+        Quero proteger e multiplicar meu patrimônio
       </Button>
     </div>
   );

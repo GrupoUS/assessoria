@@ -37,7 +37,7 @@ const Index = () => {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-colors duration-300">
+            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg">
               <h3 className="text-2xl font-bold mb-3 dark:text-white">Calculadora de Juros Compostos</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Descubra o poder dos juros compostos e veja como seus investimentos podem crescer ao longo do tempo com minha calculadora interativa.
@@ -50,7 +50,7 @@ const Index = () => {
               </Link>
             </div>
             
-            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-colors duration-300">
+            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg">
               <h3 className="text-2xl font-bold mb-3 dark:text-white">Blog de Educação Financeira</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Artigos, guias e conteúdos exclusivos sobre investimentos, planejamento financeiro e proteção patrimonial.

@@ -14,7 +14,7 @@ const Blog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy-darkest transition-colors duration-300">
       {/* Header do blog com título e descrição */}
       <div className="bg-darkBlue text-white py-16 md:py-24">
         <div className="container mx-auto px-6">
@@ -33,7 +33,7 @@ const Blog = () => {
             <FeaturedPosts posts={featuredPosts} />
             
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-navy-dark border-b pb-2">Artigos Recentes</h2>
+              <h2 className="text-3xl font-bold mb-6 text-navy-dark dark:text-white border-b pb-2 transition-colors">Artigos Recentes</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {recentPosts.map((post, index) => (
                   <BlogCard key={post.id || index} {...post} />

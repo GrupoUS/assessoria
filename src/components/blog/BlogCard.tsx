@@ -20,10 +20,10 @@ const BlogCard = ({
   slug 
 }: BlogCardProps) => {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+    <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 h-full flex flex-col">
       <div className="h-48 overflow-hidden">
         <img 
-          src={imageUrl} 
+          src={imageUrl || "https://images.unsplash.com/photo-1553729459-efe14ef6055d"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
           onError={(e) => {
@@ -33,15 +33,15 @@ const BlogCard = ({
         />
       </div>
       <div className="p-6 flex-1 flex flex-col">
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-sm text-gold font-medium px-2 py-1 bg-gold/10 rounded-full">{category}</span>
-          <span className="text-sm text-gray-500">{date}</span>
+        <div className="flex justify-between items-center mb-3 bg-gray-50 dark:bg-navy-medium rounded-full px-3 py-1">
+          <span className="text-sm font-medium text-gold">{category}</span>
+          <span className="text-sm text-gray-500 dark:text-gray-300">{date}</span>
         </div>
-        <h3 className="font-bold text-xl mb-2 line-clamp-2">{title}</h3>
-        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{excerpt}</p>
+        <h3 className="font-bold text-xl mb-2 line-clamp-2 dark:text-white transition-colors">{title}</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 flex-1 transition-colors">{excerpt}</p>
         <Link 
           to={`/blog/${slug}`} 
-          className="text-darkBlue font-medium hover:text-gold transition-colors flex items-center mt-auto"
+          className="text-darkBlue dark:text-navy-light font-medium hover:text-gold dark:hover:text-gold-light transition-colors flex items-center mt-auto"
         >
           Ler mais
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">

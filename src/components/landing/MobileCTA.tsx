@@ -8,7 +8,7 @@ const MobileCTA = () => {
         href="https://wa.me/64999886688" 
         className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center block"
       >
-        Quero proteger e multiplicar meu dinheiro
+        Quero proteger e multiplicar meu patrimônio
       </a>
     </div>
   );
