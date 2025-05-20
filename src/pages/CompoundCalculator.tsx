@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Chart, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import SEOHead from '../components/shared/SEOHead';
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('pt-BR', {
@@ -77,6 +77,13 @@ const CompoundCalculator = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-16">
+      <SEOHead 
+        title="Calculadora de Juros Compostos | Maurício Magalhães"
+        description="Use nossa calculadora de juros compostos para visualizar o crescimento do seu patrimônio ao longo do tempo. Planeje seus investimentos de forma eficiente."
+        keywords="calculadora juros compostos, investimentos, planejamento financeiro, crescimento patrimonial"
+        canonicalUrl="https://www.mauriciomagalhaes.com.br/calculadora-juros-compostos"
+      />
+      
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Calculadora de Juros Compostos</h1>
