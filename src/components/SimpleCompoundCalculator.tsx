@@ -34,7 +34,9 @@ const parseFormattedNumber = (formattedValue: string): number => {
 
 const SimpleCompoundCalculator = () => {
   const [initialAmount, setInitialAmount] = useState<number>(10000);
+  const [initialAmountInput, setInitialAmountInput] = useState<string>("10.000,00");
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(1000);
+  const [monthlyDepositInput, setMonthlyDepositInput] = useState<string>("1.000,00");
   const [interestRate, setInterestRate] = useState<number>(1.2); // 1.2% ao mês (aprox. 15% ao ano)
   const [timeYears, setTimeYears] = useState<number>(10);
   const [finalAmount, setFinalAmount] = useState<number>(0);
@@ -57,15 +59,51 @@ const SimpleCompoundCalculator = () => {
   }, [initialAmount, monthlyDeposit, interestRate, timeYears]);
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = event.target.value;
-    const parsedValue = parseFormattedNumber(rawValue);
-    setInitialAmount(parsedValue);
+    const value = event.target.value;
+    setInitialAmountInput(value);
+    
+    // Remove formatação para extrair apenas o número
+    const numericValue = value.replace(/\./g, '').replace(',', '.');
+    if (!isNaN(parseFloat(numericValue))) {
+      setInitialAmount(parseFloat(numericValue));
+    }
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = event.target.value;
-    const parsedValue = parseFormattedNumber(rawValue);
-    setMonthlyDeposit(parsedValue);
+    const value = event.target.value;
+    setMonthlyDepositInput(value);
+    
+    // Remove formatação para extrair apenas o número
+    const numericValue = value.replace(/\./g, '').replace(',', '.');
+    if (!isNaN(parseFloat(numericValue))) {
+      setMonthlyDeposit(parseFloat(numericValue));
+    }
+  };
+
+  // Formata o valor quando o input perde o foco
+  const handleInitialAmountBlur = () => {
+    try {
+      const value = parseFloat(initialAmountInput.replace(/\./g, '').replace(',', '.'));
+      if (!isNaN(value)) {
+        setInitialAmount(value);
+        setInitialAmountInput(formatNumberAsString(value));
+      }
+    } catch (e) {
+      setInitialAmountInput(formatNumberAsString(initialAmount));
+    }
+  };
+
+  // Formata o valor quando o input perde o foco
+  const handleMonthlyDepositBlur = () => {
+    try {
+      const value = parseFloat(monthlyDepositInput.replace(/\./g, '').replace(',', '.'));
+      if (!isNaN(value)) {
+        setMonthlyDeposit(value);
+        setMonthlyDepositInput(formatNumberAsString(value));
+      }
+    } catch (e) {
+      setMonthlyDepositInput(formatNumberAsString(monthlyDeposit));
+    }
   };
 
   return (
@@ -86,8 +124,9 @@ const SimpleCompoundCalculator = () => {
                 id="initialAmount"
                 type="text"
                 className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
-                value={formatNumberAsString(initialAmount)}
+                value={initialAmountInput}
                 onChange={handleInitialAmountChange}
+                onBlur={handleInitialAmountBlur}
               />
             </div>
           </div>
@@ -102,8 +141,9 @@ const SimpleCompoundCalculator = () => {
                 id="monthlyDeposit"
                 type="text"
                 className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
-                value={formatNumberAsString(monthlyDeposit)}
+                value={monthlyDepositInput}
                 onChange={handleMonthlyDepositChange}
+                onBlur={handleMonthlyDepositBlur}
               />
             </div>
           </div>

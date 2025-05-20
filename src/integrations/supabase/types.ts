@@ -232,37 +232,97 @@ export type Database = {
       }
       "Clientes-Kaza": {
         Row: {
-          atende_humano: boolean | null
+          Aniversário: string | null
+          "Ativação de Conta": string | null
+          CEP: string | null
+          Cidade: string | null
+          Complemento: string | null
+          Conta: string | null
+          "CPF Cônjuge": string | null
           created_at: string
-          dados: string | null
-          email: string | null
+          "Data Emissão Documento": string | null
+          "Data Próxima Revisão Cadastral": string | null
+          "Data Última Revisão Cadastral": string | null
+          Documento: string | null
+          "E-Mail Acesso": string | null
+          "E-Mail Comunicação": string | null
+          Endereço: string | null
+          "Estado Civil": string | null
+          Gênero: string | null
           id: number
-          nome: string | null
-          resumo: string | null
-          status: string | null
-          telefone: string | null
+          Idade: string | null
+          Nacionalidade: string | null
+          Nome: string | null
+          "Número Documento": string | null
+          "Pendência Cadastral": string | null
+          "Perfil de Acesso": string | null
+          "Perfil Suitability": string | null
+          "Profissão / Setor": string | null
+          Telefone: string | null
+          "Tipo Conta": string | null
+          "Vencimento Suitability": string | null
         }
         Insert: {
-          atende_humano?: boolean | null
+          Aniversário?: string | null
+          "Ativação de Conta"?: string | null
+          CEP?: string | null
+          Cidade?: string | null
+          Complemento?: string | null
+          Conta?: string | null
+          "CPF Cônjuge"?: string | null
           created_at?: string
-          dados?: string | null
-          email?: string | null
+          "Data Emissão Documento"?: string | null
+          "Data Próxima Revisão Cadastral"?: string | null
+          "Data Última Revisão Cadastral"?: string | null
+          Documento?: string | null
+          "E-Mail Acesso"?: string | null
+          "E-Mail Comunicação"?: string | null
+          Endereço?: string | null
+          "Estado Civil"?: string | null
+          Gênero?: string | null
           id?: number
-          nome?: string | null
-          resumo?: string | null
-          status?: string | null
-          telefone?: string | null
+          Idade?: string | null
+          Nacionalidade?: string | null
+          Nome?: string | null
+          "Número Documento"?: string | null
+          "Pendência Cadastral"?: string | null
+          "Perfil de Acesso"?: string | null
+          "Perfil Suitability"?: string | null
+          "Profissão / Setor"?: string | null
+          Telefone?: string | null
+          "Tipo Conta"?: string | null
+          "Vencimento Suitability"?: string | null
         }
         Update: {
-          atende_humano?: boolean | null
+          Aniversário?: string | null
+          "Ativação de Conta"?: string | null
+          CEP?: string | null
+          Cidade?: string | null
+          Complemento?: string | null
+          Conta?: string | null
+          "CPF Cônjuge"?: string | null
           created_at?: string
-          dados?: string | null
-          email?: string | null
+          "Data Emissão Documento"?: string | null
+          "Data Próxima Revisão Cadastral"?: string | null
+          "Data Última Revisão Cadastral"?: string | null
+          Documento?: string | null
+          "E-Mail Acesso"?: string | null
+          "E-Mail Comunicação"?: string | null
+          Endereço?: string | null
+          "Estado Civil"?: string | null
+          Gênero?: string | null
           id?: number
-          nome?: string | null
-          resumo?: string | null
-          status?: string | null
-          telefone?: string | null
+          Idade?: string | null
+          Nacionalidade?: string | null
+          Nome?: string | null
+          "Número Documento"?: string | null
+          "Pendência Cadastral"?: string | null
+          "Perfil de Acesso"?: string | null
+          "Perfil Suitability"?: string | null
+          "Profissão / Setor"?: string | null
+          Telefone?: string | null
+          "Tipo Conta"?: string | null
+          "Vencimento Suitability"?: string | null
         }
         Relationships: []
       }
