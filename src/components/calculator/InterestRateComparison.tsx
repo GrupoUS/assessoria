@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { formatCurrency } from '@/utils/currencyUtils';
@@ -102,70 +101,68 @@ const InterestRateComparison = ({
                 },
               }}
             >
-              {(props) => (
-                <LineChart
-                  data={comparisonData}
-                  margin={{ top: 20, right: 10, left: 10, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis
-                    dataKey="year"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={10}
-                    tickFormatter={(value) => `Ano ${value}`}
-                  />
-                  <YAxis
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={10}
-                    tickFormatter={(value) =>
-                      `${
-                        value >= 1000000
-                          ? `${(value / 1000000).toFixed(0)}M`
-                          : value >= 1000
-                          ? `${(value / 1000).toFixed(0)}k`
-                          : value
-                      }`
-                    }
-                  />
-                  <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        indicator="dot"
-                        formatter={(value: number) => [
-                          formatCurrency(value),
-                          "Valor",
-                        ]}
-                      />
-                    }
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="baseRate"
-                    name={rateLabels.baseRate}
-                    stroke={colorMap.baseRate}
-                    strokeWidth={3}
-                    dot={false}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="higherRate"
-                    name={rateLabels.higherRate}
-                    stroke={colorMap.higherRate}
-                    strokeWidth={3}
-                    dot={false}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="lowerRate"
-                    name={rateLabels.lowerRate}
-                    stroke={colorMap.lowerRate}
-                    strokeWidth={3}
-                    dot={false}
-                  />
-                </LineChart>
-              )}
+              <LineChart
+                data={comparisonData}
+                margin={{ top: 20, right: 10, left: 10, bottom: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                <XAxis
+                  dataKey="year"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={10}
+                  tickFormatter={(value) => `Ano ${value}`}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={10}
+                  tickFormatter={(value) =>
+                    `${
+                      value >= 1000000
+                        ? `${(value / 1000000).toFixed(0)}M`
+                        : value >= 1000
+                        ? `${(value / 1000).toFixed(0)}k`
+                        : value
+                    }`
+                  }
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      indicator="dot"
+                      formatter={(value: number) => [
+                        formatCurrency(value),
+                        "Valor",
+                      ]}
+                    />
+                  }
+                />
+                <Line
+                  type="monotone"
+                  dataKey="baseRate"
+                  name={rateLabels.baseRate}
+                  stroke={colorMap.baseRate}
+                  strokeWidth={3}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="higherRate"
+                  name={rateLabels.higherRate}
+                  stroke={colorMap.higherRate}
+                  strokeWidth={3}
+                  dot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="lowerRate"
+                  name={rateLabels.lowerRate}
+                  stroke={colorMap.lowerRate}
+                  strokeWidth={3}
+                  dot={false}
+                />
+              </LineChart>
             </ChartContainer>
           </div>
         </div>
