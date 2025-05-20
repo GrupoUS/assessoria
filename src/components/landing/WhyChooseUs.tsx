@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Shield, TrendingUp, Award, Clock } from 'lucide-react';
 
@@ -77,7 +78,7 @@ const WhyChooseUs = () => {
               className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-md border border-gray-100 dark:border-navy-medium transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="flex items-center mb-4">
-                <advantage.icon className="h-6 w-6 text-[#588157]" />
+                {advantage.icon}
                 <h3 className="ml-3 text-xl font-bold text-navy-dark dark:text-white">{advantage.title}</h3>
               </div>
               <p className="text-gray-600 dark:text-gray-300">{advantage.description}</p>

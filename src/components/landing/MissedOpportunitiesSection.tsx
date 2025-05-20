@@ -1,22 +1,23 @@
+
 import React from 'react';
-import { LuAlarmClock, LuCalendarClock, LuPiggyBank } from "lucide-react";
+import { AlarmClock, CalendarClock, PiggyBank } from "lucide-react";
 
 const MissedOpportunitiesSection = () => {
   const opportunities = [
     {
       title: "Desvalorização do Patrimônio",
       description: "A inflação corrói o poder de compra do seu dinheiro. Sem investimentos estratégicos, seu patrimônio perde valor ao longo do tempo.",
-      icon: LuAlarmClock
+      icon: AlarmClock
     },
     {
       title: "Rendimentos Abaixo da Média",
       description: "Contas poupança e investimentos conservadores podem não acompanhar o ritmo do mercado, resultando em ganhos limitados.",
-      icon: LuCalendarClock
+      icon: CalendarClock
     },
     {
       title: "Falta de Planejamento Financeiro",
       description: "A ausência de um plano financeiro sólido impede o alcance de metas de longo prazo, como a aposentadoria confortável e a independência financeira.",
-      icon: LuPiggyBank
+      icon: PiggyBank
     }
   ];
 
