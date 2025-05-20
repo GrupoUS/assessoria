@@ -1,65 +1,66 @@
-
 import React from 'react';
-import { ChartBar, Shield, CalendarDays, Medal } from 'lucide-react';
-
-const BenefitCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
-      <div className="bg-blue-50 rounded-full p-4 mb-6">
-        {icon}
-      </div>
-      <h3 className="font-bold text-lg mb-3">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </div>
-  );
-};
 
 const BenefitsSection = () => {
-  const benefits = [
-    {
-      icon: <ChartBar className="h-8 w-8 text-blue-600" />,
-      title: "Seu dinheiro trabalhando por você",
-      description: "Ao investir de forma estratégica, seu patrimônio cresce de maneira consistente, permitindo que você realize projetos pessoais."
-    },
-    {
-      icon: <Shield className="h-8 w-8 text-green-600" />,
-      title: "Tranquilidade para focar no que importa",
-      description: "Com uma blindagem patrimonial eficiente, você dorme tranquilo sabendo que seu capital está protegido contra imprevistos."
-    },
-    {
-      icon: <CalendarDays className="h-8 w-8 text-purple-600" />,
-      title: "Liberdade para escolher o seu futuro",
-      description: "Investir é dar a si mesmo a liberdade de fazer escolhas: trabalhar por prazer, empreender ou viver com mais qualidade."
-    },
-    {
-      icon: <Medal className="h-8 w-8 text-gold" />,
-      title: "Construção de legado",
-      description: "Uma boa estratégia de proteção e sucessão garante que as próximas gerações também possam usufruir do seu patrimônio."
-    }
-  ];
-
   return (
-    <section className="bg-gray-50 py-16 md:py-24">
+    <section id="benefits" className="py-16 bg-gray-50">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Benefícios de Investir e Blindar o Patrimônio
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+          Benefícios de uma Consultoria Financeira Personalizada
         </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {benefits.map((benefit, index) => (
-            <BenefitCard
-              key={index}
-              icon={benefit.icon}
-              title={benefit.title}
-              description={benefit.description}
-            />
-          ))}
-        </div>
-        
-        <div className="text-center">
-          <p className="text-xl mb-8 text-gray-700 max-w-3xl mx-auto">
-            Você trabalhou duro para construir sua reserva financeira. É hora de fazer seu patrimônio crescer e trabalhar por você, garantindo segurança para realizar seus maiores sonhos.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Card 1 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Planejamento Financeiro Estratégico</h3>
+            <p className="text-gray-700">
+              Desenvolvimento de um plano financeiro personalizado alinhado com seus objetivos de vida,
+              considerando investimentos, seguros e planejamento sucessório.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Otimização de Investimentos</h3>
+            <p className="text-gray-700">
+              Análise e otimização da sua carteira de investimentos para maximizar retornos e minimizar riscos,
+              aproveitando as melhores oportunidades do mercado.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Proteção Patrimonial</h3>
+            <p className="text-gray-700">
+              Implementação de estratégias para proteger seu patrimônio contra imprevistos,
+              assegurando a segurança financeira da sua família.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Redução de Impostos</h3>
+            <p className="text-gray-700">
+              Identificação de oportunidades para reduzir legalmente a carga tributária sobre seus investimentos
+              e rendimentos, aumentando sua rentabilidade líquida.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Planejamento de Aposentadoria</h3>
+            <p className="text-gray-700">
+              Construção de um plano de aposentadoria sólido e sustentável,
+              garantindo uma renda confortável para o futuro.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h3 className="text-xl font-semibold mb-3">Educação Financeira Contínua</h3>
+            <p className="text-gray-700">
+              Acesso a conteúdos e orientações para aprimorar seus conhecimentos financeiros,
+              permitindo que você tome decisões mais informadas e conscientes.
+            </p>
+          </div>
         </div>
       </div>
     </section>

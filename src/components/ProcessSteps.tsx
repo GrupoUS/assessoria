@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CalendarDays, ChartBar, HandshakeIcon, Medal } from 'lucide-react';
 
@@ -53,7 +52,7 @@ const ProcessSteps = () => {
   ];
 
   return (
-    <section className="bg-white py-16">
+    <section id="process" className="py-16 bg-white">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Como Funciona a Consultoria</h2>
         <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">

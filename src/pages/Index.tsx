@@ -12,10 +12,12 @@ import FinalCTASection from '@/components/landing/FinalCTASection';
 import Footer from '@/components/landing/Footer';
 import MobileCTA from '@/components/landing/MobileCTA';
 import WhyChooseUs from '@/components/landing/WhyChooseUs';
+import Navbar from '@/components/Navbar';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white text-darkBlue">
+      <Navbar />
       <HeroSection />
       <BenefitsSection />
       <MissedOpportunitiesSection />
@@ -25,7 +27,7 @@ const Index = () => {
       <ProcessSteps />
       
       {/* Seção de ferramentas e recursos */}
-      <section className="bg-gray-50 py-12 md:py-16">
+      <section className="bg-gray-50 py-12 md:py-16" id="resources">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
             Ferramentas e Recursos Educacionais
