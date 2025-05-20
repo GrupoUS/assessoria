@@ -26,7 +26,7 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
               margin={{
                 top: 5,
                 right: 30,
-                left: 40, // Aumentado para dar mais espaço para os rótulos do eixo Y
+                left: 50, // Aumentado para dar mais espaço para os rótulos do eixo Y
                 bottom: 5,
               }}
             >
@@ -43,7 +43,7 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                   value: 'Valor (R$)', 
                   angle: -90, 
                   position: 'insideLeft',
-                  offset: -20, // Deslocando o rótulo para evitar sobreposição
+                  offset: -35, // Deslocando mais o rótulo para evitar sobreposição
                   style: { textAnchor: 'middle' }
                 }}
                 stroke={isDarkMode ? '#E0E1DD' : '#0F2A4A'}
@@ -90,7 +90,7 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
             Com disciplina e tempo, mesmo aportes mensais modestos podem resultar em um patrimônio significativo no longo prazo.
           </p>
           <div className="flex justify-center mt-6">
-            <a href="https://wa.me/5564999886688" className="inline-block">
+            <a href="https://wa.me/5564999886688" className="inline-block" target="_blank" rel="noopener noreferrer">
               <Button className="bg-[#588157] hover:bg-[#4e7048] py-3 px-6">
                 Quero proteger e multiplicar meu patrimônio
               </Button>

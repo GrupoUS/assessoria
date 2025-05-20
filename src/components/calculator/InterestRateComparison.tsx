@@ -85,7 +85,7 @@ const InterestRateComparison = ({
       </CardHeader>
       <CardContent>
         <div className="mb-6">
-          <div className="h-[300px] w-full">
+          <div className="h-[300px] w-full overflow-hidden">
             <ChartContainer
               config={{
                 baseRate: { 
@@ -104,9 +104,8 @@ const InterestRateComparison = ({
             >
               <LineChart
                 data={comparisonData}
-                margin={{ top: 20, right: 10, left: 10, bottom: 0 }}
-                // Adicionando um clipPath para garantir que as linhas fiquem dentro dos limites
-                style={{ overflow: 'hidden' }}
+                margin={{ top: 20, right: 30, left: 30, bottom: 0 }}
+                style={{ overflow: 'visible' }}
               >
                 <defs>
                   <clipPath id="chartClipPath">
@@ -153,7 +152,6 @@ const InterestRateComparison = ({
                   stroke={colorMap.baseRate}
                   strokeWidth={3}
                   dot={false}
-                  // Aplicando o clipPath às linhas
                   clipPath="url(#chartClipPath)"
                 />
                 <Line

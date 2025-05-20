@@ -1,73 +1,48 @@
-
 import React from 'react';
-import { ChartBar, Shield, CalendarDays, Medal } from 'lucide-react';
+import { LuAlarmClock, LuCalendarClock, LuPiggyBank } from "lucide-react";
 
 const MissedOpportunitiesSection = () => {
+  const opportunities = [
+    {
+      title: "Desvalorização do Patrimônio",
+      description: "A inflação corrói o poder de compra do seu dinheiro. Sem investimentos estratégicos, seu patrimônio perde valor ao longo do tempo.",
+      icon: LuAlarmClock
+    },
+    {
+      title: "Rendimentos Abaixo da Média",
+      description: "Contas poupança e investimentos conservadores podem não acompanhar o ritmo do mercado, resultando em ganhos limitados.",
+      icon: LuCalendarClock
+    },
+    {
+      title: "Falta de Planejamento Financeiro",
+      description: "A ausência de um plano financeiro sólido impede o alcance de metas de longo prazo, como a aposentadoria confortável e a independência financeira.",
+      icon: LuPiggyBank
+    }
+  ];
+
   return (
-    <section className="bg-white dark:bg-navy-dark py-16 md:py-24 transition-colors duration-300">
+    <section className="bg-white dark:bg-navy-dark section-padding">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 dark:text-white">
           O Que Você Perde ao Não Investir
         </h2>
-        <p className="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-          Investir não é apenas sobre ganhar mais, mas sobre não perder oportunidades e garantir sua liberdade financeira.
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          Descubra as oportunidades perdidas e os riscos de não investir seu dinheiro de forma inteligente.
         </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
-            <div className="flex items-start mb-4">
-              <ChartBar className="h-6 w-6 mr-4 text-gold-light" />
-              <div>
-                <h3 className="font-bold text-xl mb-2">Deixar de conquistar mais</h3>
-                <p className="text-gray-300">
-                  Dinheiro parado perde valor ao longo do tempo. Não investir significa abrir mão de ver seu patrimônio crescer e de realizar sonhos que estão ao seu alcance.
-                </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+          {opportunities.map((opportunity, index) => (
+            <div 
+              key={index} 
+              className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-md border border-gray-100 dark:border-navy-medium transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="flex items-center mb-4">
+                <opportunity.icon className="h-6 w-6 text-red-500" />
+                <h3 className="ml-3 text-xl font-bold text-navy-dark dark:text-white">{opportunity.title}</h3>
               </div>
+              <p className="text-gray-600 dark:text-gray-300">{opportunity.description}</p>
             </div>
-          </div>
-          
-          <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
-            <div className="flex items-start mb-4">
-              <Medal className="h-6 w-6 mr-4 text-gold-light" />
-              <div>
-                <h3 className="font-bold text-xl mb-2">Perder oportunidades únicas</h3>
-                <p className="text-gray-300">
-                  O mercado está sempre mudando. Quem investe de forma planejada aproveita os melhores momentos e oportunidades - quem não investe, fica para trás.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
-            <div className="flex items-start mb-4">
-              <Shield className="h-6 w-6 mr-4 text-gold-light" />
-              <div>
-                <h3 className="font-bold text-xl mb-2">Ficar refém de imprevistos</h3>
-                <p className="text-gray-300">
-                  Sem uma estratégia de proteção, imprevistos podem comprometer o que você levou anos para construir. Blindar seu patrimônio é garantir que nada tire você do seu caminho.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
-            <div className="flex items-start mb-4">
-              <CalendarDays className="h-6 w-6 mr-4 text-gold-light" />
-              <div>
-                <h3 className="font-bold text-xl mb-2">Aposentadoria menos confortável</h3>
-                <p className="text-gray-300">
-                  Não investir é adiar ou até limitar a qualidade da sua aposentadoria, tornando-a dependente apenas de fontes tradicionais e menos rentáveis.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="text-center">
-          <p className="text-lg italic text-darkBlue dark:text-gray-300 mb-8">"O futuro que você deseja começa com as decisões que toma agora."</p>
-          <a href="https://wa.me/64999886688" className="btn-primary inline-block">
-            Quero proteger e multiplicar meu dinheiro
-          </a>
+          ))}
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Shield, TrendingUp, Award, Clock } from 'lucide-react';
 
@@ -38,6 +37,29 @@ const WhyChooseUs = () => {
     }
   ];
 
+  const advantages = [
+    {
+      icon: <Shield className="h-6 w-6 text-[#588157]" />,
+      title: "Independência e Transparência",
+      description: "Sou um consultor independente, focado exclusivamente em seus interesses, sem comissões ocultas ou conflitos de interesse."
+    },
+    {
+      icon: <TrendingUp className="h-6 w-6 text-[#588157]" />,
+      title: "Expertise Comprovada",
+      description: "Profissional com mais de 15 anos de experiência no mercado financeiro e histórico de resultados consistentes."
+    },
+    {
+      icon: <Award className="h-6 w-6 text-[#588157]" />,
+      title: "Estratégia Personalizada",
+      description: "Cada cliente recebe um plano totalmente personalizado, baseado em seus objetivos específicos e tolerância a riscos."
+    },
+    {
+      icon: <Clock className="h-6 w-6 text-[#588157]" />,
+      title: "Acompanhamento Contínuo",
+      description: "Monitoramento constante dos investimentos e ajustes periódicos para maximizar resultados e adaptar a mudanças."
+    }
+  ];
+
   return (
     <section className="bg-gray-50 dark:bg-navy-darkest py-16 md:py-24 transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -46,6 +68,21 @@ const WhyChooseUs = () => {
           <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg">
             Uma abordagem diferenciada para proteger e multiplicar seu patrimônio com segurança e eficiência.
           </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          {advantages.map((advantage, index) => (
+            <div 
+              key={index} 
+              className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-md border border-gray-100 dark:border-navy-medium transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="flex items-center mb-4">
+                <advantage.icon className="h-6 w-6 text-[#588157]" />
+                <h3 className="ml-3 text-xl font-bold text-navy-dark dark:text-white">{advantage.title}</h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300">{advantage.description}</p>
+            </div>
+          ))}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
