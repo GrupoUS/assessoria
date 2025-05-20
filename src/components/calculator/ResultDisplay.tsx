@@ -13,7 +13,7 @@ const ResultDisplay = ({ timeYears, finalAmount }: ResultDisplayProps) => {
   const displayAmount = formattedAmount.replace('R$', '').trim();
   
   return (
-    <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4 transition-transform duration-300 hover:scale-[1.03]">
+    <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4 transition-all duration-300 hover:scale-[1.03]">
       <div className="flex justify-between items-center">
         <div className="w-full">
           <p className="text-sm text-navy-medium dark:text-navy-light">

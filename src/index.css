@@ -107,3 +107,17 @@
 .section-padding {
   @apply py-16 md:py-20 px-6 md:px-8 max-w-7xl mx-auto;
 }
+
+/* Dark Mode Transitions */
+.dark .card-dark {
+  @apply bg-navy-dark text-white border-navy-medium;
+}
+
+.dark .benefit-card {
+  @apply bg-navy-dark text-white border-navy-medium shadow-none;
+}
+
+/* Card transitions */
+.card, .benefit-card {
+  @apply transition-colors duration-300;
+}

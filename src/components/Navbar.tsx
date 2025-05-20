@@ -34,7 +34,7 @@ const Navbar = () => {
       isScrolled ? 'bg-white dark:bg-navy-darkest shadow-md py-3' : 'bg-transparent py-5'
     }`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-navy-darkest dark:text-white">
+        <Link to="/" className="text-2xl font-bold text-navy-darkest dark:text-white transition-colors">
           <span className="text-navy-medium dark:text-navy-light">Maurício</span> Magalhães
         </Link>
 
@@ -58,7 +58,7 @@ const Navbar = () => {
         {/* Menu mobile button */}
         <div className="md:hidden flex items-center gap-2">
           <ThemeSwitch />
-          <button onClick={toggleMenu} className="text-navy-dark dark:text-white p-2">
+          <button onClick={toggleMenu} className="text-navy-dark dark:text-white p-2 transition-colors">
             {isMenuOpen ? (
               <X className="h-6 w-6" />
             ) : (
@@ -70,7 +70,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-navy-dark shadow-xl absolute top-full left-0 right-0 p-4">
+        <div className="md:hidden bg-white dark:bg-navy-dark shadow-xl absolute top-full left-0 right-0 p-4 transition-colors">
           <div className="flex flex-col space-y-4">
             <Link to="/" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
               Início

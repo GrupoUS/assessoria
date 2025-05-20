@@ -4,11 +4,11 @@ import React from 'react';
 const FinalCTASection = () => {
   return (
     <section id="cta" className="py-16 bg-navy-darkest text-white">
-      <div className="container mx-auto text-center">
+      <div className="container mx-auto text-center px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-8">
           Pronto para transformar suas finanças?
         </h2>
-        <p className="text-lg mb-8">
+        <p className="text-lg mb-8 max-w-3xl mx-auto">
           Agende agora mesmo uma consulta gratuita e descubra como posso te ajudar a alcançar seus objetivos financeiros.
         </p>
         <a 
