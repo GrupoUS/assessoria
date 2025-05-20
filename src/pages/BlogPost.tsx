@@ -25,7 +25,7 @@ const BlogPost = () => {
         }
 
         if (data) {
-          setPost(data as BlogPostType);
+          setPost(data as unknown as BlogPostType);
         } else {
           setError('Artigo não encontrado');
         }

@@ -161,6 +161,45 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          category: string | null
+          content: string | null
+          created_at: string
+          date: string | null
+          excerpt: string | null
+          id: string
+          imageurl: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          date?: string | null
+          excerpt?: string | null
+          id?: string
+          imageurl?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          date?: string | null
+          excerpt?: string | null
+          id?: string
+          imageurl?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       "Carrinho Abandonado": {
         Row: {
           Email: string | null
