@@ -3,6 +3,22 @@ import React from 'react';
 import { ChartBar, Shield, CalendarDays, Medal } from 'lucide-react';
 
 const MissedOpportunitiesSection = () => {
+  const handleCTAClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Scroll to the form section
+    const element = document.getElementById('cta');
+    element?.scrollIntoView({ behavior: 'smooth' });
+    
+    // Focus on the first input after scrolling
+    setTimeout(() => {
+      const firstInput = document.querySelector('#cta input');
+      if (firstInput instanceof HTMLElement) {
+        firstInput.focus();
+      }
+    }, 800);
+  };
+
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="container mx-auto px-6">
@@ -65,7 +81,7 @@ const MissedOpportunitiesSection = () => {
         
         <div className="text-center">
           <p className="text-lg italic text-darkBlue mb-8">"O futuro que você deseja começa com as decisões que toma agora."</p>
-          <a href="#cta" className="btn-primary inline-block">
+          <a href="#cta" className="btn-primary inline-block" onClick={handleCTAClick}>
             Quero meu diagnóstico gratuito
           </a>
         </div>

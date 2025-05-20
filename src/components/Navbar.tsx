@@ -17,6 +17,27 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleCTAClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Scroll to the form section
+    const element = document.getElementById('cta');
+    element?.scrollIntoView({ behavior: 'smooth' });
+    
+    // Focus on the first input after scrolling
+    setTimeout(() => {
+      const firstInput = document.querySelector('#cta input');
+      if (firstInput instanceof HTMLElement) {
+        firstInput.focus();
+      }
+    }, 800);
+    
+    // Close mobile menu if open
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-6 py-3">
@@ -63,7 +84,7 @@ const Navbar = () => {
                   </a>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <a href="#cta" className="btn-primary ml-2">
+                  <a href="#cta" className="btn-primary ml-2" onClick={handleCTAClick}>
                     Agendar Consulta
                   </a>
                 </NavigationMenuItem>
@@ -132,7 +153,7 @@ const Navbar = () => {
               <a 
                 href="#cta" 
                 className="btn-primary text-center"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleCTAClick}
               >
                 Agendar Consulta
               </a>
