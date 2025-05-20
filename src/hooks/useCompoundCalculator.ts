@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { formatCurrency, formatNumberAsString } from '../utils/currencyUtils';
+import { formatCurrency, formatNumberAsString, parseFormattedNumber } from '../utils/currencyUtils';
 
 interface CompoundCalculatorState {
   initialAmount: number;
@@ -48,24 +48,64 @@ export const useCompoundCalculator = (): [CompoundCalculatorState, CompoundCalcu
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setInitialAmountInput(value);
     
-    // Remove formatação para extrair apenas o número
-    const numericValue = value.replace(/\./g, '').replace(',', '.');
-    if (!isNaN(parseFloat(numericValue))) {
-      setInitialAmount(parseFloat(numericValue));
+    // Remove R$ if present and any non-numeric characters except commas and dots
+    const cleanedValue = value.replace(/[^\d.,]/g, '');
+    
+    // Format as the user types
+    const formattedValue = formatAsUserTypes(cleanedValue);
+    setInitialAmountInput(formattedValue);
+    
+    // Parse the value for calculations
+    const numericValue = parseFormattedNumber(formattedValue);
+    if (!isNaN(numericValue)) {
+      setInitialAmount(numericValue);
     }
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setMonthlyDepositInput(value);
     
-    // Remove formatação para extrair apenas o número
-    const numericValue = value.replace(/\./g, '').replace(',', '.');
-    if (!isNaN(parseFloat(numericValue))) {
-      setMonthlyDeposit(parseFloat(numericValue));
+    // Remove R$ if present and any non-numeric characters except commas and dots
+    const cleanedValue = value.replace(/[^\d.,]/g, '');
+    
+    // Format as the user types
+    const formattedValue = formatAsUserTypes(cleanedValue);
+    setMonthlyDepositInput(formattedValue);
+    
+    // Parse the value for calculations
+    const numericValue = parseFormattedNumber(formattedValue);
+    if (!isNaN(numericValue)) {
+      setMonthlyDeposit(numericValue);
     }
+  };
+
+  // Function to format number as the user types with dot separators
+  const formatAsUserTypes = (value: string): string => {
+    // Remove all dots and replace comma with dot for numerical operations
+    const numericString = value.replace(/\./g, '').replace(',', '.');
+    
+    // Check if it's a valid number
+    if (isNaN(parseFloat(numericString))) {
+      return value;
+    }
+    
+    // Split into integer and decimal parts
+    const parts = numericString.split('.');
+    const integerPart = parts[0];
+    const decimalPart = parts.length > 1 ? parts[1] : '';
+    
+    // Add thousand separators
+    let formattedInteger = '';
+    for (let i = 0; i < integerPart.length; i++) {
+      if (i > 0 && (integerPart.length - i) % 3 === 0) {
+        formattedInteger += '.';
+      }
+      formattedInteger += integerPart[i];
+    }
+    
+    // Return formatted string with comma as decimal separator
+    return formattedInteger + (decimalPart.length > 0 ? ',' + decimalPart : '');
   };
 
   // Formata o valor quando o input perde o foco

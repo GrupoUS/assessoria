@@ -32,7 +32,7 @@ export const parseFormattedNumber = (formattedValue: string): number => {
   const cleaned = formattedValue.replace(/[^\d,\.]/g, '');
   
   // Substitui vírgula por ponto para converter para número
-  const normalized = cleaned.replace(',', '.');
+  const normalized = cleaned.replace(/\./g, '').replace(',', '.');
   
   return parseFloat(normalized) || 0;
 };
