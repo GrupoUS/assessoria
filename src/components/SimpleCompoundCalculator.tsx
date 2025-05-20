@@ -32,6 +32,12 @@ const parseFormattedNumber = (formattedValue: string): number => {
   return parseFloat(normalized) || 0;
 };
 
+// Função para truncar valores muito grandes para exibição
+const truncateForDisplay = (value: string, maxLength: number = 15): string => {
+  if (value.length <= maxLength) return value;
+  return value.substring(0, maxLength) + '...';
+};
+
 const SimpleCompoundCalculator = () => {
   const [initialAmount, setInitialAmount] = useState<number>(10000);
   const [initialAmountInput, setInitialAmountInput] = useState<string>("10.000,00");
@@ -104,6 +110,19 @@ const SimpleCompoundCalculator = () => {
     } catch (e) {
       setMonthlyDepositInput(formatNumberAsString(monthlyDeposit));
     }
+  };
+
+  // Formata o resultado para exibição e garante que números grandes não vão quebrar o layout
+  const formatFinalAmountDisplay = () => {
+    const formattedValue = formatCurrency(finalAmount).replace('R$', '');
+    return (
+      <div className="flex flex-col">
+        <span className="text-lg font-medium">R$</span>
+        <span className="text-2xl font-bold truncate" title={formattedValue.trim()}>
+          {formattedValue}
+        </span>
+      </div>
+    );
   };
 
   return (
@@ -183,11 +202,13 @@ const SimpleCompoundCalculator = () => {
 
         <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4 transition-transform duration-300 hover:scale-[1.03]">
           <div className="flex justify-between items-center">
-            <div>
+            <div className="w-full">
               <p className="text-sm text-navy-medium dark:text-navy-light">Patrimônio em {timeYears} anos</p>
-              <p className="text-2xl font-bold text-navy-darkest dark:text-white overflow-hidden text-ellipsis">{formatCurrency(finalAmount)}</p>
+              <p className="text-2xl font-bold text-navy-darkest dark:text-white truncate" title={formatCurrency(finalAmount)}>
+                {formatCurrency(finalAmount)}
+              </p>
             </div>
-            <ArrowRight className="h-8 w-8 text-navy-medium dark:text-navy-light" />
+            <ArrowRight className="h-8 w-8 text-navy-medium dark:text-navy-light ml-2 flex-shrink-0" />
           </div>
         </div>
         
