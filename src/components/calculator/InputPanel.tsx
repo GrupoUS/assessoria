@@ -107,7 +107,7 @@ const ResultsSummary = ({
           </div>
           <div className="overflow-hidden">
             <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
-            <p className="text-base sm:text-lg font-medium text-gold dark:text-gold-light truncate" title={formatCurrency(totalInterest)}>
+            <p title={formatCurrency(totalInterest)} className="text-base font-medium text-gold dark:text-gold-light truncate sm:text-base">
               {formatCurrency(totalInterest)}
             </p>
           </div>
