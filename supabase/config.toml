@@ -1,1 +1,26 @@
+
 project_id = "xdnfpoytpesnuzcfpajd"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+[storage]
+enabled = true
+
+[inbucket]
+enabled = true
+
+[functions.blog-webhook]
+verify_jwt = false
+
+[auth]
+enabled = true

@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 // Componente de card para os artigos do blog
 const BlogCard = ({ 
@@ -52,7 +53,7 @@ const FeaturedPosts = ({ posts }: { posts: any[] }) => {
       <h2 className="text-2xl font-bold mb-6">Artigos em Destaque</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {posts.map((post, index) => (
-          <BlogCard key={index} {...post} />
+          <BlogCard key={post.id || index} {...post} />
         ))}
       </div>
     </div>
@@ -80,8 +81,59 @@ const Categories = ({ categories }: { categories: string[] }) => {
 };
 
 const Blog = () => {
-  // Dados de exemplo para os artigos do blog
-  const featuredPosts = [
+  const [featuredPosts, setFeaturedPosts] = useState<any[]>([]);
+  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        setIsLoading(true);
+        
+        // Buscar todos os posts
+        const { data: posts, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) {
+          throw error;
+        }
+        
+        if (posts && posts.length > 0) {
+          // Definir posts em destaque (3 primeiros)
+          setFeaturedPosts(posts.slice(0, 3));
+          
+          // Definir posts recentes (próximos 3 depois dos em destaque)
+          setRecentPosts(posts.slice(3, 6));
+          
+          // Extrair categorias únicas de todos os posts
+          const uniqueCategories = [...new Set(posts.map(post => post.category))];
+          setCategories(uniqueCategories);
+        } else {
+          // Se não houver posts no banco, usar os dados de exemplo
+          setFeaturedPosts(defaultFeaturedPosts);
+          setRecentPosts(defaultRecentPosts);
+          setCategories(defaultCategories);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar dados do blog:', error);
+        
+        // Em caso de erro, usar os dados de exemplo
+        setFeaturedPosts(defaultFeaturedPosts);
+        setRecentPosts(defaultRecentPosts);
+        setCategories(defaultCategories);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchBlogData();
+  }, []);
+
+  // Dados de exemplo para os artigos do blog (usados como fallback)
+  const defaultFeaturedPosts = [
     {
       title: "Como criar uma estratégia de investimentos para o longo prazo",
       excerpt: "Descubra os princípios fundamentais para construir uma carteira de investimentos robusta que resista às oscilações do mercado e gere resultados consistentes.",
@@ -108,7 +160,7 @@ const Blog = () => {
     }
   ];
 
-  const recentPosts = [
+  const defaultRecentPosts = [
     {
       title: "Diversificação: além do básico para investidores experientes",
       excerpt: "Estratégias avançadas de diversificação que vão além das recomendações convencionais, otimizando o equilíbrio entre risco e retorno.",
@@ -135,7 +187,7 @@ const Blog = () => {
     }
   ];
 
-  const categories = [
+  const defaultCategories = [
     "Investimentos", 
     "Proteção Patrimonial", 
     "Aposentadoria", 
@@ -144,6 +196,17 @@ const Blog = () => {
     "Psicologia Financeira", 
     "Mercado Financeiro"
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-t-gold border-navy-medium rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-navy-medium">Carregando artigos...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -168,7 +231,7 @@ const Blog = () => {
               <h2 className="text-2xl font-bold mb-6">Artigos Recentes</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {recentPosts.map((post, index) => (
-                  <BlogCard key={index} {...post} />
+                  <BlogCard key={post.id || index} {...post} />
                 ))}
               </div>
             </div>
