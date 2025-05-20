@@ -30,7 +30,7 @@ const InputPanel = ({
   setTimeYears
 }: InputPanelProps) => {
   return <div className="lg:col-span-1">
-      <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow space-y-6 transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
+      <div className="bg-white dark:bg-navy-dark p-6 shadow space-y-6 transition-transform duration-300 hover:scale-[1.15] hover:shadow-xl rounded-xl px-[18px] py-[20px]">
         <div>
           <Label htmlFor="initialAmount" className="mb-2 block text-navy-dark dark:text-white">
             Investimento inicial
@@ -101,7 +101,7 @@ const ResultsSummary = ({
         <div className="grid grid-cols-2 gap-2">
           <div className="overflow-hidden">
             <p className="text-sm text-gray-500 dark:text-gray-400">Total investido</p>
-            <p className="text-base sm:text-lg font-medium text-navy-dark dark:text-white truncate" title={formatCurrency(totalDeposits)}>
+            <p title={formatCurrency(totalDeposits)} className="text-base text-navy-dark dark:text-white truncate sm:text-base font-normal">
               {formatCurrency(totalDeposits)}
             </p>
           </div>
