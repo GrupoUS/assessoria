@@ -23,10 +23,10 @@ const AuthoritySection = () => {
           
           <div className="md:w-2/3 md:pl-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Quem Está ao Seu Lado
+              Quem Está Cuidando do Seu Patrimônio
             </h2>
             <p className="text-xl mb-6 text-gray-700">
-              <strong>Maurício Magalhães</strong> - assessor de investimentos certificado (ANCORD), ex-Head de Renda Variável na Kaza Capital e especialista em blindagem patrimonial. Com perfil analítico e racional, atua com rigor técnico e foco total na segurança e no crescimento do seu patrimônio.
+              <strong>Sou Maurício Magalhães</strong> - assessor de investimentos certificado (ANCORD), ex-Head de Renda Variável na Kaza Capital e especialista em blindagem patrimonial. Com perfil analítico e racional, atuo com rigor técnico e foco total na segurança e no crescimento do seu patrimônio.
             </p>
             
             <ul className="space-y-4">

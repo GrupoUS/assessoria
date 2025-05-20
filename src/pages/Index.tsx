@@ -20,9 +20,9 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <BenefitsSection />
+      <AuthoritySection />
       <MissedOpportunitiesSection />
       <WhyChooseUs />
-      <AuthoritySection />
       <Testimonials />
       <ProcessSteps />
       
@@ -33,14 +33,14 @@ const Index = () => {
             Ferramentas e Recursos Educacionais
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            Conheça nossas ferramentas gratuitas e conteúdo educacional para ajudar em suas decisões financeiras.
+            Conheça minhas ferramentas gratuitas e conteúdo educacional para ajudar em suas decisões financeiras.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
               <h3 className="text-2xl font-bold mb-3">Calculadora de Juros Compostos</h3>
               <p className="text-gray-600 mb-6">
-                Descubra o poder dos juros compostos e veja como seus investimentos podem crescer ao longo do tempo com nossa calculadora interativa.
+                Descubra o poder dos juros compostos e veja como seus investimentos podem crescer ao longo do tempo com minha calculadora interativa.
               </p>
               <Link 
                 to="/calculadora-juros-compostos" 

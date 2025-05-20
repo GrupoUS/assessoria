@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const BenefitsSection = () => {
@@ -5,7 +6,7 @@ const BenefitsSection = () => {
     <section id="benefits" className="py-16 bg-gray-50">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-          Benefícios de uma Consultoria Financeira Personalizada
+          Benefícios da Minha Consultoria Financeira Personalizada
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Card 1 */}
@@ -49,7 +50,7 @@ const BenefitsSection = () => {
             <h3 className="text-xl font-semibold mb-3">Planejamento de Aposentadoria</h3>
             <p className="text-gray-700">
               Construção de um plano de aposentadoria sólido e sustentável,
-              garantindo uma renda confortável para o futuro.
+              garantindo uma renda confortável para o seu futuro.
             </p>
           </div>
 

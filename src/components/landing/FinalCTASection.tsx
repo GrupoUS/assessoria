@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const FinalCTASection = () => {
@@ -8,7 +9,7 @@ const FinalCTASection = () => {
           Pronto para transformar suas finanças?
         </h2>
         <p className="text-lg mb-8">
-          Agende agora mesmo uma consulta gratuita e descubra como podemos te ajudar a alcançar seus objetivos financeiros.
+          Agende agora mesmo uma consulta gratuita e descubra como posso te ajudar a alcançar seus objetivos financeiros.
         </p>
         <a href="#" className="btn-primary inline-block">
           Agendar Consulta Gratuita
