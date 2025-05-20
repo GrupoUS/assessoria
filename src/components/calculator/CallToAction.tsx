@@ -11,6 +11,8 @@ const CallToAction = () => {
       </p>
       <a 
         href="https://wa.me/5564999886688"
+        target="_blank" 
+        rel="noopener noreferrer"
         className="inline-block"
       >
         <Button className="bg-[#588157] hover:bg-[#4e7048] py-3 px-6">

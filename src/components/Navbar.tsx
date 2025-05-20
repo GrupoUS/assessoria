@@ -51,7 +51,12 @@ const Navbar = () => {
           <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors">
             Calculadora
           </Link>
-          <a href="https://wa.me/5564999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-2 px-4 rounded-md transition-all duration-300">
+          <a 
+            href="https://wa.me/5564999886688" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-2 px-4 rounded-md transition-all duration-300"
+          >
             Agendar Reunião
           </a>
           <ThemeSwitch />
@@ -83,7 +88,12 @@ const Navbar = () => {
             <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
               Calculadora
             </Link>
-            <a href="https://wa.me/5564999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-4 rounded-md transition-all duration-300 text-center">
+            <a 
+              href="https://wa.me/5564999886688" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-4 rounded-md transition-all duration-300 text-center"
+            >
               Agendar Reunião
             </a>
           </div>

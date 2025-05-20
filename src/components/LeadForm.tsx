@@ -50,12 +50,13 @@ const LeadForm = ({ buttonText = "Quero proteger e multiplicar meu dinheiro" }) 
       phone: ''
     });
     
-    // Reset submitted state after 5 seconds and redirect to WhatsApp
+    // Reset submitted state after 3 seconds and redirect to WhatsApp
     setTimeout(() => {
       setSubmitted(false);
       
-      // Redirecionar para WhatsApp
-      window.location.href = `https://wa.me/64999886688?text=Olá, meu nome é ${encodeURIComponent(formData.name)}. Gostaria de agendar uma consultoria.`;
+      // Abrir link do WhatsApp em nova janela/aba
+      const whatsappUrl = `https://wa.me/5564999886688?text=Olá, meu nome é ${encodeURIComponent(formData.name)}. Gostaria de agendar uma consultoria.`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }, 3000);
   };
 

@@ -13,6 +13,8 @@ const FinalCTASection = () => {
         </p>
         <a 
           href="https://wa.me/5564999886688"
+          target="_blank" 
+          rel="noopener noreferrer"
           className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center inline-block"
         >
           Quero proteger e multiplicar meu patrimônio

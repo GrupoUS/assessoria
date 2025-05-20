@@ -18,6 +18,8 @@ const HeroSection = () => {
           <div className="hidden md:block">
             <a 
               href="https://wa.me/5564999886688" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary inline-block"
             >
               Quero proteger e multiplicar meu patrimônio
