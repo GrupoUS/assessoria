@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 215 60% 20%;
+    --primary: 217 35% 13%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -37,8 +37,13 @@
 
     --gold: 45 100% 50%;
     --gold-light: 45 70% 80%;
-    --dark-blue: 215 60% 20%;
-    --light-blue: 215 60% 90%;
+    
+    /* Novas cores */
+    --dark-blue: 215 46% 11%;
+    --medium-blue: 217 35% 29%;
+    --blue: 215 28% 36%;
+    --light-blue: 214 22% 56%;
+    --off-white: 60 5% 88%;
 
     --radius: 0.5rem;
   }
@@ -59,14 +64,14 @@
 }
 
 .gold-gradient {
-  background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  background: linear-gradient(to right, #778DA9, #E0E1DD, #778DA9, #E0E1DD, #778DA9);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .btn-primary {
-  @apply bg-[#C8A951] hover:bg-[#AD8F36] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center;
+  @apply bg-navy-medium hover:bg-navy-dark text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center;
 }
 
 .section-padding {

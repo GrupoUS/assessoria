@@ -3,9 +3,9 @@ import React from 'react';
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-16 bg-gray-50">
+    <section id="testimonials" className="py-16 bg-navy-lightest">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-darkBlue mb-8">
+        <h2 className="text-3xl font-bold text-center text-navy-darkest mb-8">
           O que meus clientes dizem
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -17,7 +17,7 @@ const Testimonials = () => {
             </p>
             <div className="flex items-center">
               <div className="ml-3">
-                <div className="text-sm font-medium text-darkBlue">João Silva</div>
+                <div className="text-sm font-medium text-navy-darkest">João Silva</div>
                 <div className="text-sm text-gray-500">Empresário</div>
               </div>
             </div>
@@ -31,7 +31,7 @@ const Testimonials = () => {
             </p>
             <div className="flex items-center">
               <div className="ml-3">
-                <div className="text-sm font-medium text-darkBlue">Maria Oliveira</div>
+                <div className="text-sm font-medium text-navy-darkest">Maria Oliveira</div>
                 <div className="text-sm text-gray-500">Autônoma</div>
               </div>
             </div>
@@ -45,7 +45,7 @@ const Testimonials = () => {
             </p>
             <div className="flex items-center">
               <div className="ml-3">
-                <div className="text-sm font-medium text-darkBlue">Carlos Pereira</div>
+                <div className="text-sm font-medium text-navy-darkest">Carlos Pereira</div>
                 <div className="text-sm text-gray-500">Servidor Público</div>
               </div>
             </div>

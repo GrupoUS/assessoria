@@ -57,15 +57,24 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
+        // Nova paleta de cores personalizada
+        navy: {
+          darkest: '#0D1B2A',
+          dark: '#1B263B',
+          medium: '#415A77',
+          light: '#778DA9',
+          lightest: '#E0E1DD'
+        },
+        // Mantendo as cores gold para compatibilidade
         gold: {
           DEFAULT: '#C8A951',
           light: '#E8D9A0',
           dark: '#9F7E23'
         },
         darkBlue: {
-          DEFAULT: '#0F2A4A',
-          light: '#1A4373',
-          dark: '#071629'
+          DEFAULT: '#0D1B2A', // Atualizado para nova cor navy.darkest
+          light: '#415A77', // Atualizado para nova cor navy.medium
+          dark: '#1B263B' // Atualizado para nova cor navy.dark
         },
       },
       fontFamily: {
@@ -79,6 +88,7 @@ export default {
       },
       boxShadow: {
         'gold': '0 4px 14px 0 rgba(200, 169, 81, 0.39)',
+        'navy': '0 4px 14px 0 rgba(65, 90, 119, 0.39)',
       },
       keyframes: {
         'accordion-down': {

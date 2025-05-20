@@ -3,7 +3,7 @@ import React from 'react';
 
 const FinalCTASection = () => {
   return (
-    <section id="cta" className="py-16 bg-dark-blue text-white">
+    <section id="cta" className="py-16 bg-navy-darkest text-white">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-8">
           Pronto para transformar suas finanças?
