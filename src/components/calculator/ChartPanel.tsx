@@ -62,7 +62,7 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                 type="monotone" 
                 dataKey="balance" 
                 name="Patrimônio Total" 
-                stroke={isDarkMode ? '#E0E1DD' : '#0F2A4A'} 
+                stroke={isDarkMode ? '#00BFFF' : '#0F2A4A'} 
                 strokeWidth={2} 
                 dot={false}
                 activeDot={{ r: 8 }}
