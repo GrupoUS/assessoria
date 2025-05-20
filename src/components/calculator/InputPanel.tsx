@@ -90,7 +90,7 @@ const ResultsSummary = ({
   totalInterest
 }: ResultsSummaryProps) => {
   return <div className="bg-gray-42 dark:bg-navy-darkest p-4 rounded-lg border border-gray-150 dark:border-navy-light/20 mt-6 transition-transform duration-300 hover:scale-[1] px-[8px] py-[8px] my-[8px]">
-      <h3 className="text-lg font-bold mb-4 text-navy-dark dark:text-white">Resultados</h3>
+      <h3 className="text-lg font-bold mb-4 text-gray-100">Resultados</h3>
       
       <div className="space-y-4">
         <div>
@@ -107,7 +107,7 @@ const ResultsSummary = ({
           </div>
           <div className="overflow-hidden">
             <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
-            <p title={formatCurrency(totalInterest)} className="text-base font-medium text-gold dark:text-gold-light truncate sm:text-base">
+            <p title={formatCurrency(totalInterest)} className="text-base text-gold dark:text-gold-light truncate sm:text-base font-normal">
               {formatCurrency(totalInterest)}
             </p>
           </div>
