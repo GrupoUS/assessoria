@@ -16,7 +16,7 @@ const formatCurrency = (value: number) => {
 const SimpleCompoundCalculator = () => {
   const [initialAmount, setInitialAmount] = useState<number>(10000);
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(1000);
-  const [interestRate, setInterestRate] = useState<number>(0.8); // 0.8% ao mês (aprox. 10% ao ano)
+  const [interestRate, setInterestRate] = useState<number>(1.2); // 1.2% ao mês (aprox. 15% ao ano)
   const [timeYears, setTimeYears] = useState<number>(10);
   const [finalAmount, setFinalAmount] = useState<number>(0);
 

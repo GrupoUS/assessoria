@@ -33,8 +33,8 @@ const Blog = () => {
             <FeaturedPosts posts={featuredPosts} />
             
             <div>
-              <h2 className="text-2xl font-bold mb-6">Artigos Recentes</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-3xl font-bold mb-6 text-navy-dark border-b pb-2">Artigos Recentes</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {recentPosts.map((post, index) => (
                   <BlogCard key={post.id || index} {...post} />
                 ))}

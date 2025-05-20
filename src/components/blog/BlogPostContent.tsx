@@ -11,12 +11,17 @@ const BlogPostContent = ({ post }: BlogPostContentProps) => {
     <>
       {/* Featured Image */}
       {post.imageUrl && (
-        <div className="relative h-96 overflow-hidden">
+        <div className="relative h-[400px] overflow-hidden">
           <img 
             src={post.imageUrl} 
             alt={post.title} 
             className="w-full h-full object-cover"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
+            }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
         </div>
       )}
 

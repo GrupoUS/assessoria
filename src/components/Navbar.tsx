@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
@@ -40,46 +38,14 @@ const Navbar = () => {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Serviços</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      <li className="row-span-3">
-                        <NavigationMenuLink asChild>
-                          <a
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-light-blue to-dark-blue p-6 no-underline outline-none focus:shadow-md"
-                            href="#benefits"
-                          >
-                            <div className="mt-4 mb-2 text-lg font-medium text-white">
-                              Consultoria Financeira
-                            </div>
-                            <p className="text-sm leading-tight text-white/90">
-                              Planejamento patrimonial personalizado para seu perfil e objetivos.
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <Link to="/calculadora-juros-compostos" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                          <div className="text-sm font-medium leading-none">
-                            Calculadora de Juros
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Simule o crescimento dos seus investimentos
-                          </p>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/blog" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                          <div className="text-sm font-medium leading-none">
-                            Blog Educativo
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Artigos sobre investimentos e finanças
-                          </p>
-                        </Link>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
+                  <Link to="/calculadora-juros-compostos" className={navigationMenuTriggerStyle()}>
+                    Calculadora
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link to="/blog" className={navigationMenuTriggerStyle()}>
+                    Blog
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <a href="#testimonials" className={navigationMenuTriggerStyle()}>
@@ -128,13 +94,20 @@ const Navbar = () => {
               >
                 Início
               </Link>
-              <a 
-                href="#benefits" 
+              <Link 
+                to="/calculadora-juros-compostos" 
                 className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Benefícios
-              </a>
+                Calculadora
+              </Link>
+              <Link 
+                to="/blog" 
+                className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
               <a 
                 href="#testimonials" 
                 className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium"
@@ -156,20 +129,6 @@ const Navbar = () => {
               >
                 FAQ
               </a>
-              <Link 
-                to="/calculadora-juros-compostos" 
-                className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Calculadora
-              </Link>
-              <Link 
-                to="/blog" 
-                className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </Link>
               <a 
                 href="#cta" 
                 className="btn-primary text-center"
