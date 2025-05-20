@@ -16,10 +16,10 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
   const isDarkMode = document.documentElement.classList.contains('dark');
   
   return (
-    <div className="lg:col-span-2">
+    <div className="w-full">
       <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow h-full transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl">
         <h3 className="text-lg font-bold mb-6 text-navy-dark dark:text-white">Evolução do patrimônio</h3>
-        <div className="h-80">
+        <div className="h-96">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={chartData}

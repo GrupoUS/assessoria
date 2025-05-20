@@ -65,22 +65,26 @@ const CompoundCalculator = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <InputPanel
-            initialAmount={initialAmount}
-            monthlyDeposit={monthlyDeposit}
-            interestRate={interestRate}
-            timeYears={timeYears}
-            handleInitialAmountChange={handleInitialAmountChange}
-            handleMonthlyDepositChange={handleMonthlyDepositChange}
-            setInterestRate={setInterestRate}
-            setTimeYears={setTimeYears}
-            finalAmount={finalAmount}
-            totalDeposits={totalDeposits}
-            totalInterest={totalInterest}
-          />
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-2">
+            <InputPanel
+              initialAmount={initialAmount}
+              monthlyDeposit={monthlyDeposit}
+              interestRate={interestRate}
+              timeYears={timeYears}
+              handleInitialAmountChange={handleInitialAmountChange}
+              handleMonthlyDepositChange={handleMonthlyDepositChange}
+              setInterestRate={setInterestRate}
+              setTimeYears={setTimeYears}
+              finalAmount={finalAmount}
+              totalDeposits={totalDeposits}
+              totalInterest={totalInterest}
+            />
+          </div>
 
-          <ChartPanel chartData={chartData} />
+          <div className="lg:col-span-3">
+            <ChartPanel chartData={chartData} />
+          </div>
         </div>
 
         <CallToAction />

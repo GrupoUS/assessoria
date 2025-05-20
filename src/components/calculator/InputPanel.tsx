@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -89,25 +90,27 @@ const ResultsSummary = ({
   totalDeposits,
   totalInterest
 }: ResultsSummaryProps) => {
-  return <div className="bg-gray-42 dark:bg-navy-darkest p-4 rounded-lg border border-gray-150 dark:border-navy-light/20 mt-6 transition-transform duration-300 hover:scale-[1] px-[8px] py-[8px] my-[8px]">
-      <h3 className="text-lg font-bold mb-4 text-gray-100">Resultados</h3>
+  return <div className="bg-gray-42 dark:bg-navy-darkest p-4 rounded-lg border border-gray-150 dark:border-navy-light/20 mt-6 transition-transform duration-300 hover:scale-[1] px-[12px] py-[12px] my-[8px]">
+      <h3 className="text-lg font-bold mb-4 text-navy-dark dark:text-white">Resultados</h3>
       
       <div className="space-y-4">
         <div>
           <p className="text-sm text-gray-500 dark:text-gray-400">Valor total acumulado</p>
-          <p className="text-2xl font-bold text-navy-dark dark:text-white overflow-hidden text-ellipsis">{formatCurrency(finalAmount)}</p>
+          <p className="text-2xl font-bold text-navy-dark dark:text-white break-words" title={formatCurrency(finalAmount)}>
+            {formatCurrency(finalAmount)}
+          </p>
         </div>
         
-        <div className="grid grid-cols-2 gap-2">
-          <div className="overflow-hidden">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
             <p className="text-sm text-gray-500 dark:text-gray-400">Total investido</p>
-            <p title={formatCurrency(totalDeposits)} className="text-base text-navy-dark dark:text-white truncate sm:text-base font-normal">
+            <p title={formatCurrency(totalDeposits)} className="text-base text-navy-dark dark:text-white break-words sm:text-base font-normal">
               {formatCurrency(totalDeposits)}
             </p>
           </div>
-          <div className="overflow-hidden">
+          <div>
             <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
-            <p title={formatCurrency(totalInterest)} className="text-base text-gold dark:text-gold-light truncate sm:text-base font-normal">
+            <p title={formatCurrency(totalInterest)} className="text-base text-gold dark:text-gold-light break-words sm:text-base font-normal">
               {formatCurrency(totalInterest)}
             </p>
           </div>
