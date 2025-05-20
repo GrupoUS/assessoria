@@ -114,8 +114,21 @@ export const useBlogData = () => {
         }
         
         if (posts && posts.length > 0) {
+          // Map the posts to our BlogPost type, ensuring proper field mapping
+          const typedPosts: BlogPost[] = posts.map(post => ({
+            id: post.id,
+            title: post.title,
+            slug: post.slug,
+            excerpt: post.excerpt || '',
+            content: post.content || '',
+            category: post.category || 'Geral',
+            date: post.date || new Date(post.created_at).toLocaleDateString('pt-BR'),
+            imageUrl: post.imageurl || '', // Map from imageurl (lowercase in DB) to imageUrl (camelCase in our type)
+            created_at: post.created_at,
+            updated_at: post.updated_at
+          }));
+          
           // Definir posts em destaque (3 primeiros)
-          const typedPosts = posts as unknown as BlogPost[];
           setFeaturedPosts(typedPosts.slice(0, 3));
           
           // Definir posts recentes (próximos 3 depois dos em destaque)
@@ -126,6 +139,7 @@ export const useBlogData = () => {
           setCategories(uniqueCategories);
         } else {
           // Se não houver posts no banco, usar os dados de exemplo
+          console.log('No posts found in Supabase, using default data');
           setFeaturedPosts(defaultFeaturedPosts);
           setRecentPosts(defaultRecentPosts);
           setCategories(defaultCategories);
