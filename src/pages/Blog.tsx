@@ -1,7 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { BlogPost } from '@/types/blog';
 
 // Componente de card para os artigos do blog
 const BlogCard = ({ 
@@ -47,7 +47,7 @@ const BlogCard = ({
 };
 
 // Componente de seção de posts em destaque
-const FeaturedPosts = ({ posts }: { posts: any[] }) => {
+const FeaturedPosts = ({ posts }: { posts: BlogPost[] }) => {
   return (
     <div className="mb-16">
       <h2 className="text-2xl font-bold mb-6">Artigos em Destaque</h2>
@@ -81,8 +81,8 @@ const Categories = ({ categories }: { categories: string[] }) => {
 };
 
 const Blog = () => {
-  const [featuredPosts, setFeaturedPosts] = useState<any[]>([]);
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -103,14 +103,14 @@ const Blog = () => {
         
         if (posts && posts.length > 0) {
           // Definir posts em destaque (3 primeiros)
-          setFeaturedPosts(posts.slice(0, 3));
+          setFeaturedPosts(posts.slice(0, 3) as BlogPost[]);
           
           // Definir posts recentes (próximos 3 depois dos em destaque)
-          setRecentPosts(posts.slice(3, 6));
+          setRecentPosts(posts.slice(3, 6) as BlogPost[]);
           
           // Extrair categorias únicas de todos os posts
           const uniqueCategories = [...new Set(posts.map(post => post.category))];
-          setCategories(uniqueCategories);
+          setCategories(uniqueCategories as string[]);
         } else {
           // Se não houver posts no banco, usar os dados de exemplo
           setFeaturedPosts(defaultFeaturedPosts);
@@ -133,7 +133,7 @@ const Blog = () => {
   }, []);
 
   // Dados de exemplo para os artigos do blog (usados como fallback)
-  const defaultFeaturedPosts = [
+  const defaultFeaturedPosts: BlogPost[] = [
     {
       title: "Como criar uma estratégia de investimentos para o longo prazo",
       excerpt: "Descubra os princípios fundamentais para construir uma carteira de investimentos robusta que resista às oscilações do mercado e gere resultados consistentes.",
@@ -160,7 +160,7 @@ const Blog = () => {
     }
   ];
 
-  const defaultRecentPosts = [
+  const defaultRecentPosts: BlogPost[] = [
     {
       title: "Diversificação: além do básico para investidores experientes",
       excerpt: "Estratégias avançadas de diversificação que vão além das recomendações convencionais, otimizando o equilíbrio entre risco e retorno.",

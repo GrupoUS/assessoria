@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { BlogPost as BlogPostType } from '@/types/blog';
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +25,7 @@ const BlogPost = () => {
         }
 
         if (data) {
-          setPost(data);
+          setPost(data as BlogPostType);
         } else {
           setError('Artigo não encontrado');
         }
