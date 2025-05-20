@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -180,7 +179,7 @@ const CompoundCalculator = () => {
                 </div>
               </div>
 
-              {/* Resultados em cards */}
+              {/* Resultados em cards - UPDATED to be more responsive */}
               <div className="bg-gray-50 dark:bg-navy-darkest p-4 rounded-lg border border-gray-200 dark:border-navy-light/20 mt-6 transition-transform duration-300 hover:scale-[1.03]">
                 <h3 className="text-lg font-bold mb-4 text-navy-dark dark:text-white">Resultados</h3>
                 
@@ -190,14 +189,18 @@ const CompoundCalculator = () => {
                     <p className="text-2xl font-bold text-navy-dark dark:text-white overflow-hidden text-ellipsis">{formatCurrency(finalAmount)}</p>
                   </div>
                   
-                  <div className="flex justify-between">
-                    <div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="overflow-hidden">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Total investido</p>
-                      <p className="text-lg font-medium text-navy-dark dark:text-white overflow-hidden text-ellipsis">{formatCurrency(totalDeposits)}</p>
+                      <p className="text-base sm:text-lg font-medium text-navy-dark dark:text-white truncate" title={formatCurrency(totalDeposits)}>
+                        {formatCurrency(totalDeposits)}
+                      </p>
                     </div>
-                    <div>
+                    <div className="overflow-hidden">
                       <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
-                      <p className="text-lg font-medium text-gold dark:text-gold-light overflow-hidden text-ellipsis">{formatCurrency(totalInterest)}</p>
+                      <p className="text-base sm:text-lg font-medium text-gold dark:text-gold-light truncate" title={formatCurrency(totalInterest)}>
+                        {formatCurrency(totalInterest)}
+                      </p>
                     </div>
                   </div>
                 </div>

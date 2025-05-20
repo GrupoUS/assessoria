@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ArrowRight } from "lucide-react";
-import { formatCurrency } from '@/utils/currencyUtils';
+import { formatCurrency, truncateForDisplay } from '@/utils/currencyUtils';
 
 interface ResultDisplayProps {
   timeYears: number;
