@@ -13,6 +13,25 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
+// Função para formatar valor sem o símbolo da moeda
+const formatNumberAsString = (value: number) => {
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+};
+
+// Função para converter string formatada em número
+const parseFormattedNumber = (formattedValue: string): number => {
+  // Remove todos os caracteres não numéricos, exceto vírgula ou ponto
+  const cleaned = formattedValue.replace(/[^\d,\.]/g, '');
+  
+  // Substitui vírgula por ponto para converter para número
+  const normalized = cleaned.replace(',', '.');
+  
+  return parseFloat(normalized) || 0;
+};
+
 const SimpleCompoundCalculator = () => {
   const [initialAmount, setInitialAmount] = useState<number>(10000);
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(1000);
@@ -38,21 +57,19 @@ const SimpleCompoundCalculator = () => {
   }, [initialAmount, monthlyDeposit, interestRate, timeYears]);
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Remover formatação e converter para número
-    const value = event.target.value.replace(/\D/g, '');
-    const numericValue = value ? parseInt(value) : 0;
-    setInitialAmount(numericValue);
+    const rawValue = event.target.value;
+    const parsedValue = parseFormattedNumber(rawValue);
+    setInitialAmount(parsedValue);
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Remover formatação e converter para número
-    const value = event.target.value.replace(/\D/g, '');
-    const numericValue = value ? parseInt(value) : 0;
-    setMonthlyDeposit(numericValue);
+    const rawValue = event.target.value;
+    const parsedValue = parseFormattedNumber(rawValue);
+    setMonthlyDeposit(parsedValue);
   };
 
   return (
-    <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-lg border border-navy-light/20 dark:border-navy-light/10">
+    <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-lg border border-navy-light/20 dark:border-navy-light/10 transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
       <h3 className="text-xl font-semibold text-navy-darkest dark:text-white mb-4">
         Calculadora de Juros Compostos
       </h3>
@@ -68,8 +85,8 @@ const SimpleCompoundCalculator = () => {
               <Input
                 id="initialAmount"
                 type="text"
-                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
-                value={formatCurrency(initialAmount).replace('R$', '').trim()}
+                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
+                value={formatNumberAsString(initialAmount)}
                 onChange={handleInitialAmountChange}
               />
             </div>
@@ -84,8 +101,8 @@ const SimpleCompoundCalculator = () => {
               <Input
                 id="monthlyDeposit"
                 type="text"
-                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
-                value={formatCurrency(monthlyDeposit).replace('R$', '').trim()}
+                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
+                value={formatNumberAsString(monthlyDeposit)}
                 onChange={handleMonthlyDepositChange}
               />
             </div>
@@ -124,18 +141,18 @@ const SimpleCompoundCalculator = () => {
           />
         </div>
 
-        <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4">
+        <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4 transition-transform duration-300 hover:scale-[1.03]">
           <div className="flex justify-between items-center">
             <div>
               <p className="text-sm text-navy-medium dark:text-navy-light">Patrimônio em {timeYears} anos</p>
-              <p className="text-2xl font-bold text-navy-darkest dark:text-white">{formatCurrency(finalAmount)}</p>
+              <p className="text-2xl font-bold text-navy-darkest dark:text-white overflow-hidden text-ellipsis">{formatCurrency(finalAmount)}</p>
             </div>
             <ArrowRight className="h-8 w-8 text-navy-medium dark:text-navy-light" />
           </div>
         </div>
         
         <div className="mt-4 text-center">
-          <a href="/calculadora-juros-compostos" className="text-navy-medium dark:text-navy-light hover:text-navy-dark hover:dark:text-white text-sm">
+          <a href="/calculadora-juros-compostos" className="text-navy-medium dark:text-navy-light hover:text-navy-dark hover:dark:text-white text-sm transition-all duration-300 hover:underline">
             Ver calculadora completa →
           </a>
         </div>

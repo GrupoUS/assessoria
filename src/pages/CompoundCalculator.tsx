@@ -14,6 +14,25 @@ const formatCurrency = (value: number) => {
   }).format(value);
 };
 
+// Função para formatar valor sem o símbolo da moeda
+const formatNumberAsString = (value: number) => {
+  return new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+};
+
+// Função para converter string formatada em número
+const parseFormattedNumber = (formattedValue: string): number => {
+  // Remove todos os caracteres não numéricos, exceto vírgula ou ponto
+  const cleaned = formattedValue.replace(/[^\d,\.]/g, '');
+  
+  // Substitui vírgula por ponto para converter para número
+  const normalized = cleaned.replace(',', '.');
+  
+  return parseFloat(normalized) || 0;
+};
+
 const CompoundCalculator = () => {
   const [initialAmount, setInitialAmount] = useState<number>(10000);
   const [monthlyDeposit, setMonthlyDeposit] = useState<number>(1000);
@@ -59,17 +78,15 @@ const CompoundCalculator = () => {
   }, [initialAmount, monthlyDeposit, interestRate, timeYears]);
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Remover formatação e converter para número
-    const value = event.target.value.replace(/\D/g, '');
-    const numericValue = value ? parseInt(value) : 0;
-    setInitialAmount(numericValue);
+    const rawValue = event.target.value;
+    const parsedValue = parseFormattedNumber(rawValue);
+    setInitialAmount(parsedValue);
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Remover formatação e converter para número
-    const value = event.target.value.replace(/\D/g, '');
-    const numericValue = value ? parseInt(value) : 0;
-    setMonthlyDeposit(numericValue);
+    const rawValue = event.target.value;
+    const parsedValue = parseFormattedNumber(rawValue);
+    setMonthlyDeposit(parsedValue);
   };
 
   return (
@@ -92,7 +109,7 @@ const CompoundCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Painel de inputs */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow space-y-6">
+            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow space-y-6 transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
               <div>
                 <Label htmlFor="initialAmount" className="mb-2 block text-navy-dark dark:text-white">
                   Investimento inicial
@@ -102,8 +119,8 @@ const CompoundCalculator = () => {
                   <Input
                     id="initialAmount"
                     type="text"
-                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
-                    value={formatCurrency(initialAmount).replace('R$', '').trim()}
+                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
+                    value={formatNumberAsString(initialAmount)}
                     onChange={handleInitialAmountChange}
                   />
                 </div>
@@ -118,8 +135,8 @@ const CompoundCalculator = () => {
                   <Input
                     id="monthlyDeposit"
                     type="text"
-                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
-                    value={formatCurrency(monthlyDeposit).replace('R$', '').trim()}
+                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20 overflow-hidden text-ellipsis"
+                    value={formatNumberAsString(monthlyDeposit)}
                     onChange={handleMonthlyDepositChange}
                   />
                 </div>
@@ -164,23 +181,23 @@ const CompoundCalculator = () => {
               </div>
 
               {/* Resultados em cards */}
-              <div className="bg-gray-50 dark:bg-navy-darkest p-4 rounded-lg border border-gray-200 dark:border-navy-light/20 mt-6">
+              <div className="bg-gray-50 dark:bg-navy-darkest p-4 rounded-lg border border-gray-200 dark:border-navy-light/20 mt-6 transition-transform duration-300 hover:scale-[1.03]">
                 <h3 className="text-lg font-bold mb-4 text-navy-dark dark:text-white">Resultados</h3>
                 
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Valor total acumulado</p>
-                    <p className="text-2xl font-bold text-navy-dark dark:text-white">{formatCurrency(finalAmount)}</p>
+                    <p className="text-2xl font-bold text-navy-dark dark:text-white overflow-hidden text-ellipsis">{formatCurrency(finalAmount)}</p>
                   </div>
                   
                   <div className="flex justify-between">
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Total investido</p>
-                      <p className="text-lg font-medium text-navy-dark dark:text-white">{formatCurrency(totalDeposits)}</p>
+                      <p className="text-lg font-medium text-navy-dark dark:text-white overflow-hidden text-ellipsis">{formatCurrency(totalDeposits)}</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
-                      <p className="text-lg font-medium text-gold dark:text-gold-light">{formatCurrency(totalInterest)}</p>
+                      <p className="text-lg font-medium text-gold dark:text-gold-light overflow-hidden text-ellipsis">{formatCurrency(totalInterest)}</p>
                     </div>
                   </div>
                 </div>
@@ -190,7 +207,7 @@ const CompoundCalculator = () => {
 
           {/* Gráfico */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow h-full">
+            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow h-full transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl">
               <h3 className="text-lg font-bold mb-6 text-navy-dark dark:text-white">Evolução do patrimônio</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
@@ -266,7 +283,7 @@ const CompoundCalculator = () => {
           </div>
         </div>
 
-        <div className="mt-16 p-8 bg-navy-dark dark:bg-navy-darkest rounded-lg text-white text-center">
+        <div className="mt-16 p-8 bg-navy-dark dark:bg-navy-darkest rounded-lg text-white text-center transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl">
           <h2 className="text-2xl font-bold mb-4">Pronto para dar o próximo passo?</h2>
           <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
             Cálculos são apenas o começo. Receba uma estratégia personalizada para maximizar seus investimentos com segurança.
