@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
+const LeadForm = ({ buttonText = "Quero proteger e multiplicar meu dinheiro" }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -55,7 +55,7 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
       setSubmitted(false);
       
       // Redirecionar para WhatsApp
-      window.location.href = `http://wa.me/64999886688?text=Olá, meu nome é ${encodeURIComponent(formData.name)}. Gostaria de agendar uma consultoria.`;
+      window.location.href = `https://wa.me/64999886688?text=Olá, meu nome é ${encodeURIComponent(formData.name)}. Gostaria de agendar uma consultoria.`;
     }, 3000);
   };
 

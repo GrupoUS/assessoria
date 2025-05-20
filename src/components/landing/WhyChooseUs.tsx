@@ -4,12 +4,12 @@ import { Shield, TrendingUp, Award, Clock } from 'lucide-react';
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col">
-      <div className="mb-4 text-gold">
+    <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow border border-gray-100 dark:border-navy-medium hover:shadow-lg transition-all duration-300 flex flex-col">
+      <div className="mb-4 text-gold dark:text-gold-light">
         {icon}
       </div>
-      <h3 className="text-xl font-bold mb-3">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-xl font-bold mb-3 dark:text-white">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-300">{description}</p>
     </div>
   );
 };
@@ -39,11 +39,11 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-16 md:py-24">
+    <section className="bg-gray-50 dark:bg-navy-darkest py-16 md:py-24 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Por Que Escolher Minha Consultoria</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">Por Que Escolher Minha Consultoria</h2>
+          <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg">
             Uma abordagem diferenciada para proteger e multiplicar seu patrimônio com segurança e eficiência.
           </p>
         </div>

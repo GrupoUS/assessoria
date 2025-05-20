@@ -9,8 +9,11 @@ const CallToAction = () => {
       <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
         Cálculos são apenas o começo. Receba uma estratégia personalizada para maximizar seus investimentos com segurança.
       </p>
-      <Button className="bg-[#588157] hover:bg-[#4e7048] py-3 px-6">
-        Agendar consultoria gratuita
+      <Button 
+        className="bg-[#588157] hover:bg-[#4e7048] py-3 px-6"
+        onClick={() => window.open('https://wa.me/64999886688', '_blank')}
+      >
+        Quero proteger e multiplicar meu dinheiro
       </Button>
     </div>
   );

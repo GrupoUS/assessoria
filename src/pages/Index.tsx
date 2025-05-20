@@ -16,7 +16,7 @@ import Navbar from '@/components/Navbar';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white text-darkBlue">
+    <div className="min-h-screen bg-white dark:bg-navy-darkest text-darkBlue dark:text-white transition-colors duration-300">
       <Navbar />
       <HeroSection />
       <BenefitsSection />
@@ -27,19 +27,19 @@ const Index = () => {
       <ProcessSteps />
       
       {/* Seção de ferramentas e recursos */}
-      <section className="bg-gray-50 py-12 md:py-16" id="resources">
+      <section className="bg-gray-50 dark:bg-navy-dark py-12 md:py-16 transition-colors duration-300" id="resources">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 dark:text-white">
             Ferramentas e Recursos Educacionais
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <p className="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
             Conheça minhas ferramentas gratuitas e conteúdo educacional para ajudar em suas decisões financeiras.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-              <h3 className="text-2xl font-bold mb-3">Calculadora de Juros Compostos</h3>
-              <p className="text-gray-600 mb-6">
+            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-colors duration-300">
+              <h3 className="text-2xl font-bold mb-3 dark:text-white">Calculadora de Juros Compostos</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Descubra o poder dos juros compostos e veja como seus investimentos podem crescer ao longo do tempo com minha calculadora interativa.
               </p>
               <Link 
@@ -50,9 +50,9 @@ const Index = () => {
               </Link>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-              <h3 className="text-2xl font-bold mb-3">Blog de Educação Financeira</h3>
-              <p className="text-gray-600 mb-6">
+            <div className="bg-white dark:bg-navy-medium p-8 rounded-lg shadow-md border border-gray-100 dark:border-navy-dark transition-colors duration-300">
+              <h3 className="text-2xl font-bold mb-3 dark:text-white">Blog de Educação Financeira</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
                 Artigos, guias e conteúdos exclusivos sobre investimentos, planejamento financeiro e proteção patrimonial.
               </p>
               <Link 

@@ -117,7 +117,47 @@
   @apply bg-navy-dark text-white border-navy-medium shadow-none;
 }
 
+/* Fundos de seções escuros */
+.dark .bg-white {
+  @apply bg-navy-dark;
+}
+
+.dark .bg-gray-50 {
+  @apply bg-navy-darkest;
+}
+
+/* Texto em modo escuro */
+.dark .text-gray-600 {
+  @apply text-gray-300;
+}
+
+.dark .text-navy-dark {
+  @apply text-white;
+}
+
+.dark .text-darkBlue {
+  @apply text-white;
+}
+
+/* Bordas em modo escuro */
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  @apply border-navy-medium;
+}
+
 /* Card transitions */
 .card, .benefit-card {
   @apply transition-colors duration-300;
+}
+
+/* Estilos para formulários em modo escuro */
+.dark input, 
+.dark textarea, 
+.dark select {
+  @apply bg-navy-medium text-white border-navy-light;
+}
+
+/* Links e botões em modo escuro */
+.dark a:not(.btn-primary):not([class*="bg-"]) {
+  @apply text-navy-light hover:text-white;
 }

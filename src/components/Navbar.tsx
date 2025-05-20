@@ -49,8 +49,8 @@ const Navbar = () => {
           <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors">
             Calculadora
           </Link>
-          <a href="#cta" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-2 px-4 rounded-md transition-all duration-300">
-            Agendar Consultoria
+          <a href="https://wa.me/64999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-2 px-4 rounded-md transition-all duration-300">
+            Quero proteger e multiplicar meu dinheiro
           </a>
           <ThemeSwitch />
         </div>
@@ -81,8 +81,8 @@ const Navbar = () => {
             <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
               Calculadora
             </Link>
-            <a href="#cta" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-4 rounded-md transition-all duration-300 text-center">
-              Agendar Consultoria
+            <a href="https://wa.me/64999886688" className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-4 rounded-md transition-all duration-300 text-center">
+              Quero proteger e multiplicar meu dinheiro
             </a>
           </div>
         </div>

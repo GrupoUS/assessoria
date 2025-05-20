@@ -41,6 +41,9 @@ const ThemeSwitch = () => {
     // Notificar usuário sobre a mudança de tema
     toast({
       title: newTheme === 'dark' ? "Modo escuro ativado" : "Modo claro ativado",
+      description: newTheme === 'dark' 
+        ? "O tema escuro foi aplicado em todo o site" 
+        : "O tema claro foi aplicado em todo o site",
       duration: 1500,
     });
   };

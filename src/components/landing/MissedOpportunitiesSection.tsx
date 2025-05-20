@@ -3,29 +3,13 @@ import React from 'react';
 import { ChartBar, Shield, CalendarDays, Medal } from 'lucide-react';
 
 const MissedOpportunitiesSection = () => {
-  const handleCTAClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    
-    // Scroll to the form section
-    const element = document.getElementById('cta');
-    element?.scrollIntoView({ behavior: 'smooth' });
-    
-    // Focus on the first input after scrolling
-    setTimeout(() => {
-      const firstInput = document.querySelector('#cta input');
-      if (firstInput instanceof HTMLElement) {
-        firstInput.focus();
-      }
-    }, 800);
-  };
-
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white dark:bg-navy-dark py-16 md:py-24 transition-colors duration-300">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 dark:text-white">
           O Que Você Perde ao Não Investir
         </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
           Investir não é apenas sobre ganhar mais, mas sobre não perder oportunidades e garantir sua liberdade financeira.
         </p>
         
@@ -80,9 +64,9 @@ const MissedOpportunitiesSection = () => {
         </div>
         
         <div className="text-center">
-          <p className="text-lg italic text-darkBlue mb-8">"O futuro que você deseja começa com as decisões que toma agora."</p>
-          <a href="#cta" className="btn-primary inline-block" onClick={handleCTAClick}>
-            Quero meu diagnóstico gratuito
+          <p className="text-lg italic text-darkBlue dark:text-gray-300 mb-8">"O futuro que você deseja começa com as decisões que toma agora."</p>
+          <a href="https://wa.me/64999886688" className="btn-primary inline-block">
+            Quero proteger e multiplicar meu dinheiro
           </a>
         </div>
       </div>
