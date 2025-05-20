@@ -481,6 +481,30 @@ export type Database = {
           },
         ]
       }
+      investment_leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+        }
+        Relationships: []
+      }
       marketing_campaigns: {
         Row: {
           campaign_type: string | null
@@ -835,6 +859,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      website_leads: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          phone: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          phone: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+        }
+        Relationships: []
       }
     }
     Views: {

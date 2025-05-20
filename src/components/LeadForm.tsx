@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Shield } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
   const [formData, setFormData] = useState({
@@ -21,12 +22,24 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-
-    // Registrar o lead quando o Supabase estiver integrado
-    // Aqui você implementaria o código para salvar na tabela após integrar o Supabase
+    
+    // Save lead to Supabase
+    try {
+      const { error } = await supabase
+        .from('investment_leads')
+        .insert([formData]);
+      
+      if (error) {
+        console.error('Error saving lead:', error);
+      } else {
+        console.log('Lead saved successfully');
+      }
+    } catch (err) {
+      console.error('Error during lead submission:', err);
+    }
     
     setSubmitted(true);
     
@@ -37,7 +50,7 @@ const LeadForm = ({ buttonText = "Quero minha consultoria gratuita" }) => {
       phone: ''
     });
     
-    // Reset submitted state after 5 seconds
+    // Reset submitted state after 5 seconds and redirect to WhatsApp
     setTimeout(() => {
       setSubmitted(false);
       

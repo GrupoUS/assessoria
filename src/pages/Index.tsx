@@ -15,10 +15,10 @@ const Index = () => {
         <div className="relative container mx-auto px-6 py-24 md:py-32 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0 md:pr-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Blindagem Patrimonial e Aposentadoria Tranquila para Investidores de Alto Patrimônio
+              Transforme seu patrimônio em liberdade, conquistas e tranquilidade para sua família.
             </h1>
             <p className="text-xl mb-8 text-gray-300">
-              Consultoria financeira exclusiva para quem possui mais de R$300 mil e valoriza segurança, crescimento e legado. Soluções personalizadas para proteger e multiplicar seu patrimônio - hoje e no futuro.
+              Com uma estratégia de investimentos inteligente e blindagem patrimonial, você garante não só o crescimento do seu capital, mas também a segurança para realizar seus maiores sonhos - hoje e no futuro.
             </p>
             <div className="hidden md:block">
               <a href="#cta" className="btn-primary inline-block">
@@ -32,73 +32,73 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Problem Section */}
+      {/* Benefits Section */}
       <section className="bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Seu Patrimônio Está Realmente Protegido?
+            Benefícios de Investir e Blindar o Patrimônio
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
-              <div className="bg-red-50 rounded-full p-4 mb-6">
-                <ChartBar className="h-8 w-8 text-red-600" />
-              </div>
-              <h3 className="font-bold text-lg mb-3">Inflação corrói seu patrimônio a cada dia</h3>
-              <p className="text-gray-600">Seus investimentos estão realmente acompanhando ou superando a inflação real?</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
-              <div className="bg-orange-50 rounded-full p-4 mb-6">
-                <Shield className="h-8 w-8 text-orange-600" />
-              </div>
-              <h3 className="font-bold text-lg mb-3">Crises inesperadas comprometem anos de esforço</h3>
-              <p className="text-gray-600">Em menos de 20 anos, enfrentamos 5 grandes crises mundiais. Seu patrimônio está preparado para a próxima?</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
               <div className="bg-blue-50 rounded-full p-4 mb-6">
-                <CalendarDays className="h-8 w-8 text-blue-600" />
+                <ChartBar className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="font-bold text-lg mb-3">Falta de tempo para gerenciar investimentos</h3>
-              <p className="text-gray-600">Decisões financeiras importantes exigem dedicação e conhecimento atualizado. Você realmente tem esse tempo?</p>
+              <h3 className="font-bold text-lg mb-3">Seu dinheiro trabalhando por você</h3>
+              <p className="text-gray-600">Ao investir de forma estratégica, seu patrimônio cresce de maneira consistente, permitindo que você realize projetos pessoais.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+              <div className="bg-green-50 rounded-full p-4 mb-6">
+                <Shield className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="font-bold text-lg mb-3">Tranquilidade para focar no que importa</h3>
+              <p className="text-gray-600">Com uma blindagem patrimonial eficiente, você dorme tranquilo sabendo que seu capital está protegido contra imprevistos.</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
               <div className="bg-purple-50 rounded-full p-4 mb-6">
-                <Medal className="h-8 w-8 text-purple-600" />
+                <CalendarDays className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="font-bold text-lg mb-3">Preocupação com o futuro e sucessão</h3>
-              <p className="text-gray-600">Seus investimentos estão estruturados para garantir segurança para sua família e facilitar a sucessão patrimonial?</p>
+              <h3 className="font-bold text-lg mb-3">Liberdade para escolher o seu futuro</h3>
+              <p className="text-gray-600">Investir é dar a si mesmo a liberdade de fazer escolhas: trabalhar por prazer, empreender ou viver com mais qualidade.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+              <div className="bg-gold-50 rounded-full p-4 mb-6">
+                <Medal className="h-8 w-8 text-gold" />
+              </div>
+              <h3 className="font-bold text-lg mb-3">Construção de legado</h3>
+              <p className="text-gray-600">Uma boa estratégia de proteção e sucessão garante que as próximas gerações também possam usufruir do seu patrimônio.</p>
             </div>
           </div>
           
           <div className="text-center">
             <p className="text-xl mb-8 text-gray-700 max-w-3xl mx-auto">
-              Você trabalhou duro para construir sua reserva financeira. Mas a inflação e a volatilidade do mercado ameaçam seu capital todos os dias. Será que seus investimentos estão crescendo de verdade — ou apenas perdendo valor silenciosamente?
+              Você trabalhou duro para construir sua reserva financeira. É hora de fazer seu patrimônio crescer e trabalhar por você, garantindo segurança para realizar seus maiores sonhos.
             </p>
           </div>
         </div>
       </section>
       
-      {/* Solution Section */}
+      {/* What You Miss When Not Investing Section */}
       <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
-            Soluções de Alta Performance para Blindar e Crescer Seu Patrimônio
+            O Que Você Perde ao Não Investir
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            Ofereço uma consultoria gratuita e personalizada, focada em estratégias avançadas de proteção patrimonial e crescimento sustentável, unindo tradição e inovação em finanças.
+            Investir não é apenas sobre ganhar mais, mas sobre não perder oportunidades e garantir sua liberdade financeira.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
               <div className="flex items-start mb-4">
-                <Shield className="h-6 w-6 mr-4 text-gold-light" />
+                <ChartBar className="h-6 w-6 mr-4 text-gold-light" />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Segurança em primeiro lugar</h3>
+                  <h3 className="font-bold text-xl mb-2">Deixar de conquistar mais</h3>
                   <p className="text-gray-300">
-                    Derivativos e operações estruturadas para proteger contra volatilidade e crises, garantindo que seu patrimônio permaneça protegido em qualquer cenário de mercado.
+                    Dinheiro parado perde valor ao longo do tempo. Não investir significa abrir mão de ver seu patrimônio crescer e de realizar sonhos que estão ao seu alcance.
                   </p>
                 </div>
               </div>
@@ -108,9 +108,9 @@ const Index = () => {
               <div className="flex items-start mb-4">
                 <Medal className="h-6 w-6 mr-4 text-gold-light" />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Crescimento com estratégia</h3>
+                  <h3 className="font-bold text-xl mb-2">Perder oportunidades únicas</h3>
                   <p className="text-gray-300">
-                    Planejamento de longo prazo e sucessório, pensando nas próximas gerações e garantindo uma transição patrimonial sem conflitos e com mínima incidência tributária.
+                    O mercado está sempre mudando. Quem investe de forma planejada aproveita os melhores momentos e oportunidades - quem não investe, fica para trás.
                   </p>
                 </div>
               </div>
@@ -118,11 +118,11 @@ const Index = () => {
             
             <div className="bg-darkBlue text-white p-8 rounded-lg shadow-lg">
               <div className="flex items-start mb-4">
-                <ChartBar className="h-6 w-6 mr-4 text-gold-light" />
+                <Shield className="h-6 w-6 mr-4 text-gold-light" />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Inteligência financeira de ponta</h3>
+                  <h3 className="font-bold text-xl mb-2">Ficar refém de imprevistos</h3>
                   <p className="text-gray-300">
-                    Uso de IA e análise de dados para identificar oportunidades e riscos antes dos demais, proporcionando decisões mais assertivas no mercado.
+                    Sem uma estratégia de proteção, imprevistos podem comprometer o que você levou anos para construir. Blindar seu patrimônio é garantir que nada tire você do seu caminho.
                   </p>
                 </div>
               </div>
@@ -132,9 +132,9 @@ const Index = () => {
               <div className="flex items-start mb-4">
                 <CalendarDays className="h-6 w-6 mr-4 text-gold-light" />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Diagnóstico completo</h3>
+                  <h3 className="font-bold text-xl mb-2">Aposentadoria menos confortável</h3>
                   <p className="text-gray-300">
-                    Análise 360º do seu patrimônio, com recomendações sob medida para cada objetivo financeiro, seja proteção, crescimento ou transmissão de riqueza.
+                    Não investir é adiar ou até limitar a qualidade da sua aposentadoria, tornando-a dependente apenas de fontes tradicionais e menos rentáveis.
                   </p>
                 </div>
               </div>
@@ -142,6 +142,7 @@ const Index = () => {
           </div>
           
           <div className="text-center">
+            <p className="text-lg italic text-darkBlue mb-8">"O futuro que você deseja começa com as decisões que toma agora."</p>
             <a href="#cta" className="btn-primary inline-block">
               Quero meu diagnóstico gratuito
             </a>
@@ -229,10 +230,10 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Não Deixe Seu Patrimônio Vulnerável
+              Transforme seu patrimônio em liberdade e conquistas
             </h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-300">
-              Cada decisão adiada é um risco assumido. O tempo e a inflação não esperam. As vagas para novos clientes qualificados são limitadas para garantir atendimento personalizado.
+              Você trabalhou duro para chegar até aqui. Agora, é hora de fazer o seu dinheiro trabalhar por você, multiplicando oportunidades e garantindo tranquilidade para você e sua família.
             </p>
             <p className="text-gold text-lg mb-8 font-medium">
               Restam apenas 7 vagas para consultorias gratuitas neste mês
@@ -240,7 +241,7 @@ const Index = () => {
           </div>
           
           <div className="max-w-md mx-auto">
-            <LeadForm buttonText="Quero blindar meu patrimônio agora" />
+            <LeadForm buttonText="Quero construir meu futuro com segurança" />
           </div>
         </div>
       </section>
