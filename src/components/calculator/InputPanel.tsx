@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -31,7 +30,7 @@ const InputPanel = ({
   setTimeYears
 }: InputPanelProps) => {
   return <div className="lg:col-span-1">
-      <div className="bg-white dark:bg-navy-dark p-6 shadow space-y-6 transition-transform duration-300 hover:scale-[1.15] hover:shadow-xl rounded-xl px-[18px] py-[20px] mx-0">
+      <div className="bg-white dark:bg-navy-dark p-6 shadow space-y-6 transition-transform duration-300 hover:scale-[1.1] hover:shadow-xl rounded-xl px-[18px] py-[20px] mx-0">
         <div>
           <Label htmlFor="initialAmount" className="mb-2 block text-navy-dark dark:text-white">
             Investimento inicial
