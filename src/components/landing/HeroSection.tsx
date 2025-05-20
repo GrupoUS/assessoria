@@ -16,8 +16,11 @@ const HeroSection = () => {
             Com uma estratégia de investimentos inteligente e blindagem patrimonial, você garante não só o crescimento do seu capital, mas também a segurança para realizar seus maiores sonhos - hoje e no futuro.
           </p>
           <div className="hidden md:block">
-            <a href="#cta" className="btn-primary inline-block">
-              Quero minha consultoria gratuita
+            <a 
+              href="https://wa.me/5564999886688" 
+              className="btn-primary inline-block"
+            >
+              Quero proteger e multiplicar meu patrimônio
             </a>
           </div>
         </div>

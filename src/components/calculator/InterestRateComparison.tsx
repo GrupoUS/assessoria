@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { formatCurrency } from '@/utils/currencyUtils';
@@ -104,7 +105,14 @@ const InterestRateComparison = ({
               <LineChart
                 data={comparisonData}
                 margin={{ top: 20, right: 10, left: 10, bottom: 0 }}
+                // Adicionando um clipPath para garantir que as linhas fiquem dentro dos limites
+                style={{ overflow: 'hidden' }}
               >
+                <defs>
+                  <clipPath id="chartClipPath">
+                    <rect x="0" y="0" width="100%" height="100%" />
+                  </clipPath>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   dataKey="year"
@@ -145,6 +153,8 @@ const InterestRateComparison = ({
                   stroke={colorMap.baseRate}
                   strokeWidth={3}
                   dot={false}
+                  // Aplicando o clipPath às linhas
+                  clipPath="url(#chartClipPath)"
                 />
                 <Line
                   type="monotone"
@@ -153,6 +163,7 @@ const InterestRateComparison = ({
                   stroke={colorMap.higherRate}
                   strokeWidth={3}
                   dot={false}
+                  clipPath="url(#chartClipPath)"
                 />
                 <Line
                   type="monotone"
@@ -161,6 +172,7 @@ const InterestRateComparison = ({
                   stroke={colorMap.lowerRate}
                   strokeWidth={3}
                   dot={false}
+                  clipPath="url(#chartClipPath)"
                 />
               </LineChart>
             </ChartContainer>
