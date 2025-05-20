@@ -38,33 +38,37 @@ const SimpleCompoundCalculator = () => {
   }, [initialAmount, monthlyDeposit, interestRate, timeYears]);
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value.replace(/[^0-9]/g, ''));
-    setInitialAmount(isNaN(value) ? 0 : value);
+    // Remover formatação e converter para número
+    const value = event.target.value.replace(/\D/g, '');
+    const numericValue = value ? parseInt(value) : 0;
+    setInitialAmount(numericValue);
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value.replace(/[^0-9]/g, ''));
-    setMonthlyDeposit(isNaN(value) ? 0 : value);
+    // Remover formatação e converter para número
+    const value = event.target.value.replace(/\D/g, '');
+    const numericValue = value ? parseInt(value) : 0;
+    setMonthlyDeposit(numericValue);
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border border-navy-light/20">
-      <h3 className="text-xl font-semibold text-navy-darkest mb-4">
+    <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow-lg border border-navy-light/20 dark:border-navy-light/10">
+      <h3 className="text-xl font-semibold text-navy-darkest dark:text-white mb-4">
         Calculadora de Juros Compostos
       </h3>
       
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="initialAmount" className="mb-2 block text-navy-medium">
+            <Label htmlFor="initialAmount" className="mb-2 block text-navy-medium dark:text-navy-light">
               Investimento inicial
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">R$</span>
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">R$</span>
               <Input
                 id="initialAmount"
                 type="text"
-                className="pl-10"
+                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
                 value={formatCurrency(initialAmount).replace('R$', '').trim()}
                 onChange={handleInitialAmountChange}
               />
@@ -72,15 +76,15 @@ const SimpleCompoundCalculator = () => {
           </div>
 
           <div>
-            <Label htmlFor="monthlyDeposit" className="mb-2 block text-navy-medium">
+            <Label htmlFor="monthlyDeposit" className="mb-2 block text-navy-medium dark:text-navy-light">
               Depósito mensal
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">R$</span>
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">R$</span>
               <Input
                 id="monthlyDeposit"
                 type="text"
-                className="pl-10"
+                className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
                 value={formatCurrency(monthlyDeposit).replace('R$', '').trim()}
                 onChange={handleMonthlyDepositChange}
               />
@@ -90,8 +94,8 @@ const SimpleCompoundCalculator = () => {
 
         <div>
           <div className="flex justify-between mb-2">
-            <Label htmlFor="timeYears" className="text-navy-medium">Anos</Label>
-            <span className="font-medium text-navy-medium">{timeYears}</span>
+            <Label htmlFor="timeYears" className="text-navy-medium dark:text-navy-light">Anos</Label>
+            <span className="font-medium text-navy-medium dark:text-navy-light">{timeYears}</span>
           </div>
           <Slider
             id="timeYears"
@@ -106,8 +110,8 @@ const SimpleCompoundCalculator = () => {
 
         <div>
           <div className="flex justify-between mb-2">
-            <Label htmlFor="interestRate" className="text-navy-medium">Taxa mensal</Label>
-            <span className="font-medium text-navy-medium">{interestRate.toFixed(2)}%</span>
+            <Label htmlFor="interestRate" className="text-navy-medium dark:text-navy-light">Taxa mensal</Label>
+            <span className="font-medium text-navy-medium dark:text-navy-light">{interestRate.toFixed(2)}%</span>
           </div>
           <Slider
             id="interestRate"
@@ -120,18 +124,18 @@ const SimpleCompoundCalculator = () => {
           />
         </div>
 
-        <div className="bg-navy-lightest p-4 rounded-lg mt-4">
+        <div className="bg-navy-lightest dark:bg-navy-dark/70 p-4 rounded-lg mt-4">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm text-navy-medium">Patrimônio em {timeYears} anos</p>
-              <p className="text-2xl font-bold text-navy-darkest">{formatCurrency(finalAmount)}</p>
+              <p className="text-sm text-navy-medium dark:text-navy-light">Patrimônio em {timeYears} anos</p>
+              <p className="text-2xl font-bold text-navy-darkest dark:text-white">{formatCurrency(finalAmount)}</p>
             </div>
-            <ArrowRight className="h-8 w-8 text-navy-medium" />
+            <ArrowRight className="h-8 w-8 text-navy-medium dark:text-navy-light" />
           </div>
         </div>
         
         <div className="mt-4 text-center">
-          <a href="/calculadora-juros-compostos" className="text-navy-medium hover:text-navy-dark text-sm">
+          <a href="/calculadora-juros-compostos" className="text-navy-medium dark:text-navy-light hover:text-navy-dark hover:dark:text-white text-sm">
             Ver calculadora completa →
           </a>
         </div>

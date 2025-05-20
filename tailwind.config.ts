@@ -76,6 +76,11 @@ export default {
           light: '#415A77', // Atualizado para nova cor navy.medium
           dark: '#1B263B' // Atualizado para nova cor navy.dark
         },
+        // Nova cor verde para botões
+        green: {
+          DEFAULT: '#588157',
+          dark: '#4e7048'
+        }
       },
       fontFamily: {
         playfair: ['Playfair Display', 'serif'],

@@ -19,8 +19,12 @@ const MobileCTA = () => {
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg border-t border-gray-200">
-      <a href="#cta" className="btn-primary block text-center" onClick={handleCTAClick}>
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-navy-darkest p-4 shadow-lg border-t border-gray-200 dark:border-navy-light/20 z-50">
+      <a 
+        href="#cta" 
+        className="bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center block"
+        onClick={handleCTAClick}
+      >
         Quero minha consultoria gratuita
       </a>
     </div>

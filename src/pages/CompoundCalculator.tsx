@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -58,25 +59,21 @@ const CompoundCalculator = () => {
   }, [initialAmount, monthlyDeposit, interestRate, timeYears]);
 
   const handleInitialAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value.replace(/[^0-9]/g, ''));
-    setInitialAmount(isNaN(value) ? 0 : value);
+    // Remover formatação e converter para número
+    const value = event.target.value.replace(/\D/g, '');
+    const numericValue = value ? parseInt(value) : 0;
+    setInitialAmount(numericValue);
   };
 
   const handleMonthlyDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(event.target.value.replace(/[^0-9]/g, ''));
-    setMonthlyDeposit(isNaN(value) ? 0 : value);
-  };
-
-  const handleRateChange = (value: number[]) => {
-    setInterestRate(value[0]);
-  };
-
-  const handleTimeChange = (value: number[]) => {
-    setTimeYears(value[0]);
+    // Remover formatação e converter para número
+    const value = event.target.value.replace(/\D/g, '');
+    const numericValue = value ? parseInt(value) : 0;
+    setMonthlyDeposit(numericValue);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy-darkest py-16">
       <SEOHead 
         title="Calculadora de Juros Compostos | Maurício Magalhães"
         description="Use nossa calculadora de juros compostos para visualizar o crescimento do seu patrimônio ao longo do tempo. Planeje seus investimentos de forma eficiente."
@@ -86,8 +83,8 @@ const CompoundCalculator = () => {
       
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Calculadora de Juros Compostos</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-4xl font-bold mb-4 text-navy-darkest dark:text-white">Calculadora de Juros Compostos</h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Descubra o poder dos juros compostos e veja como seus investimentos podem crescer ao longo do tempo.
           </p>
         </div>
@@ -95,17 +92,17 @@ const CompoundCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Painel de inputs */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-lg shadow space-y-6">
+            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow space-y-6">
               <div>
-                <Label htmlFor="initialAmount" className="mb-2 block">
+                <Label htmlFor="initialAmount" className="mb-2 block text-navy-dark dark:text-white">
                   Investimento inicial
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">R$</span>
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">R$</span>
                   <Input
                     id="initialAmount"
                     type="text"
-                    className="pl-10"
+                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
                     value={formatCurrency(initialAmount).replace('R$', '').trim()}
                     onChange={handleInitialAmountChange}
                   />
@@ -113,15 +110,15 @@ const CompoundCalculator = () => {
               </div>
 
               <div>
-                <Label htmlFor="monthlyDeposit" className="mb-2 block">
+                <Label htmlFor="monthlyDeposit" className="mb-2 block text-navy-dark dark:text-white">
                   Depósito mensal
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">R$</span>
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">R$</span>
                   <Input
                     id="monthlyDeposit"
                     type="text"
-                    className="pl-10"
+                    className="pl-10 bg-white dark:bg-navy-darkest text-navy-darkest dark:text-white border-gray-300 dark:border-navy-light/20"
                     value={formatCurrency(monthlyDeposit).replace('R$', '').trim()}
                     onChange={handleMonthlyDepositChange}
                   />
@@ -130,8 +127,8 @@ const CompoundCalculator = () => {
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <Label htmlFor="interestRate">Taxa de juros mensal</Label>
-                  <span className="font-medium text-gold">{interestRate.toFixed(2)}%</span>
+                  <Label htmlFor="interestRate" className="text-navy-dark dark:text-white">Taxa de juros mensal</Label>
+                  <span className="font-medium text-gold dark:text-gold-light">{interestRate.toFixed(2)}%</span>
                 </div>
                 <Slider
                   id="interestRate"
@@ -139,9 +136,9 @@ const CompoundCalculator = () => {
                   max={3}
                   step={0.05}
                   value={[interestRate]}
-                  onValueChange={handleRateChange}
+                  onValueChange={(value) => setInterestRate(value[0])}
                 />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                   <span>0,1%</span>
                   <span>3%</span>
                 </div>
@@ -149,8 +146,8 @@ const CompoundCalculator = () => {
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <Label htmlFor="timeYears">Período em anos</Label>
-                  <span className="font-medium text-gold">{timeYears} anos</span>
+                  <Label htmlFor="timeYears" className="text-navy-dark dark:text-white">Período em anos</Label>
+                  <span className="font-medium text-gold dark:text-gold-light">{timeYears} anos</span>
                 </div>
                 <Slider
                   id="timeYears"
@@ -158,32 +155,32 @@ const CompoundCalculator = () => {
                   max={40}
                   step={1}
                   value={[timeYears]}
-                  onValueChange={handleTimeChange}
+                  onValueChange={(value) => setTimeYears(value[0])}
                 />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                   <span>1 ano</span>
                   <span>40 anos</span>
                 </div>
               </div>
 
               {/* Resultados em cards */}
-              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-                <h3 className="text-lg font-bold mb-4">Resultados</h3>
+              <div className="bg-gray-50 dark:bg-navy-darkest p-4 rounded-lg border border-gray-200 dark:border-navy-light/20 mt-6">
+                <h3 className="text-lg font-bold mb-4 text-navy-dark dark:text-white">Resultados</h3>
                 
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-gray-500">Valor total acumulado</p>
-                    <p className="text-2xl font-bold text-darkBlue">{formatCurrency(finalAmount)}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Valor total acumulado</p>
+                    <p className="text-2xl font-bold text-navy-dark dark:text-white">{formatCurrency(finalAmount)}</p>
                   </div>
                   
                   <div className="flex justify-between">
                     <div>
-                      <p className="text-sm text-gray-500">Total investido</p>
-                      <p className="text-lg font-medium">{formatCurrency(totalDeposits)}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Total investido</p>
+                      <p className="text-lg font-medium text-navy-dark dark:text-white">{formatCurrency(totalDeposits)}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Juros ganhos</p>
-                      <p className="text-lg font-medium text-gold">{formatCurrency(totalInterest)}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Juros ganhos</p>
+                      <p className="text-lg font-medium text-gold dark:text-gold-light">{formatCurrency(totalInterest)}</p>
                     </div>
                   </div>
                 </div>
@@ -193,8 +190,8 @@ const CompoundCalculator = () => {
 
           {/* Gráfico */}
           <div className="lg:col-span-2">
-            <div className="bg-white p-6 rounded-lg shadow h-full">
-              <h3 className="text-lg font-bold mb-6">Evolução do patrimônio</h3>
+            <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow h-full">
+              <h3 className="text-lg font-bold mb-6 text-navy-dark dark:text-white">Evolução do patrimônio</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
@@ -206,26 +203,33 @@ const CompoundCalculator = () => {
                       bottom: 5,
                     }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke={document.documentElement.classList.contains('dark') ? '#415A77' : '#E0E1DD'} />
                     <XAxis 
                       dataKey="year" 
                       name="Ano"
                       label={{ value: 'Anos', position: 'insideBottomRight', offset: -5 }}
+                      stroke={document.documentElement.classList.contains('dark') ? '#E0E1DD' : '#0F2A4A'}
                     />
                     <YAxis 
                       tickFormatter={(value) => `${Math.round(value / 1000)}k`}
                       label={{ value: 'Valor (R$)', angle: -90, position: 'insideLeft' }}
+                      stroke={document.documentElement.classList.contains('dark') ? '#E0E1DD' : '#0F2A4A'}
                     />
                     <Tooltip 
                       formatter={(value) => formatCurrency(Number(value))}
                       labelFormatter={(value) => `Ano ${value}`}
+                      contentStyle={{ 
+                        backgroundColor: document.documentElement.classList.contains('dark') ? '#1B263B' : '#fff',
+                        borderColor: document.documentElement.classList.contains('dark') ? '#415A77' : '#ddd',
+                        color: document.documentElement.classList.contains('dark') ? '#E0E1DD' : '#333'
+                      }}
                     />
                     <Legend />
                     <Line 
                       type="monotone" 
                       dataKey="balance" 
                       name="Patrimônio Total" 
-                      stroke="#0F2A4A" 
+                      stroke={document.documentElement.classList.contains('dark') ? '#E0E1DD' : '#0F2A4A'} 
                       strokeWidth={2} 
                       dot={false}
                       activeDot={{ r: 8 }}
@@ -244,16 +248,16 @@ const CompoundCalculator = () => {
               </div>
               
               <div className="mt-8">
-                <h3 className="text-lg font-bold mb-3">Sobre os juros compostos</h3>
-                <p className="text-gray-700 mb-4">
+                <h3 className="text-lg font-bold mb-3 text-navy-dark dark:text-white">Sobre os juros compostos</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Os juros compostos são considerados a "oitava maravilha do mundo" e atuam como uma poderosa alavanca para o crescimento patrimonial. 
                   Na prática, é o efeito de ganhar juros sobre juros ao longo do tempo.
                 </p>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Com disciplina e tempo, mesmo aportes mensais modestos podem resultar em um patrimônio significativo no longo prazo.
                 </p>
                 <div className="flex justify-center mt-6">
-                  <a href="#cta" className="btn-primary">
+                  <a href="#cta" className="inline-block bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center">
                     Quero uma estratégia personalizada para meus investimentos
                   </a>
                 </div>
@@ -262,12 +266,12 @@ const CompoundCalculator = () => {
           </div>
         </div>
 
-        <div className="mt-16 p-8 bg-darkBlue rounded-lg text-white text-center">
+        <div className="mt-16 p-8 bg-navy-dark dark:bg-navy-darkest rounded-lg text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Pronto para dar o próximo passo?</h2>
           <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
             Cálculos são apenas o começo. Receba uma estratégia personalizada para maximizar seus investimentos com segurança.
           </p>
-          <a href="#cta" className="btn-primary inline-block">
+          <a href="#cta" className="inline-block bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center">
             Agendar consultoria gratuita
           </a>
         </div>
