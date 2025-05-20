@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Line } from 'recharts';
+import { Line, LineChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { formatCurrency } from '@/utils/currencyUtils';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { 
@@ -22,7 +22,9 @@ import { TrendingUp } from 'lucide-react';
 
 interface ComparisonDataPoint {
   year: number;
-  [key: string]: number;
+  baseRate: number;
+  lowerRate: number;
+  higherRate: number;
 }
 
 interface InterestRateComparisonProps {
@@ -59,7 +61,7 @@ const InterestRateComparison = ({
   // Calcular os valores finais para a tabela comparativa
   const getFinalValueForRate = (rateName: string) => {
     const lastDataPoint = comparisonData[comparisonData.length - 1];
-    return lastDataPoint ? lastDataPoint[rateName] : 0;
+    return lastDataPoint ? lastDataPoint[rateName as keyof ComparisonDataPoint] : 0;
   };
 
   const finalValues = {
@@ -101,19 +103,19 @@ const InterestRateComparison = ({
               }}
             >
               {(props) => (
-                <recharts.LineChart
+                <LineChart
                   data={comparisonData}
                   margin={{ top: 20, right: 10, left: 10, bottom: 0 }}
                 >
-                  <recharts.CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <recharts.XAxis
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis
                     dataKey="year"
                     tickLine={false}
                     axisLine={false}
                     tickMargin={10}
                     tickFormatter={(value) => `Ano ${value}`}
                   />
-                  <recharts.YAxis
+                  <YAxis
                     tickLine={false}
                     axisLine={false}
                     tickMargin={10}
@@ -162,7 +164,7 @@ const InterestRateComparison = ({
                     strokeWidth={3}
                     dot={false}
                   />
-                </recharts.LineChart>
+                </LineChart>
               )}
             </ChartContainer>
           </div>

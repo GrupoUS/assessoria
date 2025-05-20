@@ -2,17 +2,18 @@
 import { useState, useEffect } from 'react';
 import { parseFormattedNumber } from '@/utils/currencyUtils';
 
-interface ChartDataPoint {
+export interface ChartDataPoint {
   year: number;
   balance: number;
   deposits: number;
 }
 
-interface ComparisonDataPoint {
+export interface ComparisonDataPoint {
   year: number;
   baseRate: number;
   lowerRate: number;
   higherRate: number;
+  [key: string]: number;
 }
 
 export interface CalculatorState {
