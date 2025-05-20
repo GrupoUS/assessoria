@@ -31,7 +31,9 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white dark:bg-navy-darkest shadow-md py-3' : 'bg-transparent py-5'
+      isScrolled 
+        ? 'bg-white dark:bg-navy-darkest shadow-md py-3' 
+        : 'bg-white dark:bg-navy-darkest bg-opacity-90 dark:bg-opacity-90 py-5'
     }`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-navy-darkest dark:text-white transition-colors">

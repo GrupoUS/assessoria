@@ -23,7 +23,7 @@ const BlogCard = ({
     <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 h-full flex flex-col">
       <div className="h-48 overflow-hidden">
         <img 
-          src={imageUrl || "https://images.unsplash.com/photo-1553729459-efe14ef6055d"} 
+          src={imageUrl} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
           onError={(e) => {
@@ -33,9 +33,13 @@ const BlogCard = ({
         />
       </div>
       <div className="p-6 flex-1 flex flex-col">
-        <div className="flex justify-between items-center mb-3 bg-gray-50 dark:bg-navy-medium rounded-full px-3 py-1">
-          <span className="text-sm font-medium text-gold">{category}</span>
-          <span className="text-sm text-gray-500 dark:text-gray-300">{date}</span>
+        <div className="flex flex-col gap-2 mb-3">
+          <span className="inline-block px-3 py-1 bg-gold/10 dark:bg-gold/20 text-gold dark:text-gold-light rounded-full text-sm font-medium">
+            {category}
+          </span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            {date}
+          </span>
         </div>
         <h3 className="font-bold text-xl mb-2 line-clamp-2 dark:text-white transition-colors">{title}</h3>
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 flex-1 transition-colors">{excerpt}</p>
