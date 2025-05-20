@@ -5,7 +5,6 @@ import SEOHead from '../components/shared/SEOHead';
 import CalculatorHeader from '../components/calculator/CalculatorHeader';
 import InputPanel from '../components/calculator/InputPanel';
 import ChartPanel from '../components/calculator/ChartPanel';
-import InterestRateComparison from '../components/calculator/InterestRateComparison';
 import CallToAction from '../components/calculator/CallToAction';
 import { useCompoundInterestCalculator } from '@/hooks/useCompoundInterestCalculator';
 import { Button } from '@/components/ui/button';
@@ -22,7 +21,7 @@ const CompoundCalculator = () => {
     totalDeposits,
     totalInterest,
     chartData,
-    comparisonData,
+    comparisonData,  // Mantendo essa prop para não quebrar o hook
     setInterestRate,
     setTimeYears,
     handleInitialAmountChange,
@@ -83,14 +82,6 @@ const CompoundCalculator = () => {
 
           <ChartPanel chartData={chartData} />
         </div>
-
-        <InterestRateComparison
-          initialAmount={initialAmount}
-          monthlyDeposit={monthlyDeposit}
-          baseInterestRate={interestRate}
-          timeYears={timeYears}
-          comparisonData={comparisonData}
-        />
 
         <CallToAction />
       </div>
