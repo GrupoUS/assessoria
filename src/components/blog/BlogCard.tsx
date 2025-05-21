@@ -23,10 +23,17 @@ const BlogCard = ({
 }: BlogCardProps) => {
   const fallbackImage = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
   
-  console.log(`BlogCard: Renderizando card com título "${title}" e slug "${slug}"`);
+  // Garantir que o slug seja válido
+  const safeSlug = slug ? slug.trim() : '';
+  
+  console.log(`BlogCard: Renderizando card com título "${title}" e slug "${safeSlug}"`);
+  
+  if (!safeSlug) {
+    console.warn(`BlogCard: Card com título "${title}" tem slug vazio ou inválido.`);
+  }
   
   return (
-    <Link to={`/blog/${slug}`} className="block h-full" data-testid={`blog-card-${id}`}>
+    <Link to={`/blog/${safeSlug}`} className="block h-full" data-testid={`blog-card-${id}`}>
       <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:translate-y-1 h-full flex flex-col">
         <div className="h-48 overflow-hidden">
           <img 

@@ -20,6 +20,7 @@ const BlogPost = () => {
     const fetchPost = async () => {
       try {
         setIsLoading(true);
+        setError(null);
         
         if (!slug) {
           console.error('Erro: Slug não fornecido');
@@ -35,10 +36,11 @@ const BlogPost = () => {
 
         console.log('Buscando post com slug:', slug);
         
+        // Attempt to find the post using case-insensitive matching
         const { data, error: queryError } = await supabase
           .from('blog_posts')
           .select('*')
-          .eq('slug', slug)
+          .ilike('slug', slug)
           .maybeSingle();
 
         if (queryError) {
@@ -52,32 +54,77 @@ const BlogPost = () => {
           return;
         }
 
+        // If no post found with ilike, try exact match
         if (!data) {
-          console.log('Post não encontrado com slug:', slug);
-          toast({
-            title: "Artigo não encontrado",
-            description: "O artigo que você está procurando não existe ou foi removido.",
-            variant: "destructive"
-          });
-          setError('Post não encontrado');
-        } else {
-          console.log('Post encontrado:', data);
-          // Map the data to our BlogPost type
+          console.log('Tentativa com ilike falhou, buscando com eq exato:', slug);
+          const { data: exactData, error: exactError } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('slug', slug)
+            .maybeSingle();
+            
+          if (exactError) {
+            console.error('Erro na busca exata:', exactError);
+            setError('Erro ao carregar o artigo.');
+            return;
+          }
+            
+          if (!exactData) {
+            console.log('Post não encontrado com slug (tentativa exata):', slug);
+            // Try to find posts with similar slugs for debugging
+            const { data: similarPosts } = await supabase
+              .from('blog_posts')
+              .select('slug')
+              .limit(5);
+              
+            if (similarPosts && similarPosts.length > 0) {
+              console.log('Slugs disponíveis no banco:', similarPosts.map(p => p.slug));
+            }
+            
+            toast({
+              title: "Artigo não encontrado",
+              description: "O artigo que você está procurando não existe ou foi removido.",
+              variant: "destructive"
+            });
+            setError('Post não encontrado');
+            return;
+          }
+          
+          // Usar o resultado da busca exata
+          console.log('Post encontrado com correspondência exata:', exactData);
           const post: BlogPostType = {
-            id: data.id,
-            title: data.title,
-            slug: data.slug,
-            excerpt: data.excerpt || '',
-            content: data.content || '',
-            category: data.category || 'Geral',
-            date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
-            imageUrl: data.imageurl || '',
-            created_at: data.created_at,
-            updated_at: data.updated_at
+            id: exactData.id,
+            title: exactData.title,
+            slug: exactData.slug,
+            excerpt: exactData.excerpt || '',
+            content: exactData.content || '',
+            category: exactData.category || 'Geral',
+            date: exactData.date || new Date(exactData.created_at).toLocaleDateString('pt-BR'),
+            imageUrl: exactData.imageurl || '',
+            created_at: exactData.created_at,
+            updated_at: exactData.updated_at
           };
           
           setPost(post);
+          return;
         }
+        
+        console.log('Post encontrado:', data);
+        // Map the data to our BlogPost type
+        const post: BlogPostType = {
+          id: data.id,
+          title: data.title,
+          slug: data.slug,
+          excerpt: data.excerpt || '',
+          content: data.content || '',
+          category: data.category || 'Geral',
+          date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
+          imageUrl: data.imageurl || '',
+          created_at: data.created_at,
+          updated_at: data.updated_at
+        };
+        
+        setPost(post);
       } catch (err) {
         console.error('Erro ao buscar post:', err);
         toast({

@@ -126,18 +126,27 @@ export const useBlogData = () => {
           console.log(`Encontrados ${posts.length} posts no banco de dados`);
           
           // Map the posts to our BlogPost type, ensuring proper field mapping
-          const typedPosts: BlogPost[] = posts.map(post => ({
-            id: post.id,
-            title: post.title,
-            slug: post.slug,
-            excerpt: post.excerpt || '',
-            content: post.content || '',
-            category: post.category || 'Geral',
-            date: post.date || new Date(post.created_at).toLocaleDateString('pt-BR'),
-            imageUrl: post.imageurl || '', // Map from imageurl (lowercase in DB) to imageUrl (camelCase in our type)
-            created_at: post.created_at,
-            updated_at: post.updated_at
-          }));
+          const typedPosts: BlogPost[] = posts.map(post => {
+            // Ensure slug is sanitized (remove spaces, etc.)
+            const safeSlug = post.slug ? post.slug.trim() : '';
+            
+            if (!safeSlug) {
+              console.warn(`Post sem slug válido encontrado:`, post.title);
+            }
+            
+            return {
+              id: post.id,
+              title: post.title,
+              slug: safeSlug,
+              excerpt: post.excerpt || '',
+              content: post.content || '',
+              category: post.category || 'Geral',
+              date: post.date || new Date(post.created_at).toLocaleDateString('pt-BR'),
+              imageUrl: post.imageurl || '', // Map from imageurl (lowercase in DB) to imageUrl (camelCase in our type)
+              created_at: post.created_at,
+              updated_at: post.updated_at
+            };
+          });
           
           console.log('Posts processados:', typedPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
           
@@ -152,7 +161,7 @@ export const useBlogData = () => {
           setCategories(uniqueCategories);
         } else {
           // Se não houver posts no banco, usar os dados de exemplo
-          console.log('No posts found in Supabase, using default data');
+          console.log('Nenhum post encontrado no Supabase, usando dados de exemplo');
           setFeaturedPosts(defaultFeaturedPosts);
           setRecentPosts(defaultRecentPosts);
           setCategories(defaultCategories);
