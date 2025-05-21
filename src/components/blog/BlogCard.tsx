@@ -24,7 +24,7 @@ const BlogCard = ({
   const fallbackImage = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
   
   return (
-    <Link to={`/blog/${id}`} className="block h-full">
+    <Link to={`/blog/${slug}`} className="block h-full">
       <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:translate-y-1 h-full flex flex-col">
         <div className="h-48 overflow-hidden">
           <img 

@@ -61,7 +61,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/calculadora-juros-compostos" element={<CompoundCalculator />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

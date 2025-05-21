@@ -7,9 +7,10 @@ import Navbar from '@/components/Navbar';
 import BlogLoading from '@/components/blog/BlogLoading';
 import BlogError from '@/components/blog/BlogError';
 import { ArrowLeft } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
 
 const BlogPost = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,27 +21,29 @@ const BlogPost = () => {
       try {
         setIsLoading(true);
         
-        if (!id) {
-          setError('Post ID não fornecido');
+        if (!slug) {
+          console.error('Erro: Slug não fornecido');
+          setError('Slug não fornecido');
           setIsLoading(false);
           return;
         }
 
-        console.log('Buscando post com ID:', id);
+        console.log('Buscando post com slug:', slug);
         
-        const { data, error } = await supabase
+        const { data, error: queryError } = await supabase
           .from('blog_posts')
           .select('*')
-          .eq('id', id)
-          .single();
+          .eq('slug', slug)
+          .maybeSingle();
 
-        if (error) {
-          console.error('Erro Supabase:', error);
-          throw error;
+        if (queryError) {
+          console.error('Erro Supabase:', queryError);
+          setError('Erro ao carregar o artigo. Por favor, tente novamente mais tarde.');
+          return;
         }
 
         if (!data) {
-          console.log('Post não encontrado');
+          console.log('Post não encontrado com slug:', slug);
           setError('Post não encontrado');
         } else {
           console.log('Post encontrado:', data);
@@ -69,16 +72,14 @@ const BlogPost = () => {
     };
 
     fetchPost();
-  }, [id]);
+  }, [slug]);
 
-  // Helper function to format content with proper paragraphs
+  // Helper function to format content with proper HTML rendering
   const formatContent = (content: string) => {
     if (!content) return '';
     
-    // Split content by newlines and create paragraphs
-    return content.split('\n').map((paragraph, index) => 
-      paragraph.trim() ? <p key={index} className="mb-4">{paragraph}</p> : null
-    );
+    // We'll use dangerouslySetInnerHTML to properly render HTML content
+    return { __html: content };
   };
 
   if (isLoading) {
@@ -124,7 +125,7 @@ const BlogPost = () => {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white dark:bg-navy-dark shadow-md rounded-lg p-8 md:p-10">
               <div className="prose prose-lg dark:prose-invert max-w-none">
-                {formatContent(post.content)}
+                <div dangerouslySetInnerHTML={formatContent(post.content)} />
               </div>
               
               <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
