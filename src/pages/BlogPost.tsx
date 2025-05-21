@@ -75,8 +75,8 @@ const BlogPost = () => {
   }, [slug]);
 
   // Helper function to format content with proper HTML rendering
-  const formatContent = (content: string) => {
-    if (!content) return '';
+  const formatContent = (content: string): { __html: string } => {
+    if (!content) return { __html: '' };
     
     // We'll use dangerouslySetInnerHTML to properly render HTML content
     return { __html: content };
