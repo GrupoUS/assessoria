@@ -23,6 +23,11 @@ const BlogPost = () => {
         
         if (!slug) {
           console.error('Erro: Slug não fornecido');
+          toast({
+            title: "Erro",
+            description: "Não foi possível encontrar o artigo solicitado",
+            variant: "destructive"
+          });
           setError('Slug não fornecido');
           setIsLoading(false);
           return;
@@ -38,12 +43,22 @@ const BlogPost = () => {
 
         if (queryError) {
           console.error('Erro Supabase:', queryError);
+          toast({
+            title: "Erro de banco de dados",
+            description: "Erro ao carregar o artigo. Por favor, tente novamente mais tarde.",
+            variant: "destructive"
+          });
           setError('Erro ao carregar o artigo. Por favor, tente novamente mais tarde.');
           return;
         }
 
         if (!data) {
           console.log('Post não encontrado com slug:', slug);
+          toast({
+            title: "Artigo não encontrado",
+            description: "O artigo que você está procurando não existe ou foi removido.",
+            variant: "destructive"
+          });
           setError('Post não encontrado');
         } else {
           console.log('Post encontrado:', data);
@@ -65,6 +80,11 @@ const BlogPost = () => {
         }
       } catch (err) {
         console.error('Erro ao buscar post:', err);
+        toast({
+          title: "Erro inesperado",
+          description: "Houve um erro ao buscar o artigo. Por favor, tente novamente.",
+          variant: "destructive"
+        });
         setError('Erro ao buscar o post');
       } finally {
         setIsLoading(false);

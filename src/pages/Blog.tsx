@@ -9,6 +9,10 @@ import Navbar from '@/components/Navbar';
 
 const Blog = () => {
   const { featuredPosts, recentPosts, categories, isLoading } = useBlogData();
+  
+  console.log("Blog: Renderizando página de blog");
+  console.log("Blog: Posts em destaque:", featuredPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
+  console.log("Blog: Posts recentes:", recentPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
 
   if (isLoading) {
     return <BlogLoading />;

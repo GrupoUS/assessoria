@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
+import { toast } from '@/components/ui/use-toast';
 
 // Default data for fallback
 const defaultFeaturedPosts: BlogPost[] = [
@@ -103,6 +104,8 @@ export const useBlogData = () => {
       try {
         setIsLoading(true);
         
+        console.log('Iniciando busca de posts do blog');
+        
         // Buscar todos os posts
         const { data: posts, error } = await supabase
           .from('blog_posts')
@@ -110,10 +113,18 @@ export const useBlogData = () => {
           .order('created_at', { ascending: false });
         
         if (error) {
+          console.error('Erro ao buscar posts:', error);
+          toast({
+            title: "Erro",
+            description: "Não foi possível carregar os artigos do blog",
+            variant: "destructive"
+          });
           throw error;
         }
         
         if (posts && posts.length > 0) {
+          console.log(`Encontrados ${posts.length} posts no banco de dados`);
+          
           // Map the posts to our BlogPost type, ensuring proper field mapping
           const typedPosts: BlogPost[] = posts.map(post => ({
             id: post.id,
@@ -127,6 +138,8 @@ export const useBlogData = () => {
             created_at: post.created_at,
             updated_at: post.updated_at
           }));
+          
+          console.log('Posts processados:', typedPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
           
           // Definir posts em destaque (3 primeiros)
           setFeaturedPosts(typedPosts.slice(0, 3));
@@ -146,6 +159,10 @@ export const useBlogData = () => {
         }
       } catch (error) {
         console.error('Erro ao buscar dados do blog:', error);
+        toast({
+          title: "Erro",
+          description: "Erro ao buscar dados do blog. Usando dados de exemplo.",
+        });
         
         // Em caso de erro, usar os dados de exemplo
         setFeaturedPosts(defaultFeaturedPosts);
