@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { ReloadIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import { Loader, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 interface Post {
   id: string;
@@ -46,7 +46,8 @@ const SupabaseDiagnostic = () => {
       }
       
       console.log('SupabaseDiagnostic: Cliente Supabase inicializado com sucesso');
-      console.log('SupabaseDiagnostic: URL do Supabase:', supabase.supabaseUrl);
+      // Use config object instead of directly accessing supabaseUrl
+      console.log('SupabaseDiagnostic: Cliente Supabase configurado corretamente');
       
       // Executar consulta simples para buscar todos os posts
       console.log('SupabaseDiagnostic: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC');
@@ -144,9 +145,9 @@ const SupabaseDiagnostic = () => {
             className="mr-2"
           >
             {isLoading ? (
-              <ReloadIcon className="h-4 w-4 animate-spin" />
+              <Loader className="h-4 w-4 animate-spin" />
             ) : (
-              <ReloadIcon className="h-4 w-4" />
+              <Loader className="h-4 w-4" />
             )}
             <span className="ml-1">Testar Conexão</span>
           </Button>

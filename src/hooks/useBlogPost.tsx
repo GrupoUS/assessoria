@@ -23,7 +23,6 @@ export const useBlogPost = (slug: string | undefined) => {
         setError(null);
         
         console.log(`useBlogPost: Buscando post com slug: "${slug}"`);
-        console.log('useBlogPost: URL do Supabase:', supabase.supabaseUrl);
         console.log('useBlogPost: Cliente Supabase inicializado:', !!supabase);
         
         const startTime = new Date();

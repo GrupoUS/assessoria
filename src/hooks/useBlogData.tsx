@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
@@ -10,7 +9,7 @@ export const useBlogData = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
-  const [diagnosticInfo, setDiagnosticInfo] = useState<any>(null);
+  const [diagnosticInfo, setDiagnosticData] = useState<any>(null);
 
   // Função para forçar um novo carregamento dos dados
   const refreshData = async () => {
@@ -23,7 +22,6 @@ export const useBlogData = () => {
     try {
       setIsLoading(true);
       console.log('useBlogData: Iniciando busca de posts do blog');
-      console.log('useBlogData: URL do Supabase:', supabase.supabaseUrl);
       console.log('useBlogData: Cliente Supabase inicializado:', !!supabase);
       
       const startTime = new Date();
@@ -42,7 +40,7 @@ export const useBlogData = () => {
         postsCount: posts.length,
         postsIds: posts.map(p => p.id)
       };
-      setDiagnosticInfo(diagnostics);
+      setDiagnosticData(diagnostics);
       
       if (posts.length > 0) {
         distributePosts(posts);
