@@ -1,0 +1,17 @@
+
+/**
+ * Índice de estilos do modo escuro
+ * Este arquivo importa todos os arquivos CSS modulares para o tema escuro
+ */
+
+/* Importação das variáveis e componentes do tema escuro */
+@import './variables.css';
+@import './cards.css';
+@import './backgrounds.css';
+@import './text.css';
+@import './forms.css';
+@import './borders.css';
+@import './links.css';
+@import './tables.css';
+@import './code.css';
+@import './misc.css';

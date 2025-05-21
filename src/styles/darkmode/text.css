@@ -1,0 +1,40 @@
+
+/**
+ * Estilos para textos no modo escuro
+ * Ajusta cores e propriedades dos diferentes tipos de texto
+ */
+
+/* Ajustes para textos em tons de cinza */
+.dark .text-gray-600 {
+  color: #d1d5db; /* gray-300 */
+}
+
+.dark .text-gray-700 {
+  color: #e5e7eb; /* gray-200 */
+}
+
+.dark .text-gray-800 {
+  color: #e5e7eb; /* gray-200 */
+}
+
+.dark .text-gray-900 {
+  color: #f3f4f6; /* gray-100 */
+}
+
+/* Ajustes para textos em cores especiais */
+.dark .text-navy-dark {
+  color: white;
+}
+
+.dark .text-darkBlue {
+  color: white;
+}
+
+.dark .text-black {
+  color: white;
+}
+
+/* Ajuste de cor para textos em backgrounds navy-medium */
+.dark [class*="bg-navy-medium"] {
+  color: white;
+}

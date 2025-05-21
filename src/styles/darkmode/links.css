@@ -1,0 +1,19 @@
+
+/**
+ * Estilos para links e botões no modo escuro
+ * Define a aparência e comportamento dos elementos interativos
+ */
+
+/* Links padrão (excetuando classes primárias e com background) */
+.dark a:not(.btn-primary):not([class*="bg-"]) {
+  color: hsl(var(--navy-light));
+}
+
+.dark a:not(.btn-primary):not([class*="bg-"]):hover {
+  color: white;
+}
+
+/* Melhorias de contraste para botões */
+.dark .bg-navy-medium {
+  color: white;
+}

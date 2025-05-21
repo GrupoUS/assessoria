@@ -1,0 +1,10 @@
+
+/**
+ * Estilos diversos para o modo escuro
+ * Elementos variados que não se encaixam em outras categorias
+ */
+
+/* Ajustes para ícones SVG */
+.dark svg:not([class*="text-"]) {
+  color: white;
+}

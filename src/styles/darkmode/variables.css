@@ -1,0 +1,53 @@
+
+/**
+ * Variáveis do tema escuro
+ * Define as variáveis CSS utilizadas em todo o tema escuro
+ */
+
+@layer base {
+  .dark {
+    /* Cor de fundo escura principal (navy-darkest) */
+    --background: 215 46% 11%;
+    --foreground: 0 0% 98%;
+    
+    /* Configurações para cards no modo escuro */
+    --card: 217 35% 29%; /* navy-medium para cards */
+    --card-foreground: 0 0% 98%;
+    
+    /* Configurações para popovers no modo escuro */
+    --popover: 215 46% 11%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Cores primárias invertidas */
+    --primary: 0 0% 98%;
+    --primary-foreground: 215 46% 11%;
+    
+    /* Cores secundárias - tons mais escuros */
+    --secondary: 217 35% 29%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Cores atenuadas para elementos secundários */
+    --muted: 217 35% 20%;
+    --muted-foreground: 214 22% 56%;
+    
+    /* Cores para elementos de destaque/acento */
+    --accent: 217 35% 29%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Cores para alertas e erros - tons mais escuros */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Cores para bordas e inputs */
+    --border: 217 35% 29%;
+    --input: 217 35% 29%;
+    --ring: 214 22% 56%;
+
+    /* Cores específicas do tema escuro */
+    --navy-darkest: 215 46% 11%;  /* #0D1B2A */
+    --navy-dark: 217 35% 17%;     /* #1B263B */
+    --navy-medium: 217 35% 29%;   /* #415A77 */
+    --navy-light: 214 22% 56%;    /* #778DA9 */
+    --navy-lightest: 60 5% 88%;   /* #E0E1DD */
+  }
+}

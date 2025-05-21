@@ -8,5 +8,5 @@
 /* Importações dos arquivos CSS separados */
 @import './base.css';
 @import './theme.css';
-@import './darkmode.css';
+@import './darkmode/index.css';
 @import './components.css';

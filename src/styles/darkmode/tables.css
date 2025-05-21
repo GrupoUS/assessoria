@@ -1,0 +1,28 @@
+
+/**
+ * Estilos para tabelas no modo escuro
+ * Ajusta cores e propriedades de tabelas, cabeçalhos e células
+ */
+
+/* Estilos para a tabela como um todo */
+.dark table {
+  border-color: hsl(var(--navy-medium));
+}
+
+/* Estilos para células de cabeçalho e dados */
+.dark th,
+.dark td {
+  border-color: hsl(var(--navy-medium));
+  color: white;
+}
+
+/* Estilo específico para o cabeçalho */
+.dark thead {
+  background-color: hsl(var(--navy-dark));
+  color: white;
+}
+
+/* Estilo para linhas alternadas (zebradas) */
+.dark tbody tr:nth-child(even) {
+  background-color: rgba(27, 38, 59, 0.5); /* navy-dark com 50% de opacidade */
+}
