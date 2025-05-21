@@ -59,7 +59,6 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
               />
               <Legend 
                 formatter={(value) => {
-                  // Aplicar classe CSS específica para melhorar contraste no modo escuro
                   const valueClassName = value === "Patrimônio Total" 
                     ? "dark:text-white text-navy-dark font-medium" 
                     : value === "Total Investido" 
