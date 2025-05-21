@@ -5,17 +5,16 @@ import { Button } from './ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
 const ThemeSwitch = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark'); // Default to dark now
   const { toast } = useToast();
   
   useEffect(() => {
     // Check user preference in localStorage
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
     
-    // Check system preference if no saved theme
+    // If no saved theme, use dark as default (no longer check system preference)
     if (!savedTheme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+      setTheme('dark');
       return;
     }
     

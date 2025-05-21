@@ -31,40 +31,31 @@ const ThemeInitializer = () => {
     const applyTheme = () => {
       const savedTheme = localStorage.getItem('theme');
       
-      if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-        console.log("ThemeInitializer: Applied dark theme from localStorage");
-      } else if (savedTheme === 'light') {
+      if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
         console.log("ThemeInitializer: Applied light theme from localStorage");
       } else {
-        // Check system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDark) {
-          document.documentElement.classList.add('dark');
+        // Default to dark if no preference or if saved theme is dark
+        document.documentElement.classList.add('dark');
+        if (!savedTheme) {
           localStorage.setItem('theme', 'dark');
-          console.log("ThemeInitializer: Applied dark theme from system preference");
+          console.log("ThemeInitializer: Applied default dark theme");
         } else {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-          console.log("ThemeInitializer: Applied light theme from system preference");
+          console.log("ThemeInitializer: Applied dark theme from localStorage");
         }
       }
     };
     
     applyTheme();
     
-    // Listen for system preference changes
+    // Listen for system preference changes - only apply if user has no explicit preference
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) { // Only if user hasn't explicitly set a preference
-        if (e.matches) {
-          document.documentElement.classList.add('dark');
-          console.log("ThemeInitializer: System switched to dark mode");
-        } else {
-          document.documentElement.classList.remove('dark');
-          console.log("ThemeInitializer: System switched to light mode");
-        }
+      if (!localStorage.getItem('theme')) { 
+        // This should now only happen on first visit before theme is set
+        document.documentElement.classList.add('dark'); // Always default to dark
+        localStorage.setItem('theme', 'dark');
+        console.log("ThemeInitializer: System preference changed, defaulting to dark mode");
       }
     };
     
