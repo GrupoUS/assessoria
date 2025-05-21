@@ -10,6 +10,8 @@ interface SEOHeadProps {
   ogType?: string;
   ogImage?: string;
   location?: string;
+  structuredData?: Record<string, any>;
+  author?: string;
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
@@ -19,7 +21,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   canonicalUrl = "https://www.mauriciomagalhaes.com.br",
   ogType = "website",
   ogImage = "https://lovable.dev/opengraph-image-p98pqg.png",
-  location = "Goiânia, GO"
+  location = "Goiânia, GO",
+  structuredData,
+  author = "Maurício Magalhães"
 }) => {
   // Concatenate location-specific keywords if provided
   const fullKeywords = location 
@@ -28,9 +32,11 @@ const SEOHead: React.FC<SEOHeadProps> = ({
 
   return (
     <Helmet>
+      <html lang="pt-BR" />
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={fullKeywords} />
+      <meta name="author" content={author} />
       <link rel="canonical" href={canonicalUrl} />
       
       {/* Open Graph / Facebook */}
@@ -40,12 +46,24 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:locale" content="pt_BR" />
+      <meta property="og:site_name" content="Maurício Magalhães Consultoria Financeira" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      
+      {/* Mobile optimization */}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="theme-color" content="#0f172a" />
+      
+      {/* Insert structured data if provided */}
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
     </Helmet>
   );
 };

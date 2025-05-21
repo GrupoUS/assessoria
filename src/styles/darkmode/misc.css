@@ -10,18 +10,19 @@
   color: white;
 }
 
-/* Transição suave para mudança de tema */
+/* Transição suave para mudança de tema - otimizada para performance */
 html.dark,
 html:not(.dark) {
-  transition-property: background-color, color, border-color, fill, stroke;
+  transition-property: background-color, color, border-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+  will-change: background-color, color;
 }
 
-/* Garantir que todos os elementos herdem a transição do tema */
+/* Garantir que apenas propriedades essenciais tenham transição */
 html.dark *,
 html:not(.dark) * {
-  transition-property: background-color, color, border-color, fill, stroke, opacity, box-shadow, transform;
+  transition-property: background-color, color, border-color, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
@@ -30,8 +31,14 @@ html:not(.dark) * {
 .animate-spin,
 .animate-ping,
 .animate-pulse,
-.animate-bounce {
-  transition-property: none;
+.animate-bounce,
+img {
+  transition-property: none !important;
+}
+
+/* Imagens não precisam de transição e podem causar problemas de performance */
+img, svg {
+  transition: none !important;
 }
 
 /* Efeitos especiais para botões no tema escuro */
@@ -50,4 +57,14 @@ html:not(.dark) * {
   -webkit-backdrop-filter: blur(8px);
   background-color: rgba(27, 38, 59, 0.3);
   border: 1px solid rgba(119, 141, 169, 0.3);
+}
+
+/* Otimização para elementos com transições caras */
+.heavy-transition {
+  will-change: transform, opacity;
+}
+
+/* Melhor contraste para texto em fundos escuros */
+.dark .improved-contrast {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }

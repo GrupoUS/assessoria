@@ -13,10 +13,17 @@ import Footer from '@/components/landing/Footer';
 import MobileCTA from '@/components/landing/MobileCTA';
 import WhyChooseUs from '@/components/landing/WhyChooseUs';
 import Navbar from '@/components/Navbar';
+import SEOHead from '@/components/shared/SEOHead';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-navy-darkest text-darkBlue dark:text-white transition-colors duration-300">
+      <SEOHead 
+        title="Maurício Magalhães | Consultoria Financeira e Investimentos Personalizados"
+        description="Assessoria de investimentos especializada para quem possui mais de R$300 mil. Planejamento patrimonial, blindagem e gestão de patrimônio com resultados comprovados."
+        keywords="assessor de investimentos, consultor financeiro independente, planejamento patrimonial, gestão de patrimônio, blindagem patrimonial, investimentos para médicos, investimentos para empresários"
+        location="Goiânia, GO"
+      />
       <Navbar />
       <HeroSection />
       <BenefitsSection />

@@ -1,3 +1,12 @@
+
+# Instruções para todos os bots de busca
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.mauriciomagalhaes.com.br/sitemap.xml
+
+# Permissões específicas para bots principais
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +19,9 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Diretórios de administração e arquivos especiais não devem ser indexados
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
