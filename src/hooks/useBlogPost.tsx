@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
 import { toast } from '@/components/ui/use-toast';
+import { sanitizeSlug } from '@/utils/blogUtils';
 
 export const useBlogPost = (slug: string | undefined) => {
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -130,20 +131,6 @@ export const useBlogPost = (slug: string | undefined) => {
 
     fetchPost();
   }, [slug]);
-
-  // Função para sanitizar o slug
-  const sanitizeSlug = (inputSlug: string): string => {
-    console.log(`useBlogPost: Sanitizando slug: "${inputSlug}"`);
-    
-    let cleanSlug = inputSlug.trim().toLowerCase();
-    // Remover caracteres especiais e espaços extras
-    cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
-    cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
-    cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
-    
-    console.log(`useBlogPost: Slug sanitizado: "${cleanSlug}"`);
-    return cleanSlug || inputSlug; // Fallback para o slug original se a sanitização resultar em string vazia
-  };
 
   return { post, isLoading, error, diagnosticInfo };
 };

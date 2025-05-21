@@ -1,8 +1,14 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
-import { toast } from '@/components/ui/use-toast';
+import { DiagnosticInfo } from '@/types/blogService';
+import { fetchPosts } from '@/services/blogService';
+import { 
+  distributePosts, 
+  handleNoPosts, 
+  handleError 
+} from '@/services/blogDataProcessor';
+import { generateDiagnosticInfo } from '@/services/blogService';
 
 export const useBlogData = () => {
   const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
@@ -10,7 +16,7 @@ export const useBlogData = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
-  const [diagnosticInfo, setDiagnosticData] = useState<any>(null);
+  const [diagnosticInfo, setDiagnosticData] = useState<DiagnosticInfo | null>(null);
 
   // Função para forçar um novo carregamento dos dados
   const refreshData = async () => {
@@ -23,39 +29,32 @@ export const useBlogData = () => {
     try {
       setIsLoading(true);
       console.log('useBlogData: Iniciando busca de posts do blog');
-      console.log('useBlogData: Cliente Supabase inicializado:', !!supabase);
-      
-      // Registrar URL do Supabase (mascarada)
-      console.log(`useBlogData: Usando cliente Supabase para projeto em https://xdnfpoytpesnuzcfpajd.supabase.co`);
       
       const startTime = new Date();
       console.log(`useBlogData: Horário de início da consulta: ${startTime.toISOString()}`);
       
       const posts = await fetchPosts();
-      const endTime = new Date();
-      console.log(`useBlogData: Horário de término da consulta: ${endTime.toISOString()}`);
-      console.log(`useBlogData: Tempo da consulta: ${endTime.getTime() - startTime.getTime()}ms`);
-      console.log(`useBlogData: Total de posts obtidos: ${posts.length}`);
-      
-      const diagnostics = {
-        queryStart: startTime.toISOString(),
-        queryEnd: endTime.toISOString(),
-        queryDuration: endTime.getTime() - startTime.getTime(),
-        postsCount: posts.length,
-        postsIds: posts.map(p => p.id),
-        rlsStatus: posts.length === 0 ? 'Possível bloqueio RLS' : 'RLS permitindo acesso'
-      };
+      const diagnostics = generateDiagnosticInfo(startTime, posts);
       setDiagnosticData(diagnostics);
       
       if (posts.length > 0) {
-        distributePosts(posts);
+        const distribution = distributePosts(posts);
+        setFeaturedPosts(distribution.featuredPosts);
+        setRecentPosts(distribution.recentPosts);
+        setCategories(distribution.categories);
       } else {
         handleNoPosts();
+        setFeaturedPosts([]);
+        setRecentPosts([]);
+        setCategories([]);
       }
       
       setLastFetchTime(new Date());
     } catch (error) {
       handleError(error);
+      setFeaturedPosts([]);
+      setRecentPosts([]);
+      setCategories([]);
     } finally {
       setIsLoading(false);
     }
@@ -64,179 +63,6 @@ export const useBlogData = () => {
   useEffect(() => {
     fetchBlogData();
   }, []);
-
-  // Fetch posts from Supabase with enhanced error reporting
-  const fetchPosts = async (): Promise<BlogPost[]> => {
-    console.log('useBlogData: Executando consulta no Supabase para obter posts');
-    
-    // Verificar se o cliente Supabase está disponível
-    if (!supabase) {
-      console.error('useBlogData: Cliente Supabase não está disponível');
-      throw new Error('Cliente Supabase não está disponível');
-    }
-    
-    try {
-      console.log('useBlogData: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC');
-      const { data: posts, error } = await supabase
-        .from('blog_posts')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      console.log('useBlogData: Resposta completa da consulta:', { posts, error });
-      
-      if (error) {
-        console.error('useBlogData: Erro ao buscar posts:', error);
-        
-        // Verificar se o erro é relacionado a RLS
-        if (error.message.includes('permission denied') || error.code === '42501') {
-          console.error('useBlogData: Erro de permissão - Políticas RLS estão provavelmente bloqueando o acesso');
-          toast({
-            title: "Erro de permissão",
-            description: `Acesso negado à tabela blog_posts. Verifique as políticas RLS no Supabase.`,
-            variant: "destructive"
-          });
-        } else {
-          toast({
-            title: "Erro na consulta",
-            description: `Não foi possível buscar os posts: ${error.message}`,
-            variant: "destructive"
-          });
-        }
-        
-        throw error;
-      }
-      
-      if (!posts || posts.length === 0) {
-        console.log('useBlogData: Nenhum post encontrado na tabela blog_posts');
-        
-        // Testar se é um problema de RLS ou tabela vazia
-        const { count } = await supabase
-          .from('blog_posts')
-          .select('*', { count: 'exact', head: true });
-          
-        if (count === undefined) {
-          console.log('useBlogData: Não foi possível contar registros - provável problema de RLS');
-        } else {
-          console.log(`useBlogData: Tabela contém ${count} registros. ${count > 0 ? 'Provável problema de RLS' : 'Tabela vazia'}`);
-        }
-        
-        return [];
-      }
-      
-      console.log(`useBlogData: Encontrados ${posts.length} posts no banco de dados`, posts);
-      return mapPostsToModel(posts);
-    } catch (err) {
-      console.error('useBlogData: Exceção ao buscar posts:', err);
-      throw err;
-    }
-  };
-
-  // Map database posts to BlogPost model with better handling of nulls and empty values
-  const mapPostsToModel = (posts: any[]): BlogPost[] => {
-    console.log('useBlogData: Iniciando mapeamento de posts para o modelo BlogPost');
-    
-    const mappedPosts = posts.map(post => {
-      console.log('useBlogData: Processando post bruto:', post);
-      
-      // Tratamento seguro para slug
-      let safeSlug = '';
-      if (post.slug) {
-        safeSlug = post.slug.trim().toLowerCase();
-        // Remover caracteres especiais e espaços extras
-        safeSlug = safeSlug.replace(/[^\w\-]+/g, '-');
-        safeSlug = safeSlug.replace(/\-{2,}/g, '-');
-        safeSlug = safeSlug.replace(/^\-+|\-+$/g, '');
-      } else {
-        // Se não tiver slug, gerar um a partir do título
-        safeSlug = post.title 
-          ? post.title.toLowerCase().replace(/[^\w\-]+/g, '-') 
-          : `post-${post.id}`;
-      }
-      
-      if (!safeSlug) {
-        console.warn(`useBlogData: Post sem slug válido encontrado:`, post.title);
-        safeSlug = `post-${post.id}`;
-      }
-      
-      // Validação de campos obrigatórios ou valores padrão
-      const mappedPost: BlogPost = {
-        id: post.id || '',
-        title: post.title || 'Sem título',
-        slug: safeSlug,
-        excerpt: post.excerpt || 'Sem descrição disponível',
-        content: post.content || '',
-        category: post.category || 'Geral',
-        date: post.date || new Date(post.created_at).toLocaleDateString('pt-BR'),
-        imageUrl: post.imageurl || '',
-        created_at: post.created_at || new Date().toISOString(),
-        updated_at: post.updated_at || new Date().toISOString()
-      };
-      
-      console.log(`useBlogData: Post mapeado: ID=${mappedPost.id}, Título=${mappedPost.title}, Slug=${mappedPost.slug}`);
-      return mappedPost;
-    });
-    
-    console.log('useBlogData: Mapeamento finalizado. Total de posts mapeados:', mappedPosts.length);
-    return mappedPosts;
-  };
-
-  // Distribute posts into featured and recent categories
-  const distributePosts = (posts: BlogPost[]) => {
-    console.log('useBlogData: Distribuindo posts entre destacados e recentes');
-    
-    // Define featured posts (first 3)
-    const featured = posts.slice(0, 3);
-    setFeaturedPosts(featured);
-    console.log('useBlogData: Posts destacados:', featured.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
-    
-    // Define recent posts (next 3 after featured)
-    const recent = posts.slice(3, 6);
-    setRecentPosts(recent);
-    console.log('useBlogData: Posts recentes:', recent.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
-    
-    // Extract unique categories
-    const uniqueCategories = [...new Set(posts.map(post => post.category).filter(Boolean))];
-    setCategories(uniqueCategories);
-    console.log('useBlogData: Categorias disponíveis:', uniqueCategories);
-  };
-
-  // Handle case when no posts are found
-  const handleNoPosts = () => {
-    console.log('useBlogData: Nenhum post encontrado no Supabase');
-    setFeaturedPosts([]);
-    setRecentPosts([]);
-    setCategories([]);
-    
-    toast({
-      title: "Informação",
-      description: "Nenhum artigo encontrado. Isso pode ser devido à política RLS do Supabase. Verifique as configurações.",
-      variant: "default" // Changed from "warning" to "default"
-    });
-  };
-
-  // Handle error cases with better RLS detection
-  const handleError = (error: any) => {
-    console.error('useBlogData: Erro ao buscar dados do blog:', error);
-    
-    // Verificar se o erro pode ser relacionado a RLS
-    const errorMsg = error instanceof Error ? error.message : String(error);
-    const isRLSError = errorMsg.toLowerCase().includes('permission') || 
-                      errorMsg.includes('42501') ||
-                      errorMsg.toLowerCase().includes('policy');
-    
-    toast({
-      title: "Erro",
-      description: isRLSError 
-        ? "Erro de permissão ao acessar o blog. Verifique as políticas RLS no Supabase."
-        : "Erro ao carregar artigos do blog. Tente novamente mais tarde.",
-      variant: "destructive"
-    });
-    
-    // Set empty arrays on error
-    setFeaturedPosts([]);
-    setRecentPosts([]);
-    setCategories([]);
-  };
 
   return {
     featuredPosts,
