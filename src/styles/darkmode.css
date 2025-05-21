@@ -43,6 +43,13 @@
     --border: 217 35% 29%;
     --input: 217 35% 29%;
     --ring: 214 22% 56%;
+
+    /* Cores específicas do tema escuro */
+    --navy-darkest: 215 46% 11%;  /* #0D1B2A */
+    --navy-dark: 217 35% 17%;     /* #1B263B */
+    --navy-medium: 217 35% 29%;   /* #415A77 */
+    --navy-light: 214 22% 56%;    /* #778DA9 */
+    --navy-lightest: 60 5% 88%;   /* #E0E1DD */
   }
 }
 
@@ -52,16 +59,16 @@
 
 /* Cards no modo escuro */
 .dark .card-dark {
-  background-color: #1B263B; /* navy-dark */
+  background-color: hsl(var(--navy-dark));
   color: white;
-  border-color: #415A77; /* navy-medium */
+  border-color: hsl(var(--navy-medium));
 }
 
 /* Cards de benefícios no modo escuro */
 .dark .benefit-card {
-  background-color: #1B263B; /* navy-dark */
+  background-color: hsl(var(--navy-dark));
   color: white;
-  border-color: #415A77; /* navy-medium */
+  border-color: hsl(var(--navy-medium));
   box-shadow: none;
 }
 
@@ -69,11 +76,11 @@
  * Fundos de seções no modo escuro
  */
 .dark .bg-white {
-  background-color: #1B263B; /* navy-dark */
+  background-color: hsl(var(--navy-dark));
 }
 
 .dark .bg-gray-50 {
-  background-color: #0D1B2A; /* navy-darkest */
+  background-color: hsl(var(--navy-darkest));
 }
 
 /**
@@ -100,7 +107,7 @@
  */
 .dark .border-gray-100,
 .dark .border-gray-200 {
-  border-color: #415A77; /* navy-medium */
+  border-color: hsl(var(--navy-medium));
 }
 
 /**
@@ -109,16 +116,16 @@
 .dark input, 
 .dark textarea, 
 .dark select {
-  background-color: #415A77; /* navy-medium */
+  background-color: hsl(var(--navy-medium));
   color: white;
-  border-color: #778DA9; /* navy-light */
+  border-color: hsl(var(--navy-light));
 }
 
 /**
  * Links e botões em modo escuro
  */
 .dark a:not(.btn-primary):not([class*="bg-"]) {
-  color: #778DA9; /* navy-light */
+  color: hsl(var(--navy-light));
 }
 
 .dark a:not(.btn-primary):not([class*="bg-"]):hover {
@@ -137,15 +144,15 @@
 
 /* Ajustes de cores para backgrounds no modo escuro */
 .dark .bg-gray-100 {
-  background-color: #415A77; /* navy-medium */
+  background-color: hsl(var(--navy-medium));
 }
 
 .dark .bg-gray-200 {
-  background-color: #415A77; /* navy-medium */
+  background-color: hsl(var(--navy-medium));
 }
 
 .dark .bg-gray-300 {
-  background-color: #778DA9; /* navy-light */
+  background-color: hsl(var(--navy-light));
 }
 
 /* Ajustes de cores para textos no modo escuro */
@@ -179,8 +186,8 @@
 .dark .form-select,
 .dark .form-checkbox,
 .dark .form-radio {
-  background-color: #1B263B; /* navy-dark */
-  border-color: #415A77; /* navy-medium */
+  background-color: hsl(var(--navy-dark));
+  border-color: hsl(var(--navy-medium));
   color: white;
 }
 
@@ -189,7 +196,7 @@
  */
 .dark pre,
 .dark code {
-  background-color: #0D1B2A; /* navy-darkest */
+  background-color: hsl(var(--navy-darkest));
   color: #f3f4f6; /* gray-100 */
 }
 
@@ -197,17 +204,17 @@
  * Estilos para tabelas no modo escuro
  */
 .dark table {
-  border-color: #415A77; /* navy-medium */
+  border-color: hsl(var(--navy-medium));
 }
 
 .dark th,
 .dark td {
-  border-color: #415A77; /* navy-medium */
+  border-color: hsl(var(--navy-medium));
   color: white;
 }
 
 .dark thead {
-  background-color: #1B263B; /* navy-dark */
+  background-color: hsl(var(--navy-dark));
   color: white;
 }
 
@@ -219,3 +226,4 @@
 .dark svg:not([class*="text-"]) {
   color: white;
 }
+
