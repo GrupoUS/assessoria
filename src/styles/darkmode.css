@@ -1,43 +1,63 @@
 
+/**
+ * Configuração do tema escuro
+ * Sobrescreve as variáveis CSS do tema claro quando a classe .dark
+ * é aplicada ao elemento HTML
+ */
+
 @layer base {
   .dark {
-    --background: 215 46% 11%; /* Cor de fundo escura (navy-darkest) */
+    /* Cor de fundo escura principal (navy-darkest) */
+    --background: 215 46% 11%;
     --foreground: 0 0% 98%;
     
+    /* Configurações para cards no modo escuro */
     --card: 217 35% 29%; /* navy-medium para cards */
     --card-foreground: 0 0% 98%;
     
+    /* Configurações para popovers no modo escuro */
     --popover: 215 46% 11%;
     --popover-foreground: 0 0% 98%;
     
+    /* Cores primárias invertidas */
     --primary: 0 0% 98%;
     --primary-foreground: 215 46% 11%;
     
+    /* Cores secundárias - tons mais escuros */
     --secondary: 217 35% 29%;
     --secondary-foreground: 0 0% 98%;
     
+    /* Cores atenuadas para elementos secundários */
     --muted: 217 35% 20%;
     --muted-foreground: 214 22% 56%;
     
+    /* Cores para elementos de destaque/acento */
     --accent: 217 35% 29%;
     --accent-foreground: 0 0% 98%;
     
+    /* Cores para alertas e erros - tons mais escuros */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     
+    /* Cores para bordas e inputs */
     --border: 217 35% 29%;
     --input: 217 35% 29%;
     --ring: 214 22% 56%;
   }
 }
 
-/* Dark Mode Styles */
+/**
+ * Estilos específicos para componentes no modo escuro
+ */
+
+/* Cards no modo escuro */
 .dark .card-dark {
   background-color: #1B263B; /* navy-dark */
   color: white;
   border-color: #415A77; /* navy-medium */
 }
 
+/* Cards de benefícios no modo escuro */
 .dark .benefit-card {
   background-color: #1B263B; /* navy-dark */
   color: white;
@@ -45,7 +65,9 @@
   box-shadow: none;
 }
 
-/* Fundos de seções escuros */
+/**
+ * Fundos de seções no modo escuro
+ */
 .dark .bg-white {
   background-color: #1B263B; /* navy-dark */
 }
@@ -54,7 +76,9 @@
   background-color: #0D1B2A; /* navy-darkest */
 }
 
-/* Texto em modo escuro */
+/**
+ * Ajustes de texto para o modo escuro
+ */
 .dark .text-gray-600 {
   color: #d1d5db; /* gray-300 */
 }
@@ -71,13 +95,17 @@
   color: white;
 }
 
-/* Bordas em modo escuro */
+/**
+ * Bordas em modo escuro - ajustes de cor
+ */
 .dark .border-gray-100,
 .dark .border-gray-200 {
   border-color: #415A77; /* navy-medium */
 }
 
-/* Estilos para formulários em modo escuro */
+/**
+ * Estilos para formulários em modo escuro
+ */
 .dark input, 
 .dark textarea, 
 .dark select {
@@ -86,7 +114,9 @@
   border-color: #778DA9; /* navy-light */
 }
 
-/* Links e botões em modo escuro */
+/**
+ * Links e botões em modo escuro
+ */
 .dark a:not(.btn-primary):not([class*="bg-"]) {
   color: #778DA9; /* navy-light */
 }
@@ -95,12 +125,17 @@
   color: white;
 }
 
-/* Enhanced Dark Mode Styles */
+/**
+ * Melhorias visuais para o modo escuro
+ */
+
+/* Ajustes de sombras para o modo escuro */
 .dark .shadow-md,
 .dark .shadow-lg {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
+/* Ajustes de cores para backgrounds no modo escuro */
 .dark .bg-gray-100 {
   background-color: #415A77; /* navy-medium */
 }
@@ -113,6 +148,7 @@
   background-color: #778DA9; /* navy-light */
 }
 
+/* Ajustes de cores para textos no modo escuro */
 .dark .text-black {
   color: white;
 }
@@ -125,17 +161,19 @@
   color: #f3f4f6; /* gray-100 */
 }
 
-/* Improved contrast for buttons in dark mode */
+/* Melhorias de contraste para botões no modo escuro */
 .dark .bg-navy-medium {
   color: white;
 }
 
-/* Text color override for navy-medium backgrounds in dark mode */
+/* Ajuste de cor para textos em backgrounds navy-medium */
 .dark [class*="bg-navy-medium"] {
   color: white;
 }
 
-/* Form inputs in dark mode */
+/**
+ * Estilos para elementos de formulário no modo escuro
+ */
 .dark .form-input,
 .dark .form-textarea,
 .dark .form-select,
@@ -146,14 +184,18 @@
   color: white;
 }
 
-/* Add styles for code blocks and pre in dark mode */
+/**
+ * Estilos para blocos de código no modo escuro
+ */
 .dark pre,
 .dark code {
   background-color: #0D1B2A; /* navy-darkest */
   color: #f3f4f6; /* gray-100 */
 }
 
-/* Tables in dark mode */
+/**
+ * Estilos para tabelas no modo escuro
+ */
 .dark table {
   border-color: #415A77; /* navy-medium */
 }
@@ -173,7 +215,7 @@
   background-color: rgba(27, 38, 59, 0.5); /* navy-dark com 50% de opacidade */
 }
 
-/* Make icons visible in dark mode */
+/* Ajustes para ícones SVG no modo escuro */
 .dark svg:not([class*="text-"]) {
   color: white;
 }

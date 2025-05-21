@@ -1,4 +1,10 @@
 
+/**
+ * Arquivo principal de estilos
+ * Este arquivo importa todos os outros arquivos CSS modulares
+ * para manter a organização e facilitar a manutenção
+ */
+
 /* Importações dos arquivos CSS separados */
 @import './base.css';
 @import './theme.css';

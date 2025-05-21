@@ -1,44 +1,61 @@
 
+/**
+ * Configuração do tema claro (padrão)
+ * Define as variáveis CSS para cores e configurações visuais
+ * que serão usadas em toda a aplicação
+ */
+
 @layer base {
   :root {
+    /* Cores de fundo e texto principal */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
+    /* Configurações para cards */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
+    /* Configurações para popovers */
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
+    /* Cores primárias - azul escuro */
     --primary: 217 35% 13%;
     --primary-foreground: 210 40% 98%;
 
+    /* Cores secundárias - tons claros */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
+    /* Cores atenuadas para elementos secundários */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
+    /* Cores para elementos de destaque/acento */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
+    /* Cores para alertas e erros */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
+    /* Cores para bordas e inputs */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
+    /* Tons de dourado para elementos especiais */
     --gold: 45 100% 50%;
     --gold-light: 45 70% 80%;
     
-    /* Novas cores */
+    /* Paleta de azuis e brancos para o tema */
     --dark-blue: 215 46% 11%;
     --medium-blue: 217 35% 29%;
     --blue: 215 28% 36%;
     --light-blue: 214 22% 56%;
     --off-white: 60 5% 88%;
 
+    /* Raio de borda padrão */
     --radius: 0.5rem;
   }
 }

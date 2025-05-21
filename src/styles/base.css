@@ -1,25 +1,40 @@
 
+/**
+ * Estilos base da aplicação
+ * Define as configurações fundamentais, importa fontes e configura
+ * as diretivas do Tailwind CSS
+ */
+
+/* Importação das fontes do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* Configuração base do Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Camada base do Tailwind
+ * Define estilos globais para elementos HTML básicos
+ */
 @layer base {
+  /* Configura as bordas para todos os elementos */
   * {
     @apply border-border;
   }
 
+  /* Estilos padrão para o corpo da página */
   body {
     @apply bg-background text-foreground font-inter transition-colors duration-300;
   }
 
+  /* Configuração da fonte Playfair Display para títulos */
   h1, h2, h3, h4, h5, h6 {
     @apply font-playfair;
   }
 }
 
-/* Smooth transitions for all elements */
+/* Transições suaves para todos os elementos */
 * {
   transition-colors: duration-200;
 }
