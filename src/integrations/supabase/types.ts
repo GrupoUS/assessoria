@@ -200,6 +200,36 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts_duplicate: {
+        Row: {
+          category: string | null
+          content: string | null
+          date: string | null
+          excerpt: string | null
+          imageurl: string | null
+          slug: string
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          date?: string | null
+          excerpt?: string | null
+          imageurl?: string | null
+          slug: string
+          title: string
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          date?: string | null
+          excerpt?: string | null
+          imageurl?: string | null
+          slug?: string
+          title?: string
+        }
+        Relationships: []
+      }
       "Carrinho Abandonado": {
         Row: {
           Email: string | null

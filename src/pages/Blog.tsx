@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import BlogCard from '@/components/blog/BlogCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
@@ -101,7 +102,7 @@ const Blog = () => {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {recentPosts.map((post, index) => (
-                      <div key={post.id || index} className="hover-card-effect">
+                      <div key={post.slug || `post-${index}`} className="hover-card-effect">
                         <BlogCard {...post} />
                       </div>
                     ))}
