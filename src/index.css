@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -206,9 +205,9 @@
   @apply transition-colors duration-200;
 }
 
-/* Improved contrast for buttons in dark mode */
+/* Improved contrast for buttons in dark mode - FIXED CIRCULAR DEPENDENCY */
 .dark .bg-navy-medium {
-  @apply text-white;
+  color: white; /* Direct CSS instead of @apply to avoid circular dependency */
 }
 
 /* Form inputs in dark mode */
