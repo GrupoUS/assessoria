@@ -9,6 +9,7 @@ import {
   handleError 
 } from '@/services/blogDataProcessor';
 import { generateDiagnosticInfo } from '@/services/blogService';
+import { useToast } from '@/components/ui/use-toast';
 
 export const useBlogData = () => {
   const [featuredPosts, setFeaturedPosts] = useState<BlogPost[]>([]);
@@ -17,12 +18,20 @@ export const useBlogData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastFetchTime, setLastFetchTime] = useState<Date | null>(null);
   const [diagnosticInfo, setDiagnosticData] = useState<DiagnosticInfo | null>(null);
+  const { toast } = useToast();
 
   // Função para forçar um novo carregamento dos dados
   const refreshData = async () => {
     console.log('useBlogData: Forçando atualização dos dados do blog');
     setIsLoading(true);
     await fetchBlogData();
+    
+    toast({
+      title: "Artigos atualizados",
+      description: "Os artigos do blog foram atualizados com sucesso",
+      variant: "default",
+      duration: 3000,
+    });
   };
 
   const fetchBlogData = async () => {

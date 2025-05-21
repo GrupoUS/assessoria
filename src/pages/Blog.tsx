@@ -8,8 +8,7 @@ import { useBlogData } from '@/hooks/useBlogData';
 import Navbar from '@/components/Navbar';
 import { Link } from 'react-router-dom';
 import { RefreshCcw } from 'lucide-react';
-// Import is kept but component won't be used
-import SupabaseDiagnostic from '@/components/blog/SupabaseDiagnostic';
+import SEOHead from '@/components/shared/SEOHead';
 
 const Blog = () => {
   const { featuredPosts, recentPosts, categories, isLoading, lastFetchTime, refreshData } = useBlogData();
@@ -35,6 +34,12 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-darkest transition-colors duration-300">
+      <SEOHead
+        title="Blog de Educação Financeira | Maurício Magalhães"
+        description="Conteúdo exclusivo sobre investimentos, planejamento financeiro e proteção patrimonial para investidores qualificados."
+        keywords="educação financeira, investimentos, planejamento financeiro, proteção patrimonial"
+        canonicalUrl="https://www.mauriciomagalhaes.com.br/blog"
+      />
       <Navbar />
       {/* Header do blog com título e descrição */}
       <div className="bg-darkBlue text-white py-16 md:py-24 mt-16">
@@ -48,7 +53,7 @@ const Blog = () => {
 
       {/* Conteúdo principal do blog */}
       <div className="container mx-auto px-6 py-12">
-        {/* Componente de diagnóstico Supabase removido */}
+        {/* Removido componente de diagnóstico Supabase */}
         
         {/* Barra de informações e atualização */}
         <div className="flex justify-between items-center mb-6">
@@ -57,7 +62,7 @@ const Blog = () => {
           </span>
           <button 
             onClick={handleRefresh} 
-            className="flex items-center gap-2 text-sm text-navy-medium hover:text-gold dark:text-gray-300 dark:hover:text-gold px-3 py-1 border border-navy-light dark:border-gray-700 rounded-md transition-colors"
+            className="flex items-center gap-2 text-sm text-navy-medium hover:text-gold dark:text-gray-300 dark:hover:text-gold-light px-3 py-1 border border-navy-light dark:border-gray-700 rounded-md transition-colors"
           >
             <RefreshCcw size={14} />
             Atualizar

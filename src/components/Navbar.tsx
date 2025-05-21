@@ -21,7 +21,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Fechar o menu mobile quando a rota muda
+    // Close mobile menu when route changes
     setIsMenuOpen(false);
   }, [location]);
 

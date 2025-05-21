@@ -27,23 +27,52 @@ const ScrollToTop = () => {
 // Componente para aplicar o tema correto
 const ThemeInitializer = () => {
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (savedTheme === 'light') {
-      document.documentElement.classList.remove('dark');
-    } else {
-      // Verificar preferência do sistema
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (prefersDark) {
+    // Apply theme on initial page load
+    const applyTheme = () => {
+      const savedTheme = localStorage.getItem('theme');
+      
+      if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
+        console.log("ThemeInitializer: Applied dark theme from localStorage");
+      } else if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        console.log("ThemeInitializer: Applied light theme from localStorage");
+      } else {
+        // Check system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          console.log("ThemeInitializer: Applied dark theme from system preference");
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          console.log("ThemeInitializer: Applied light theme from system preference");
+        }
       }
-    }
+    };
+    
+    applyTheme();
+    
+    // Listen for system preference changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('theme')) { // Only if user hasn't explicitly set a preference
+        if (e.matches) {
+          document.documentElement.classList.add('dark');
+          console.log("ThemeInitializer: System switched to dark mode");
+        } else {
+          document.documentElement.classList.remove('dark');
+          console.log("ThemeInitializer: System switched to light mode");
+        }
+      }
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, []);
   
   return null;
