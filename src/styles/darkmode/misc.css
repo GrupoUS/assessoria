@@ -2,9 +2,34 @@
 /**
  * Estilos diversos para o modo escuro
  * Elementos variados que não se encaixam em outras categorias
+ * Também inclui transições para mudança de tema
  */
 
 /* Ajustes para ícones SVG */
 .dark svg:not([class*="text-"]) {
   color: white;
+}
+
+/* Transição suave para mudança de tema */
+html.dark,
+html:not(.dark) {
+  transition-property: background-color, color, border-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Garantir que todos os elementos herdem a transição do tema */
+html.dark *,
+html:not(.dark) * {
+  transition-property: background-color, color, border-color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Exceções para animações que não devem ter transição */
+.animate-spin,
+.animate-ping,
+.animate-pulse,
+.animate-bounce {
+  transition-property: none;
 }
