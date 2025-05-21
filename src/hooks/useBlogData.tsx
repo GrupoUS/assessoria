@@ -24,6 +24,9 @@ export const useBlogData = () => {
       console.log('useBlogData: Iniciando busca de posts do blog');
       console.log('useBlogData: Cliente Supabase inicializado:', !!supabase);
       
+      // Registrar URL do Supabase (mascarada)
+      console.log(`useBlogData: Usando cliente Supabase para projeto em https://xdnfpoytpesnuzcfpajd.supabase.co`);
+      
       const startTime = new Date();
       console.log(`useBlogData: Horário de início da consulta: ${startTime.toISOString()}`);
       
@@ -38,7 +41,8 @@ export const useBlogData = () => {
         queryEnd: endTime.toISOString(),
         queryDuration: endTime.getTime() - startTime.getTime(),
         postsCount: posts.length,
-        postsIds: posts.map(p => p.id)
+        postsIds: posts.map(p => p.id),
+        rlsStatus: posts.length === 0 ? 'Possível bloqueio RLS' : 'RLS permitindo acesso'
       };
       setDiagnosticData(diagnostics);
       
@@ -60,7 +64,7 @@ export const useBlogData = () => {
     fetchBlogData();
   }, []);
 
-  // Fetch posts from Supabase
+  // Fetch posts from Supabase with enhanced error reporting
   const fetchPosts = async (): Promise<BlogPost[]> => {
     console.log('useBlogData: Executando consulta no Supabase para obter posts');
     
@@ -71,6 +75,7 @@ export const useBlogData = () => {
     }
     
     try {
+      console.log('useBlogData: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC');
       const { data: posts, error } = await supabase
         .from('blog_posts')
         .select('*')
@@ -80,16 +85,40 @@ export const useBlogData = () => {
       
       if (error) {
         console.error('useBlogData: Erro ao buscar posts:', error);
-        toast({
-          title: "Erro na consulta",
-          description: `Não foi possível buscar os posts: ${error.message}`,
-          variant: "destructive"
-        });
+        
+        // Verificar se o erro é relacionado a RLS
+        if (error.message.includes('permission denied') || error.code === '42501') {
+          console.error('useBlogData: Erro de permissão - Políticas RLS estão provavelmente bloqueando o acesso');
+          toast({
+            title: "Erro de permissão",
+            description: `Acesso negado à tabela blog_posts. Verifique as políticas RLS no Supabase.`,
+            variant: "destructive"
+          });
+        } else {
+          toast({
+            title: "Erro na consulta",
+            description: `Não foi possível buscar os posts: ${error.message}`,
+            variant: "destructive"
+          });
+        }
+        
         throw error;
       }
       
       if (!posts || posts.length === 0) {
         console.log('useBlogData: Nenhum post encontrado na tabela blog_posts');
+        
+        // Testar se é um problema de RLS ou tabela vazia
+        const { count } = await supabase
+          .from('blog_posts')
+          .select('*', { count: 'exact', head: true });
+          
+        if (count === undefined) {
+          console.log('useBlogData: Não foi possível contar registros - provável problema de RLS');
+        } else {
+          console.log(`useBlogData: Tabela contém ${count} registros. ${count > 0 ? 'Provável problema de RLS' : 'Tabela vazia'}`);
+        }
+        
         return [];
       }
       
@@ -179,16 +208,26 @@ export const useBlogData = () => {
     
     toast({
       title: "Informação",
-      description: "Nenhum artigo encontrado. Novos posts serão adicionados em breve.",
+      description: "Nenhum artigo encontrado. Isso pode ser devido à política RLS do Supabase. Verifique as configurações.",
+      variant: "warning"
     });
   };
 
-  // Handle error cases
+  // Handle error cases with better RLS detection
   const handleError = (error: any) => {
     console.error('useBlogData: Erro ao buscar dados do blog:', error);
+    
+    // Verificar se o erro pode ser relacionado a RLS
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    const isRLSError = errorMsg.toLowerCase().includes('permission') || 
+                      errorMsg.includes('42501') ||
+                      errorMsg.toLowerCase().includes('policy');
+    
     toast({
       title: "Erro",
-      description: "Erro ao carregar artigos do blog. Tente novamente mais tarde.",
+      description: isRLSError 
+        ? "Erro de permissão ao acessar o blog. Verifique as políticas RLS no Supabase."
+        : "Erro ao carregar artigos do blog. Tente novamente mais tarde.",
       variant: "destructive"
     });
     

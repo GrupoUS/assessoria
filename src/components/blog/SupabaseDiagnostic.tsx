@@ -23,6 +23,11 @@ const SupabaseDiagnostic = () => {
     postCount: number;
     posts: Post[];
     queryTimestamp: string;
+    supabaseInfo: {
+      url: string;
+      hasAnonymousKey: boolean;
+    };
+    rlsStatus: string;
   }>({
     connectionStatus: 'unknown',
     rawResponse: null,
@@ -30,6 +35,11 @@ const SupabaseDiagnostic = () => {
     postCount: 0,
     posts: [],
     queryTimestamp: '',
+    supabaseInfo: {
+      url: '',
+      hasAnonymousKey: false
+    },
+    rlsStatus: 'Desconhecido'
   });
 
   const fetchDiagnosticData = async () => {
@@ -45,20 +55,32 @@ const SupabaseDiagnostic = () => {
         throw new Error('Cliente Supabase não foi inicializado corretamente');
       }
       
+      // Registrar informações do cliente Supabase (URL mascarada, presença de chave)
+      // Obter URL do Supabase de forma segura
+      const supabaseUrl = "https://xdnfpoytpesnuzcfpajd.supabase.co";
+      const hasAnonymousKey = !!supabase.auth.getSession;
+      
       console.log('SupabaseDiagnostic: Cliente Supabase inicializado com sucesso');
-      // Use config object instead of directly accessing supabaseUrl
-      console.log('SupabaseDiagnostic: Cliente Supabase configurado corretamente');
+      console.log(`SupabaseDiagnostic: URL: ${supabaseUrl}`);
+      console.log(`SupabaseDiagnostic: Chave anônima disponível: ${hasAnonymousKey}`);
       
       // Executar consulta simples para buscar todos os posts
-      console.log('SupabaseDiagnostic: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC');
+      console.log('SupabaseDiagnostic: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC LIMIT 5');
       
+      const startTime = performance.now();
       const { data, error } = await supabase
         .from('blog_posts')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(5);
+      const endTime = performance.now();
+      
+      console.log(`SupabaseDiagnostic: Tempo de execução da consulta: ${endTime - startTime}ms`);
       
       // Registrar a resposta completa
       console.log('SupabaseDiagnostic: Resposta completa recebida:', { data, error });
+      
+      let rlsStatus = 'Parece não estar bloqueando o acesso';
       
       if (error) {
         console.error('SupabaseDiagnostic: Erro na consulta:', error.message);
@@ -69,18 +91,41 @@ const SupabaseDiagnostic = () => {
           postCount: 0,
           posts: [],
           queryTimestamp,
+          supabaseInfo: {
+            url: supabaseUrl,
+            hasAnonymousKey
+          },
+          rlsStatus: 'Não foi possível verificar (erro de consulta)'
+        });
+      } else if (!data || data.length === 0) {
+        console.log('SupabaseDiagnostic: Consulta bem-sucedida, mas nenhum post encontrado');
+        rlsStatus = 'Provavelmente bloqueando o acesso - Política RLS ausente ou restritiva';
+        
+        setDiagnosticData({
+          connectionStatus: 'success',
+          rawResponse: { data },
+          errorMessage: null,
+          postCount: 0,
+          posts: [],
+          queryTimestamp,
+          supabaseInfo: {
+            url: supabaseUrl,
+            hasAnonymousKey
+          },
+          rlsStatus
         });
       } else {
-        console.log(`SupabaseDiagnostic: Consulta bem-sucedida! ${data?.length || 0} posts encontrados`);
+        console.log(`SupabaseDiagnostic: Consulta bem-sucedida! ${data.length || 0} posts encontrados`);
+        console.log('SupabaseDiagnostic: Estrutura do primeiro post:', data[0]);
         
         // Mapear os posts recebidos
-        const mappedPosts = data?.map(post => ({
+        const mappedPosts = data.map(post => ({
           id: post.id,
           title: post.title || 'Sem título',
           slug: post.slug || `post-${post.id}`,
           created_at: post.created_at,
           ...post
-        })) || [];
+        }));
         
         console.log('SupabaseDiagnostic: Posts mapeados:', mappedPosts);
         
@@ -88,9 +133,14 @@ const SupabaseDiagnostic = () => {
           connectionStatus: 'success',
           rawResponse: { data },
           errorMessage: null,
-          postCount: data?.length || 0,
+          postCount: data.length || 0,
           posts: mappedPosts,
           queryTimestamp,
+          supabaseInfo: {
+            url: supabaseUrl,
+            hasAnonymousKey
+          },
+          rlsStatus
         });
       }
     } catch (err) {
@@ -102,6 +152,11 @@ const SupabaseDiagnostic = () => {
         postCount: 0,
         posts: [],
         queryTimestamp,
+        supabaseInfo: {
+          url: 'Não disponível devido a erro',
+          hasAnonymousKey: false
+        },
+        rlsStatus: 'Não foi possível verificar (erro de conexão)'
       });
     } finally {
       setIsLoading(false);
@@ -162,6 +217,16 @@ const SupabaseDiagnostic = () => {
       {isExpanded && (
         <div className="p-4 bg-white dark:bg-navy-dark">
           <div className="mb-4">
+            <h3 className="font-semibold text-navy-dark dark:text-white mb-2">Informações do Cliente:</h3>
+            <div className="bg-gray-50 dark:bg-navy-medium p-3 rounded-md">
+              <p className="text-sm text-gray-700 dark:text-gray-300">URL Supabase: {diagnosticData.supabaseInfo.url}</p>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                Chave anônima: {diagnosticData.supabaseInfo.hasAnonymousKey ? '✓ Disponível' : '✗ Não detectada'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="mb-4">
             <h3 className="font-semibold text-navy-dark dark:text-white mb-2">Status da Conexão:</h3>
             {diagnosticData.connectionStatus === 'success' ? (
               <Alert className="border-green-500 dark:border-green-700 bg-green-50 dark:bg-green-900/20">
@@ -197,9 +262,15 @@ const SupabaseDiagnostic = () => {
                 Posts encontrados: <strong>{diagnosticData.postCount}</strong>
               </p>
               
+              <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
+                Status RLS: <strong className={diagnosticData.postCount === 0 ? "text-red-600" : "text-green-600"}>
+                  {diagnosticData.rlsStatus}
+                </strong>
+              </p>
+              
               {diagnosticData.postCount > 0 ? (
                 <div className="mt-4">
-                  <h4 className="font-medium text-navy-dark dark:text-white mb-2">Títulos dos Posts Encontrados:</h4>
+                  <h4 className="font-medium text-navy-dark dark:text-white mb-2">Posts Encontrados:</h4>
                   <ul className="list-disc pl-5">
                     {diagnosticData.posts.map((post) => (
                       <li key={post.id} className="text-gray-700 dark:text-gray-300 mb-1">
@@ -212,7 +283,19 @@ const SupabaseDiagnostic = () => {
                 <Alert className="mt-2 border-amber-500 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-700">
                   <AlertTitle className="text-amber-800 dark:text-amber-300">Nenhum post encontrado</AlertTitle>
                   <AlertDescription className="text-amber-700 dark:text-amber-400">
-                    A consulta foi bem-sucedida, mas nenhum post foi encontrado na tabela blog_posts.
+                    <p>A consulta foi bem-sucedida, mas nenhum post foi encontrado na tabela blog_posts.</p>
+                    <p className="mt-2 font-semibold">Problema provável: Política RLS (Row Level Security) restritiva.</p>
+                    <div className="mt-2 p-2 bg-amber-100 dark:bg-amber-900/40 rounded text-xs">
+                      <p className="font-semibold">Para resolver:</p>
+                      <p>Execute no Editor SQL do Supabase a seguinte política para permitir acesso público de leitura:</p>
+                      <pre className="overflow-auto p-2 mt-1 bg-gray-100 dark:bg-gray-800 rounded">
+                        {`CREATE POLICY "Allow public read access to blog_posts"
+ON public.blog_posts
+FOR SELECT
+TO anon
+USING (true);`}
+                      </pre>
+                    </div>
                   </AlertDescription>
                 </Alert>
               ) : null}

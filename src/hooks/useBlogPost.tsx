@@ -32,7 +32,16 @@ export const useBlogPost = (slug: string | undefined) => {
         const safeSlug = sanitizeSlug(slug);
         console.log(`useBlogPost: Slug sanitizado para consulta: "${safeSlug}"`);
         
+        // Registrar URL do Supabase (mascarada)
+        console.log(`useBlogPost: Usando cliente Supabase para projeto em https://xdnfpoytpesnuzcfpajd.supabase.co`);
+        
+        // Verificar se tem credenciais antes de executar a consulta
+        if (!supabase.auth.getSession) {
+          console.error('useBlogPost: Cliente Supabase não possui método getSession');
+        }
+        
         // Consultar post por slug
+        console.log(`useBlogPost: Executando consulta: SELECT * FROM blog_posts WHERE slug ILIKE '${safeSlug}'`);
         const { data, error } = await supabase
           .from('blog_posts')
           .select('*')
@@ -49,7 +58,8 @@ export const useBlogPost = (slug: string | undefined) => {
           queryDuration: endTime.getTime() - startTime.getTime(),
           slugQueried: safeSlug,
           resultFound: !!data,
-          error: error ? error.message : null
+          error: error ? error.message : null,
+          rlsStatus: error && error.message.includes('permission denied') ? 'Bloqueado por RLS' : 'Sem bloqueio RLS detectado'
         };
         setDiagnosticInfo(diagnostics);
         
@@ -58,14 +68,34 @@ export const useBlogPost = (slug: string | undefined) => {
         
         if (error) {
           console.error(`useBlogPost: Erro ao buscar post com slug "${slug}":`, error.message);
-          setError(`Erro ao buscar post: ${error.message}`);
+          
+          // Verificar se o erro pode ser relacionado a RLS
+          if (error.message.includes('permission denied') || error.code === '42501') {
+            setError(`Erro de permissão ao buscar post: ${error.message}. Verifique as políticas RLS no Supabase.`);
+          } else {
+            setError(`Erro ao buscar post: ${error.message}`);
+          }
+          
           setPost(null);
           return;
         }
         
         if (!data) {
           console.error(`useBlogPost: Post com slug "${slug}" não encontrado`);
-          setError(`Post não encontrado: Nenhum post corresponde ao slug "${slug}"`);
+          
+          // Tentar buscar com uma consulta mais ampla para detectar problemas de RLS
+          const { count } = await supabase
+            .from('blog_posts')
+            .select('*', { count: 'exact', head: true });
+            
+          if (count === 0) {
+            console.log('useBlogPost: Tabela blog_posts parece estar vazia ou completamente bloqueada por RLS');
+            setError(`Post não encontrado: Tabela blog_posts parece estar vazia ou bloqueada por RLS`);
+          } else {
+            console.log(`useBlogPost: Tabela blog_posts contém ${count} posts, mas nenhum corresponde ao slug "${slug}"`);
+            setError(`Post não encontrado: Nenhum post corresponde ao slug "${slug}"`);
+          }
+          
           setPost(null);
           return;
         }
