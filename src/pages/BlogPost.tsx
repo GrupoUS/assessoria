@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost as BlogPostType } from '@/types/blog';
 import Navbar from '@/components/Navbar';
@@ -14,7 +14,6 @@ const BlogPost = () => {
   const [post, setPost] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -24,39 +23,32 @@ const BlogPost = () => {
         
         if (!slug) {
           console.error('Erro: Slug não fornecido');
-          toast({
-            title: "Erro",
-            description: "Não foi possível encontrar o artigo solicitado",
-            variant: "destructive"
-          });
-          setError('Slug não fornecido');
-          setIsLoading(false);
+          setError('URL inválida - artigo não especificado');
           return;
         }
 
         console.log('Buscando post com slug:', slug);
         
-        // Attempt to find the post using case-insensitive matching
+        // Normalize the slug for case-insensitive comparison
+        const normalizedSlug = slug.trim().toLowerCase();
+        
+        // First try with normalized slug
         const { data, error: queryError } = await supabase
           .from('blog_posts')
           .select('*')
-          .ilike('slug', slug)
+          .ilike('slug', normalizedSlug)
           .maybeSingle();
 
         if (queryError) {
           console.error('Erro Supabase:', queryError);
-          toast({
-            title: "Erro de banco de dados",
-            description: "Erro ao carregar o artigo. Por favor, tente novamente mais tarde.",
-            variant: "destructive"
-          });
           setError('Erro ao carregar o artigo. Por favor, tente novamente mais tarde.');
           return;
         }
 
-        // If no post found with ilike, try exact match
         if (!data) {
-          console.log('Tentativa com ilike falhou, buscando com eq exato:', slug);
+          console.log('Post não encontrado com slug normalizado:', normalizedSlug);
+          
+          // Try with exact match as fallback
           const { data: exactData, error: exactError } = await supabase
             .from('blog_posts')
             .select('*')
@@ -71,27 +63,26 @@ const BlogPost = () => {
             
           if (!exactData) {
             console.log('Post não encontrado com slug (tentativa exata):', slug);
-            // Try to find posts with similar slugs for debugging
-            const { data: similarPosts } = await supabase
+            
+            // Log available slugs for debugging
+            const { data: allPosts } = await supabase
               .from('blog_posts')
-              .select('slug')
-              .limit(5);
+              .select('slug, title')
+              .limit(10);
               
-            if (similarPosts && similarPosts.length > 0) {
-              console.log('Slugs disponíveis no banco:', similarPosts.map(p => p.slug));
+            if (allPosts && allPosts.length > 0) {
+              console.log('Slugs disponíveis no banco:', allPosts.map(p => ({ slug: p.slug, title: p.title })));
+            } else {
+              console.log('Nenhum post disponível no banco de dados.');
             }
             
-            toast({
-              title: "Artigo não encontrado",
-              description: "O artigo que você está procurando não existe ou foi removido.",
-              variant: "destructive"
-            });
-            setError('Post não encontrado');
+            setError('Artigo não encontrado. Este artigo pode ter sido removido ou não existe.');
             return;
           }
           
-          // Usar o resultado da busca exata
+          // Use o resultado da busca exata
           console.log('Post encontrado com correspondência exata:', exactData);
+          
           const post: BlogPostType = {
             id: exactData.id,
             title: exactData.title,
@@ -127,12 +118,7 @@ const BlogPost = () => {
         setPost(post);
       } catch (err) {
         console.error('Erro ao buscar post:', err);
-        toast({
-          title: "Erro inesperado",
-          description: "Houve um erro ao buscar o artigo. Por favor, tente novamente.",
-          variant: "destructive"
-        });
-        setError('Erro ao buscar o post');
+        setError('Erro ao buscar o artigo. Por favor, tente novamente.');
       } finally {
         setIsLoading(false);
       }

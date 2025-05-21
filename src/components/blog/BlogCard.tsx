@@ -23,8 +23,8 @@ const BlogCard = ({
 }: BlogCardProps) => {
   const fallbackImage = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
   
-  // Garantir que o slug seja válido
-  const safeSlug = slug ? slug.trim() : '';
+  // Garantir que o slug seja válido e normalizado
+  const safeSlug = slug ? slug.trim().toLowerCase() : '';
   
   console.log(`BlogCard: Renderizando card com título "${title}" e slug "${safeSlug}"`);
   

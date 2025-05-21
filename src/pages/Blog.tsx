@@ -6,6 +6,7 @@ import BlogSidebar from '@/components/blog/BlogSidebar';
 import BlogLoading from '@/components/blog/BlogLoading';
 import { useBlogData } from '@/hooks/useBlogData';
 import Navbar from '@/components/Navbar';
+import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const { featuredPosts, recentPosts, categories, isLoading } = useBlogData();
@@ -17,6 +18,8 @@ const Blog = () => {
   if (isLoading) {
     return <BlogLoading />;
   }
+
+  const hasNoPosts = featuredPosts.length === 0 && recentPosts.length === 0;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-darkest transition-colors duration-300">
@@ -33,26 +36,44 @@ const Blog = () => {
 
       {/* Conteúdo principal do blog */}
       <div className="container mx-auto px-6 py-12">
-        <div className="flex flex-col-reverse lg:flex-row gap-12">
-          {/* Área principal com os posts */}
-          <div className="lg:w-2/3">
-            <FeaturedPosts posts={featuredPosts} />
-            
-            <div>
-              <h2 className="text-3xl font-bold mb-6 text-navy-dark dark:text-white border-b border-gray-200 dark:border-navy-medium pb-2 transition-colors">Artigos Recentes</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {recentPosts.map((post, index) => (
-                  <div key={post.id || index} className="hover-card-effect">
-                    <BlogCard {...post} />
-                  </div>
-                ))}
-              </div>
-            </div>
+        {hasNoPosts ? (
+          <div className="text-center py-16">
+            <h2 className="text-2xl font-bold mb-4 text-navy-dark dark:text-white">
+              Nenhum artigo encontrado
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              Não há artigos disponíveis no momento. Novos conteúdos serão publicados em breve.
+            </p>
+            <Link to="/" className="px-6 py-3 bg-gold text-white font-medium rounded-md hover:bg-gold-dark transition-colors">
+              Voltar para a Página Inicial
+            </Link>
           </div>
-          
-          {/* Sidebar com categorias e outros widgets */}
-          <BlogSidebar categories={categories} />
-        </div>
+        ) : (
+          <div className="flex flex-col-reverse lg:flex-row gap-12">
+            {/* Área principal com os posts */}
+            <div className="lg:w-2/3">
+              {featuredPosts.length > 0 && <FeaturedPosts posts={featuredPosts} />}
+              
+              {recentPosts.length > 0 && (
+                <div>
+                  <h2 className="text-3xl font-bold mb-6 text-navy-dark dark:text-white border-b border-gray-200 dark:border-navy-medium pb-2 transition-colors">
+                    Artigos Recentes
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {recentPosts.map((post, index) => (
+                      <div key={post.id || index} className="hover-card-effect">
+                        <BlogCard {...post} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            {/* Sidebar com categorias e outros widgets */}
+            <BlogSidebar categories={categories} />
+          </div>
+        )}
       </div>
     </div>
   );
