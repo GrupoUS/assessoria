@@ -33,3 +33,21 @@ html:not(.dark) * {
 .animate-bounce {
   transition-property: none;
 }
+
+/* Efeitos especiais para botões no tema escuro */
+.dark .glow-effect {
+  box-shadow: 0 0 15px rgba(119, 141, 169, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.dark .glow-effect:hover {
+  box-shadow: 0 0 20px rgba(119, 141, 169, 0.7);
+}
+
+/* Efeito de vidro para componentes */
+.dark .glass-effect {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(27, 38, 59, 0.3);
+  border: 1px solid rgba(119, 141, 169, 0.3);
+}

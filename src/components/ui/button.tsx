@@ -10,15 +10,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[#588157] text-white hover:bg-[#4e7048]",
+        default: "bg-[#588157] text-white hover:bg-[#4e7048] dark:bg-navy-medium dark:hover:bg-navy-light",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground dark:border-navy-light dark:hover:bg-navy-dark dark:hover:text-white",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:bg-navy-light/20 dark:text-navy-lightest dark:hover:bg-navy-light/30",
+        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-navy-dark dark:hover:text-navy-lightest",
+        link: "text-primary underline-offset-4 hover:underline dark:text-navy-light dark:hover:text-white",
+        // New variants for dark mode
+        accent: "bg-navy-light text-white hover:bg-navy-medium dark:bg-navy-light dark:hover:bg-navy-light/80",
+        subtle: "bg-navy-lightest/10 text-navy-lightest hover:bg-navy-lightest/20 dark:bg-navy-light/10 dark:text-navy-lightest dark:hover:bg-navy-light/20",
+        glass: "backdrop-blur-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 dark:bg-navy-dark/30 dark:border-navy-light/30 dark:hover:bg-navy-dark/50",
+        glow: "bg-navy-dark text-white hover:bg-navy-medium dark:bg-navy-dark dark:hover:bg-navy-medium dark:shadow-[0_0_15px_rgba(119,141,169,0.5)] dark:hover:shadow-[0_0_20px_rgba(119,141,169,0.7)]",
       },
       size: {
         default: "h-10 px-4 py-2",
