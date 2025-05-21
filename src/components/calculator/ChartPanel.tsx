@@ -15,6 +15,10 @@ interface ChartPanelProps {
 const ChartPanel = ({ chartData }: ChartPanelProps) => {
   const isDarkMode = document.documentElement.classList.contains('dark');
   
+  // Definindo a cor azul clara para melhor contraste no modo escuro
+  const brightBlue = "#1EAEDB";
+  const lightBrightBlue = "#33C3F0"; // Versão mais clara para as linhas de grade
+  
   return (
     <div className="w-full">
       <div className="bg-white dark:bg-navy-dark p-6 rounded-lg shadow h-full transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl">
@@ -30,12 +34,16 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                 bottom: 5,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#415A77' : '#E0E1DD'} />
+              <CartesianGrid 
+                strokeDasharray="3 3" 
+                stroke={isDarkMode ? lightBrightBlue : '#E0E1DD'} 
+              />
               <XAxis 
                 dataKey="year" 
                 name="Ano"
                 label={{ value: 'Anos', position: 'insideBottomRight', offset: -5 }}
-                stroke={isDarkMode ? '#E0E1DD' : '#0F2A4A'}
+                stroke={isDarkMode ? brightBlue : '#0F2A4A'}
+                tick={{ fill: isDarkMode ? brightBlue : '#0F2A4A' }}
               />
               <YAxis 
                 tickFormatter={(value) => `${Math.round(value / 1000)}k`}
@@ -44,9 +52,10 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                   angle: -90, 
                   position: 'insideLeft',
                   offset: -35, // Deslocando mais o rótulo para evitar sobreposição
-                  style: { textAnchor: 'middle' }
+                  style: { textAnchor: 'middle', fill: isDarkMode ? brightBlue : '#0F2A4A' }
                 }}
-                stroke={isDarkMode ? '#E0E1DD' : '#0F2A4A'}
+                stroke={isDarkMode ? brightBlue : '#0F2A4A'}
+                tick={{ fill: isDarkMode ? brightBlue : '#0F2A4A' }}
               />
               <Tooltip 
                 formatter={(value) => formatCurrency(Number(value))}
@@ -71,7 +80,7 @@ const ChartPanel = ({ chartData }: ChartPanelProps) => {
                 type="monotone" 
                 dataKey="balance" 
                 name="Patrimônio Total" 
-                stroke={isDarkMode ? '#1EAEDB' : '#0F2A4A'} 
+                stroke={isDarkMode ? brightBlue : '#0F2A4A'} 
                 strokeWidth={2} 
                 dot={false}
                 activeDot={{ r: 8 }}
