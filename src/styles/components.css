@@ -1,0 +1,25 @@
+
+.gold-gradient {
+  background: linear-gradient(to right, #778DA9, #E0E1DD, #778DA9, #E0E1DD, #778DA9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-primary {
+  @apply bg-[#588157] hover:bg-[#4e7048] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-center;
+}
+
+.section-padding {
+  @apply py-16 md:py-20 px-6 md:px-8 max-w-7xl mx-auto;
+}
+
+/* Card transitions */
+.card, .benefit-card {
+  @apply transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
+}
+
+/* Efeito de hover consistente para cards */
+.hover-card-effect {
+  @apply transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg;
+}
