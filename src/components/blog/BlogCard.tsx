@@ -45,16 +45,26 @@ const BlogCard = ({
   function sanitizeSlug(inputSlug: string): string {
     if (!inputSlug) return `post-${id}`;
     
+    console.log(`BlogCard: Sanitizando slug original: "${inputSlug}" para post "${title}"`);
+    
     let cleanSlug = inputSlug.trim().toLowerCase();
     cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
     cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
     cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
     
-    return cleanSlug || `post-${id}`;
+    const finalSlug = cleanSlug || `post-${id}`;
+    console.log(`BlogCard: Slug sanitizado: "${finalSlug}" para post "${title}"`);
+    
+    return finalSlug;
   }
   
   return (
-    <Link to={`/blog/${safeSlug}`} className="block h-full" data-testid={`blog-card-${id}`}>
+    <Link 
+      to={`/blog/${safeSlug}`} 
+      className="block h-full" 
+      data-testid={`blog-card-${id}`}
+      onClick={() => console.log(`BlogCard: Clique no card do post "${title}" com slug "${safeSlug}"`)}
+    >
       <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:translate-y-1 h-full flex flex-col">
         <div className="h-48 overflow-hidden">
           <img 

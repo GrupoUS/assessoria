@@ -8,6 +8,7 @@ import { useBlogData } from '@/hooks/useBlogData';
 import Navbar from '@/components/Navbar';
 import { Link } from 'react-router-dom';
 import { RefreshCcw } from 'lucide-react';
+import SupabaseDiagnostic from '@/components/blog/SupabaseDiagnostic';
 
 const Blog = () => {
   const { featuredPosts, recentPosts, categories, isLoading, lastFetchTime, refreshData } = useBlogData();
@@ -46,6 +47,9 @@ const Blog = () => {
 
       {/* Conteúdo principal do blog */}
       <div className="container mx-auto px-6 py-12">
+        {/* Componente de diagnóstico Supabase */}
+        <SupabaseDiagnostic />
+        
         {/* Barra de informações e atualização */}
         <div className="flex justify-between items-center mb-6">
           <span className="text-sm text-gray-500">

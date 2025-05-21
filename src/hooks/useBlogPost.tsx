@@ -6,105 +6,94 @@ import { toast } from '@/components/ui/use-toast';
 
 export const useBlogPost = (slug: string | undefined) => {
   const [post, setPost] = useState<BlogPost | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [diagnosticInfo, setDiagnosticInfo] = useState<any>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
+      if (!slug) {
+        setError('Slug não fornecido');
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
         setError(null);
         
-        if (!slug) {
-          console.error('Erro: Slug não fornecido');
-          setError('URL inválida - artigo não especificado');
-          return;
-        }
-
-        console.log('Buscando post com slug:', slug);
+        console.log(`useBlogPost: Buscando post com slug: "${slug}"`);
+        console.log('useBlogPost: URL do Supabase:', supabase.supabaseUrl);
+        console.log('useBlogPost: Cliente Supabase inicializado:', !!supabase);
         
-        // Sanitização do slug para evitar problemas
-        const normalizedSlug = sanitizeSlug(slug);
-        console.log('Slug normalizado para busca:', normalizedSlug);
+        const startTime = new Date();
+        console.log(`useBlogPost: Horário de início da consulta: ${startTime.toISOString()}`);
         
-        // Primeiro tenta com o método ilike para busca insensível a case
-        const { data, error: queryError } = await supabase
+        // Sanitizar o slug para a consulta
+        const safeSlug = sanitizeSlug(slug);
+        console.log(`useBlogPost: Slug sanitizado para consulta: "${safeSlug}"`);
+        
+        // Consultar post por slug
+        const { data, error } = await supabase
           .from('blog_posts')
           .select('*')
-          .ilike('slug', normalizedSlug)
-          .maybeSingle();
-
-        if (queryError) {
-          console.error('Erro Supabase:', queryError);
-          setError('Erro ao carregar o artigo. Por favor, tente novamente mais tarde.');
-          return;
-        }
-
-        if (!data) {
-          console.log('Post não encontrado com slug normalizado:', normalizedSlug);
-          
-          // Tenta busca exata como fallback
-          const { data: exactData, error: exactError } = await supabase
-            .from('blog_posts')
-            .select('*')
-            .eq('slug', slug)
-            .maybeSingle();
-            
-          if (exactError) {
-            console.error('Erro na busca exata:', exactError);
-            setError('Erro ao carregar o artigo.');
-            return;
-          }
-          
-          // Tenta busca usando like com % para ser mais flexível
-          if (!exactData) {
-            console.log('Post não encontrado com slug (tentativa exata):', slug);
-            
-            const { data: likeData, error: likeError } = await supabase
-              .from('blog_posts')
-              .select('*')
-              .like('slug', `%${normalizedSlug}%`)
-              .maybeSingle();
-              
-            if (likeError) {
-              console.error('Erro na busca com like:', likeError);
-              setError('Erro ao carregar o artigo.');
-              return;
-            }
-            
-            if (!likeData) {
-              // Log para debug dos slugs disponíveis
-              const { data: allPosts } = await supabase
-                .from('blog_posts')
-                .select('slug, title')
-                .limit(10);
-                
-              if (allPosts && allPosts.length > 0) {
-                console.log('Slugs disponíveis no banco:', allPosts.map(p => ({ slug: p.slug, title: p.title })));
-              } else {
-                console.log('Nenhum post disponível no banco de dados.');
-              }
-              
-              setError('Artigo não encontrado. Este artigo pode ter sido removido ou não existe.');
-              return;
-            }
-            
-            console.log('Post encontrado com busca parcial:', likeData);
-            setPost(mapToPostModel(likeData));
-            return;
-          }
-          
-          // Usa o resultado da busca exata
-          console.log('Post encontrado com correspondência exata:', exactData);
-          setPost(mapToPostModel(exactData));
+          .ilike('slug', safeSlug)
+          .single();
+        
+        const endTime = new Date();
+        console.log(`useBlogPost: Horário de término da consulta: ${endTime.toISOString()}`);
+        console.log(`useBlogPost: Tempo da consulta: ${endTime.getTime() - startTime.getTime()}ms`);
+        
+        const diagnostics = {
+          queryStart: startTime.toISOString(),
+          queryEnd: endTime.toISOString(),
+          queryDuration: endTime.getTime() - startTime.getTime(),
+          slugQueried: safeSlug,
+          resultFound: !!data,
+          error: error ? error.message : null
+        };
+        setDiagnosticInfo(diagnostics);
+        
+        // Registrar resposta completa
+        console.log('useBlogPost: Resposta completa da consulta:', { data, error });
+        
+        if (error) {
+          console.error(`useBlogPost: Erro ao buscar post com slug "${slug}":`, error.message);
+          setError(`Erro ao buscar post: ${error.message}`);
+          setPost(null);
           return;
         }
         
-        console.log('Post encontrado:', data);
-        setPost(mapToPostModel(data));
+        if (!data) {
+          console.error(`useBlogPost: Post com slug "${slug}" não encontrado`);
+          setError(`Post não encontrado: Nenhum post corresponde ao slug "${slug}"`);
+          setPost(null);
+          return;
+        }
+        
+        console.log(`useBlogPost: Post encontrado:`, data);
+        
+        // Mapear o post para o modelo
+        const mappedPost: BlogPost = {
+          id: data.id || '',
+          title: data.title || 'Sem título',
+          slug: data.slug || `post-${data.id}`,
+          excerpt: data.excerpt || 'Sem descrição disponível',
+          content: data.content || '',
+          category: data.category || 'Geral',
+          date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
+          imageUrl: data.imageurl || '',
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+        
+        console.log(`useBlogPost: Post mapeado para o modelo:`, mappedPost);
+        setPost(mappedPost);
+
       } catch (err) {
-        console.error('Erro ao buscar post:', err);
-        setError('Erro ao buscar o artigo. Por favor, tente novamente.');
+        console.error(`useBlogPost: Exceção ao buscar post com slug "${slug}":`, err);
+        setError(`Ocorreu um erro ao buscar o post: ${err instanceof Error ? err.message : String(err)}`);
+        setPost(null);
       } finally {
         setIsLoading(false);
       }
@@ -113,37 +102,19 @@ export const useBlogPost = (slug: string | undefined) => {
     fetchPost();
   }, [slug]);
 
-  // Função para sanitizar slugs
-  const sanitizeSlug = (rawSlug: string): string => {
-    let cleanSlug = rawSlug.trim().toLowerCase();
+  // Função para sanitizar o slug
+  const sanitizeSlug = (inputSlug: string): string => {
+    console.log(`useBlogPost: Sanitizando slug: "${inputSlug}"`);
     
-    // Remover caracteres especiais e substituir espaços por hífens
+    let cleanSlug = inputSlug.trim().toLowerCase();
+    // Remover caracteres especiais e espaços extras
     cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
-    
-    // Remover hífens duplicados
     cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
-    
-    // Remover hífens no início e fim
     cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
     
-    return cleanSlug;
+    console.log(`useBlogPost: Slug sanitizado: "${cleanSlug}"`);
+    return cleanSlug || inputSlug; // Fallback para o slug original se a sanitização resultar em string vazia
   };
 
-  // Função para mapear dados do Supabase para o modelo BlogPost
-  const mapToPostModel = (data: any): BlogPost => {
-    return {
-      id: data.id || '',
-      title: data.title || 'Sem título',
-      slug: data.slug || '',
-      excerpt: data.excerpt || '',
-      content: data.content || 'Conteúdo não disponível',
-      category: data.category || 'Geral',
-      date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
-      imageUrl: data.imageurl || '',
-      created_at: data.created_at || new Date().toISOString(),
-      updated_at: data.updated_at || new Date().toISOString()
-    };
-  };
-
-  return { post, isLoading, error };
+  return { post, isLoading, error, diagnosticInfo };
 };
