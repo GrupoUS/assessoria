@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
+import { toast } from '@/components/ui/use-toast';
 
 export const useBlogPost = (slug: string | undefined) => {
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -22,10 +23,11 @@ export const useBlogPost = (slug: string | undefined) => {
 
         console.log('Buscando post com slug:', slug);
         
-        // Normalize the slug for case-insensitive comparison
-        const normalizedSlug = slug.trim().toLowerCase();
+        // Sanitização do slug para evitar problemas
+        const normalizedSlug = sanitizeSlug(slug);
+        console.log('Slug normalizado para busca:', normalizedSlug);
         
-        // First try with normalized slug
+        // Primeiro tenta com o método ilike para busca insensível a case
         const { data, error: queryError } = await supabase
           .from('blog_posts')
           .select('*')
@@ -41,7 +43,7 @@ export const useBlogPost = (slug: string | undefined) => {
         if (!data) {
           console.log('Post não encontrado com slug normalizado:', normalizedSlug);
           
-          // Try with exact match as fallback
+          // Tenta busca exata como fallback
           const { data: exactData, error: exactError } = await supabase
             .from('blog_posts')
             .select('*')
@@ -53,62 +55,53 @@ export const useBlogPost = (slug: string | undefined) => {
             setError('Erro ao carregar o artigo.');
             return;
           }
-            
+          
+          // Tenta busca usando like com % para ser mais flexível
           if (!exactData) {
             console.log('Post não encontrado com slug (tentativa exata):', slug);
             
-            // Log available slugs for debugging
-            const { data: allPosts } = await supabase
+            const { data: likeData, error: likeError } = await supabase
               .from('blog_posts')
-              .select('slug, title')
-              .limit(10);
+              .select('*')
+              .like('slug', `%${normalizedSlug}%`)
+              .maybeSingle();
               
-            if (allPosts && allPosts.length > 0) {
-              console.log('Slugs disponíveis no banco:', allPosts.map(p => ({ slug: p.slug, title: p.title })));
-            } else {
-              console.log('Nenhum post disponível no banco de dados.');
+            if (likeError) {
+              console.error('Erro na busca com like:', likeError);
+              setError('Erro ao carregar o artigo.');
+              return;
             }
             
-            setError('Artigo não encontrado. Este artigo pode ter sido removido ou não existe.');
+            if (!likeData) {
+              // Log para debug dos slugs disponíveis
+              const { data: allPosts } = await supabase
+                .from('blog_posts')
+                .select('slug, title')
+                .limit(10);
+                
+              if (allPosts && allPosts.length > 0) {
+                console.log('Slugs disponíveis no banco:', allPosts.map(p => ({ slug: p.slug, title: p.title })));
+              } else {
+                console.log('Nenhum post disponível no banco de dados.');
+              }
+              
+              setError('Artigo não encontrado. Este artigo pode ter sido removido ou não existe.');
+              return;
+            }
+            
+            console.log('Post encontrado com busca parcial:', likeData);
+            setPost(mapToPostModel(likeData));
             return;
           }
           
-          // Use o resultado da busca exata
+          // Usa o resultado da busca exata
           console.log('Post encontrado com correspondência exata:', exactData);
-          
-          const post: BlogPost = {
-            id: exactData.id,
-            title: exactData.title,
-            slug: exactData.slug,
-            excerpt: exactData.excerpt || '',
-            content: exactData.content || '',
-            category: exactData.category || 'Geral',
-            date: exactData.date || new Date(exactData.created_at).toLocaleDateString('pt-BR'),
-            imageUrl: exactData.imageurl || '',
-            created_at: exactData.created_at,
-            updated_at: exactData.updated_at
-          };
-          
-          setPost(post);
+          setPost(mapToPostModel(exactData));
           return;
         }
         
         console.log('Post encontrado:', data);
-        // Map the data to our BlogPost type
-        const post: BlogPost = {
-          id: data.id,
-          title: data.title,
-          slug: data.slug,
-          excerpt: data.excerpt || '',
-          content: data.content || '',
-          category: data.category || 'Geral',
-          date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
-          imageUrl: data.imageurl || '',
-          created_at: data.created_at,
-          updated_at: data.updated_at
-        };
-        
-        setPost(post);
+        setPost(mapToPostModel(data));
       } catch (err) {
         console.error('Erro ao buscar post:', err);
         setError('Erro ao buscar o artigo. Por favor, tente novamente.');
@@ -119,6 +112,38 @@ export const useBlogPost = (slug: string | undefined) => {
 
     fetchPost();
   }, [slug]);
+
+  // Função para sanitizar slugs
+  const sanitizeSlug = (rawSlug: string): string => {
+    let cleanSlug = rawSlug.trim().toLowerCase();
+    
+    // Remover caracteres especiais e substituir espaços por hífens
+    cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
+    
+    // Remover hífens duplicados
+    cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
+    
+    // Remover hífens no início e fim
+    cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
+    
+    return cleanSlug;
+  };
+
+  // Função para mapear dados do Supabase para o modelo BlogPost
+  const mapToPostModel = (data: any): BlogPost => {
+    return {
+      id: data.id || '',
+      title: data.title || 'Sem título',
+      slug: data.slug || '',
+      excerpt: data.excerpt || '',
+      content: data.content || 'Conteúdo não disponível',
+      category: data.category || 'Geral',
+      date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
+      imageUrl: data.imageurl || '',
+      created_at: data.created_at || new Date().toISOString(),
+      updated_at: data.updated_at || new Date().toISOString()
+    };
+  };
 
   return { post, isLoading, error };
 };
