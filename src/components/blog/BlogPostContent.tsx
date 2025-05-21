@@ -14,12 +14,35 @@ const BlogPostContent = ({
   publicationDate = "", 
   author = "Maurício Magalhães" 
 }: BlogPostContentProps) => {
-  // Helper function to format content with proper HTML rendering
+  // Enhanced function to format content with proper HTML rendering and handling of escape sequences
   const formatContent = (content: string): { __html: string } => {
     if (!content) return { __html: '' };
     
-    // We'll use dangerouslySetInnerHTML to properly render HTML content
-    return { __html: content };
+    try {
+      // Pre-process the content to handle escape sequences and unwanted characters
+      let processedContent = content
+        // Replace literal \n with proper line breaks (if needed)
+        .replace(/\\n/g, '\n')
+        // Replace multiple newlines with proper paragraph breaks
+        .replace(/\n{2,}/g, '</p><p>')
+        // Replace single newlines with line breaks
+        .replace(/\n/g, '<br />')
+        // Remove stray backslashes that aren't part of HTML entities
+        .replace(/\\(?![a-zA-Z#0-9]+;)/g, '')
+        // Fix any malformed HTML that might have been introduced
+        .replace(/<\/p><p><\/p><p>/g, '</p><p>')
+        .replace(/<p><\/p>/g, '<p>&nbsp;</p>');
+
+      // If the content doesn't start with a block element, wrap it in a paragraph
+      if (!processedContent.trim().startsWith('<')) {
+        processedContent = `<p>${processedContent}</p>`;
+      }
+      
+      return { __html: processedContent };
+    } catch (error) {
+      console.error("Error processing content:", error);
+      return { __html: content || '' }; // Fallback to original content if processing fails
+    }
   };
 
   // Helper function to safely format date for datetime attribute
@@ -64,7 +87,7 @@ const BlogPostContent = ({
             )}
           </header>
           
-          <div className="prose prose-lg dark:prose-invert max-w-none">
+          <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:mb-6 prose-p:mb-4 prose-p:leading-relaxed prose-h2:mt-10 prose-h3:mt-8 prose-li:mb-2">
             <div dangerouslySetInnerHTML={formatContent(content)} />
           </div>
           
