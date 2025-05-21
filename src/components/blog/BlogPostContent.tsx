@@ -22,13 +22,36 @@ const BlogPostContent = ({
     return { __html: content };
   };
 
+  // Helper function to safely format date for datetime attribute
+  const formatDateTimeAttribute = (dateString: string): string => {
+    if (!dateString) return '';
+    
+    try {
+      // Try to parse the date string
+      const date = new Date(dateString);
+      
+      // Check if date is valid before calling toISOString()
+      if (!isNaN(date.getTime())) {
+        return date.toISOString();
+      }
+      
+      return '';
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return '';
+    }
+  };
+
   return (
     <div className="container mx-auto px-6 mt-16">
       <div className="max-w-4xl mx-auto">
         <article className="bg-white dark:bg-navy-dark shadow-md rounded-lg p-8 md:p-10">
           <header className="mb-8">
             {publicationDate && (
-              <time dateTime={new Date(publicationDate).toISOString()} className="text-sm text-gray-500 dark:text-gray-400 mb-2 block">
+              <time 
+                dateTime={formatDateTimeAttribute(publicationDate)} 
+                className="text-sm text-gray-500 dark:text-gray-400 mb-2 block"
+              >
                 {publicationDate}
               </time>
             )}
