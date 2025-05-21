@@ -8,8 +8,7 @@ interface BlogCardProps {
   date: string; 
   category: string; 
   imageUrl: string; 
-  slug: string; 
-  id: string;
+  slug: string;
 }
 
 const BlogCard = ({ 
@@ -18,13 +17,12 @@ const BlogCard = ({
   date, 
   category, 
   imageUrl, 
-  slug,
-  id
+  slug
 }: BlogCardProps) => {
   const fallbackImage = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
   
   // Garantir que o slug seja válido e normalizado
-  const safeSlug = sanitizeSlug(slug || id);
+  const safeSlug = sanitizeSlug(slug || title);
   
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
@@ -34,7 +32,7 @@ const BlogCard = ({
   
   // Verifica se o post tem dados válidos
   if (!title) {
-    console.warn(`BlogCard: Card com id "${id}" tem título vazio ou inválido.`);
+    console.warn(`BlogCard: Card com slug "${slug}" tem título vazio ou inválido.`);
   }
   
   if (!safeSlug) {
@@ -43,18 +41,14 @@ const BlogCard = ({
   
   // Função para sanitizar slugs
   function sanitizeSlug(inputSlug: string): string {
-    if (!inputSlug) return `post-${id}`;
-    
-    console.log(`BlogCard: Sanitizando slug original: "${inputSlug}" para post "${title}"`);
+    if (!inputSlug) return `post-sem-titulo`;
     
     let cleanSlug = inputSlug.trim().toLowerCase();
     cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
     cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
     cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
     
-    const finalSlug = cleanSlug || `post-${id}`;
-    console.log(`BlogCard: Slug sanitizado: "${finalSlug}" para post "${title}"`);
-    
+    const finalSlug = cleanSlug || `post-sem-slug`;
     return finalSlug;
   }
   
@@ -62,7 +56,7 @@ const BlogCard = ({
     <Link 
       to={`/blog/${safeSlug}`} 
       className="block h-full" 
-      data-testid={`blog-card-${id}`}
+      data-testid={`blog-card-${safeSlug}`}
       onClick={() => console.log(`BlogCard: Clique no card do post "${title}" com slug "${safeSlug}"`)}
     >
       <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:translate-y-1 h-full flex flex-col">

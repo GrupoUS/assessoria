@@ -18,11 +18,11 @@ export const fetchPosts = async (): Promise<BlogPost[]> => {
   }
   
   try {
-    console.log('blogService: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC');
+    console.log('blogService: Executando consulta: SELECT * FROM blog_posts ORDER BY date DESC');
     const { data: posts, error } = await supabase
       .from('blog_posts')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('date', { ascending: false });
     
     console.log('blogService: Resposta completa da consulta:', { posts, error });
     
@@ -65,7 +65,7 @@ export const fetchPosts = async (): Promise<BlogPost[]> => {
       return [];
     }
     
-    console.log(`blogService: Encontrados ${posts.length} posts no banco de dados`, posts);
+    console.log(`blogService: Encontrados ${posts.length} posts no banco de dados`);
     return mapPostsToModel(posts);
   } catch (err) {
     console.error('blogService: Exceção ao buscar posts:', err);
@@ -88,7 +88,7 @@ export const generateDiagnosticInfo = (
     queryEnd: endTime.toISOString(),
     queryDuration: endTime.getTime() - startTime.getTime(),
     postsCount: posts.length,
-    postsIds: posts.map(p => p.id),
+    postsSlugs: posts.map(p => p.slug),
     rlsStatus: posts.length === 0 ? 'Possível bloqueio RLS' : 'RLS permitindo acesso',
     error: error ? String(error) : null
   };

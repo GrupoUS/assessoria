@@ -6,7 +6,7 @@ export interface DiagnosticInfo {
   queryEnd: string;
   queryDuration: number;
   postsCount?: number;
-  postsIds?: string[];
+  postsSlugs?: string[];
   rlsStatus?: string;
   slugQueried?: string;
   resultFound?: boolean;

@@ -15,7 +15,7 @@ const FeaturedPosts = ({ posts }: FeaturedPostsProps) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post, index) => (
-          <div key={post.id || index} className="h-full hover-card-effect">
+          <div key={post.slug || `post-${index}`} className="h-full hover-card-effect">
             <BlogCard {...post} />
           </div>
         ))}

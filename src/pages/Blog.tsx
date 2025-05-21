@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import BlogCard from '@/components/blog/BlogCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
@@ -15,8 +14,8 @@ const Blog = () => {
   
   useEffect(() => {
     console.log("Blog: Componente Blog montado");
-    console.log("Blog: Posts em destaque:", featuredPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
-    console.log("Blog: Posts recentes:", recentPosts.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
+    console.log("Blog: Posts em destaque:", featuredPosts.map(p => ({ title: p.title, slug: p.slug })));
+    console.log("Blog: Posts recentes:", recentPosts.map(p => ({ title: p.title, slug: p.slug })));
   }, [featuredPosts, recentPosts]);
 
   const handleRefresh = async (e: React.MouseEvent) => {

@@ -14,11 +14,11 @@ export const distributePosts = (posts: BlogPost[]): {
   
   // Define featured posts (first 3)
   const featured = posts.slice(0, 3);
-  console.log('blogDataProcessor: Posts destacados:', featured.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
+  console.log('blogDataProcessor: Posts destacados:', featured.map(p => ({ title: p.title, slug: p.slug })));
   
   // Define recent posts (next 3 after featured)
   const recent = posts.slice(3, 6);
-  console.log('blogDataProcessor: Posts recentes:', recent.map(p => ({ id: p.id, title: p.title, slug: p.slug })));
+  console.log('blogDataProcessor: Posts recentes:', recent.map(p => ({ title: p.title, slug: p.slug })));
   
   // Extract unique categories
   const uniqueCategories = [...new Set(posts.map(post => post.category).filter(Boolean))];

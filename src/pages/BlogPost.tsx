@@ -51,16 +51,12 @@ const BlogPost = () => {
         "url": "https://www.mauriciomagalhaes.com.br/logo.png" 
       }
     },
-    "datePublished": post.created_at,
-    "dateModified": post.updated_at
+    "datePublished": post.date,
+    "dateModified": post.date // Agora usando date para ambas as datas
   };
 
-  // Formatar a data para exibição
-  const formattedDate = post.date || new Date(post.created_at).toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  });
+  // Formatar a data para exibição (já vem formatada do banco)
+  const formattedDate = post.date;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-darkest transition-colors duration-300">

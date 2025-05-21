@@ -78,21 +78,18 @@ export const useBlogPost = (slug: string | undefined) => {
         }
         
         if (isDev) {
-          console.log(`useBlogPost: Post encontrado com ID: ${data.id}`);
+          console.log(`useBlogPost: Post encontrado com slug: ${data.slug}`);
         }
         
         // Mapear o post para o modelo
         const mappedPost: BlogPost = {
-          id: data.id || '',
+          slug: data.slug || sanitizeSlug(data.title || 'post-sem-titulo'),
           title: data.title || 'Sem título',
-          slug: data.slug || `post-${data.id}`,
           excerpt: data.excerpt || 'Sem descrição disponível',
           content: data.content || '',
           category: data.category || 'Geral',
-          date: data.date || new Date(data.created_at).toLocaleDateString('pt-BR'),
-          imageUrl: data.imageurl || '',
-          created_at: data.created_at || new Date().toISOString(),
-          updated_at: data.updated_at || new Date().toISOString()
+          date: data.date || new Date().toLocaleDateString('pt-BR'),
+          imageUrl: data.imageurl || ''
         };
         
         setPost(mappedPost);
