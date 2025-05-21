@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogPost } from '@/types/blog';
@@ -209,7 +210,7 @@ export const useBlogData = () => {
     toast({
       title: "Informação",
       description: "Nenhum artigo encontrado. Isso pode ser devido à política RLS do Supabase. Verifique as configurações.",
-      variant: "warning"
+      variant: "default" // Changed from "warning" to "default"
     });
   };
 

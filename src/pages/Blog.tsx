@@ -8,6 +8,7 @@ import { useBlogData } from '@/hooks/useBlogData';
 import Navbar from '@/components/Navbar';
 import { Link } from 'react-router-dom';
 import { RefreshCcw } from 'lucide-react';
+// Import is kept but component won't be used
 import SupabaseDiagnostic from '@/components/blog/SupabaseDiagnostic';
 
 const Blog = () => {
@@ -47,17 +48,16 @@ const Blog = () => {
 
       {/* Conteúdo principal do blog */}
       <div className="container mx-auto px-6 py-12">
-        {/* Componente de diagnóstico Supabase */}
-        <SupabaseDiagnostic />
+        {/* Componente de diagnóstico Supabase removido */}
         
         {/* Barra de informações e atualização */}
         <div className="flex justify-between items-center mb-6">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             {lastFetchTime && `Última atualização: ${formattedLastUpdate}`}
           </span>
           <button 
             onClick={handleRefresh} 
-            className="flex items-center gap-2 text-sm text-navy-medium hover:text-gold px-3 py-1 border border-navy-light rounded-md transition-colors"
+            className="flex items-center gap-2 text-sm text-navy-medium hover:text-gold dark:text-gray-300 dark:hover:text-gold px-3 py-1 border border-navy-light dark:border-gray-700 rounded-md transition-colors"
           >
             <RefreshCcw size={14} />
             Atualizar
