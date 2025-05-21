@@ -26,6 +26,8 @@ const BlogPost = () => {
           return;
         }
 
+        console.log('Buscando post com ID:', id);
+        
         const { data, error } = await supabase
           .from('blog_posts')
           .select('*')
@@ -33,12 +35,15 @@ const BlogPost = () => {
           .single();
 
         if (error) {
+          console.error('Erro Supabase:', error);
           throw error;
         }
 
         if (!data) {
+          console.log('Post não encontrado');
           setError('Post não encontrado');
         } else {
+          console.log('Post encontrado:', data);
           // Map the data to our BlogPost type
           const post: BlogPostType = {
             id: data.id,
