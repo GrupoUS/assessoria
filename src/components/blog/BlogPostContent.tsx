@@ -87,14 +87,14 @@ const BlogPostContent = ({
             )}
           </header>
           
-          <div className="prose prose-lg dark:prose-invert max-w-none 
+          <div className="prose prose-lg dark:prose-invert max-w-none blog-content
                           prose-headings:font-playfair prose-headings:font-bold prose-headings:text-navy-dark dark:prose-headings:text-white
-                          prose-h1:text-4xl prose-h1:md:text-5xl prose-h1:mb-8 prose-h1:mt-0 prose-h1:leading-tight
-                          prose-h2:text-3xl prose-h2:md:text-4xl prose-h2:mb-6 prose-h2:mt-12 prose-h2:leading-tight
-                          prose-h3:text-2xl prose-h3:md:text-3xl prose-h3:mb-5 prose-h3:mt-10 prose-h3:leading-tight
-                          prose-h4:text-xl prose-h4:md:text-2xl prose-h4:mb-4 prose-h4:mt-8 prose-h4:leading-tight
-                          prose-h5:text-lg prose-h5:md:text-xl prose-h5:mb-3 prose-h5:mt-6 prose-h5:leading-tight
-                          prose-h6:text-base prose-h6:md:text-lg prose-h6:mb-3 prose-h6:mt-6 prose-h6:leading-tight
+                          prose-h1:text-5xl prose-h1:md:text-6xl prose-h1:mb-10 prose-h1:mt-0 prose-h1:leading-tight
+                          prose-h2:text-4xl prose-h2:md:text-5xl prose-h2:mb-8 prose-h2:mt-14 prose-h2:leading-tight
+                          prose-h3:text-3xl prose-h3:md:text-4xl prose-h3:mb-6 prose-h3:mt-12 prose-h3:leading-tight
+                          prose-h4:text-2xl prose-h4:md:text-3xl prose-h4:mb-5 prose-h4:mt-10 prose-h4:leading-tight
+                          prose-h5:text-xl prose-h5:md:text-2xl prose-h5:mb-4 prose-h5:mt-8 prose-h5:leading-tight
+                          prose-h6:text-lg prose-h6:md:text-xl prose-h6:mb-4 prose-h6:mt-6 prose-h6:leading-tight
                           prose-p:mb-4 prose-p:leading-relaxed prose-p:text-gray-700 dark:prose-p:text-gray-300
                           prose-li:mb-2 prose-strong:text-navy-dark dark:prose-strong:text-white prose-strong:font-semibold">
             <div dangerouslySetInnerHTML={formatContent(content)} />
