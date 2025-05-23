@@ -1,0 +1,11 @@
+
+# Netlify SPA redirect rules
+# This ensures that all routes are handled by React Router
+# and direct links to blog posts work correctly
+
+# Handle all routes by redirecting to index.html for SPA routing
+/*    /index.html   200
+
+# Optional: Handle specific API calls or static assets
+# /api/*  /api/:splat  200
+# /images/*  /images/:splat  200

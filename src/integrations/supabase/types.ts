@@ -989,6 +989,30 @@ export type Database = {
           },
         ]
       }
+      waitlist_neon_pro: {
+        Row: {
+          clinic_name: string | null
+          email: string
+          full_name: string
+          id: string
+          signup_at: string
+        }
+        Insert: {
+          clinic_name?: string | null
+          email: string
+          full_name: string
+          id?: string
+          signup_at?: string
+        }
+        Update: {
+          clinic_name?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          signup_at?: string
+        }
+        Relationships: []
+      }
       website_leads: {
         Row: {
           created_at: string | null
