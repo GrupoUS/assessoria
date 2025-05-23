@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.mauriciomagalhaes.com.br/sitemap.xml
+Sitemap: https://mauriciosmagalhaes.netlify.app/sitemap.xml
 
 # Permissões específicas para bots principais
 User-agent: Googlebot
