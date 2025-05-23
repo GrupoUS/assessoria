@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CompoundCalculator from "./pages/CompoundCalculator";
+import GuiaCompletoInvestimentos from "./pages/GuiaCompletoInvestimentos";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
@@ -83,6 +83,7 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/calculadora-juros-compostos" element={<CompoundCalculator />} />
+            <Route path="/guia-completo-investimentos" element={<GuiaCompletoInvestimentos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
