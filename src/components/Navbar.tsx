@@ -48,6 +48,9 @@ const Navbar = () => {
           <Link to="/blog" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors">
             Blog
           </Link>
+          <Link to="/guia-completo-investimentos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors">
+            Guia de Investimentos
+          </Link>
           <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors">
             Calculadora
           </Link>
@@ -84,6 +87,9 @@ const Navbar = () => {
             </Link>
             <Link to="/blog" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
               Blog
+            </Link>
+            <Link to="/guia-completo-investimentos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
+              Guia de Investimentos
             </Link>
             <Link to="/calculadora-juros-compostos" className="text-navy-dark dark:text-white hover:text-navy-medium dark:hover:text-navy-light transition-colors p-2">
               Calculadora
