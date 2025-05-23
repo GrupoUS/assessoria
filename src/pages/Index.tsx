@@ -23,6 +23,7 @@ const Index = () => {
         description="Assessoria de investimentos especializada para quem possui mais de R$300 mil. Planejamento patrimonial, blindagem e gestão de patrimônio com resultados comprovados."
         keywords="assessor de investimentos, consultor financeiro independente, planejamento patrimonial, gestão de patrimônio, blindagem patrimonial, investimentos para médicos, investimentos para empresários"
         location="Goiânia, GO"
+        canonicalUrl="https://mauriciosmagalhaes.com"
       />
       <Navbar />
       <HeroSection />

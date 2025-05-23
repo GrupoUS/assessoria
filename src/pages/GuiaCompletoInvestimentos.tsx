@@ -10,7 +10,7 @@ const GuiaCompletoInvestimentos = () => {
         title="Guia Completo de Investimentos | Maurício Magalhães"
         description="Guia completo para iniciantes: como começar a investir com segurança em 2025. Aprenda os fundamentos dos investimentos com Maurício Magalhães."
         keywords="guia investimentos, como investir, investimentos para iniciantes, investir com segurança, educação financeira"
-        canonicalUrl="https://www.mauriciomagalhaes.com.br/guia-completo-investimentos"
+        canonicalUrl="https://mauriciosmagalhaes.com/guia-completo-investimentos"
       />
       <Navbar />
       

@@ -34,7 +34,7 @@ const BlogPost = () => {
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.mauriciomagalhaes.com.br/blog/${post.slug}`
+      "@id": `https://mauriciosmagalhaes.com/blog/${post.slug}`
     },
     "headline": post.title,
     "description": post.excerpt,
@@ -48,7 +48,7 @@ const BlogPost = () => {
       "name": "Maurício Magalhães Consultoria Financeira",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.mauriciomagalhaes.com.br/logo.png" 
+        "url": "https://mauriciosmagalhaes.com/logo.png" 
       }
     },
     "datePublished": post.date,
@@ -67,7 +67,7 @@ const BlogPost = () => {
         ogImage={post.imageUrl}
         ogType="article"
         structuredData={articleStructuredData}
-        canonicalUrl={`https://www.mauriciomagalhaes.com.br/blog/${post.slug}`}
+        canonicalUrl={`https://mauriciosmagalhaes.com/blog/${post.slug}`}
       />
       <Navbar />
       

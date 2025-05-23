@@ -2,25 +2,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mauriciosmagalhaes.netlify.app/</loc>
+    <loc>https://mauriciosmagalhaes.com/</loc>
     <lastmod>2025-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mauriciosmagalhaes.netlify.app/blog</loc>
+    <loc>https://mauriciosmagalhaes.com/blog</loc>
     <lastmod>2025-05-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mauriciosmagalhaes.netlify.app/calculadora-juros-compostos</loc>
+    <loc>https://mauriciosmagalhaes.com/calculadora-juros-compostos</loc>
     <lastmod>2025-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mauriciosmagalhaes.netlify.app/guia-completo-investimentos</loc>
+    <loc>https://mauriciosmagalhaes.com/guia-completo-investimentos</loc>
     <lastmod>2025-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -32,7 +32,7 @@
   
   Example:
   <url>
-    <loc>https://mauriciosmagalhaes.netlify.app/blog/guia-investimentos-2025</loc>
+    <loc>https://mauriciosmagalhaes.com/blog/guia-investimentos-2025</loc>
     <lastmod>2025-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
