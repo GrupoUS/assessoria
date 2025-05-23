@@ -46,3 +46,67 @@
 .hover-card-effect {
   @apply transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg;
 }
+
+/**
+ * Estilos aprimorados para títulos em posts do blog
+ * Garante hierarquia visual clara e proeminência adequada
+ */
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  @apply font-playfair font-bold text-navy-dark;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+.dark .blog-content h1,
+.dark .blog-content h2,
+.dark .blog-content h3,
+.dark .blog-content h4,
+.dark .blog-content h5,
+.dark .blog-content h6 {
+  @apply text-white;
+}
+
+.blog-content h1 {
+  @apply text-4xl md:text-5xl mb-8;
+}
+
+.blog-content h2 {
+  @apply text-3xl md:text-4xl mb-6 mt-12;
+}
+
+.blog-content h3 {
+  @apply text-2xl md:text-3xl mb-5 mt-10;
+}
+
+.blog-content h4 {
+  @apply text-xl md:text-2xl mb-4 mt-8;
+}
+
+.blog-content h5 {
+  @apply text-lg md:text-xl mb-3 mt-6;
+}
+
+.blog-content h6 {
+  @apply text-base md:text-lg mb-3 mt-6;
+}
+
+.blog-content p {
+  @apply mb-4 leading-relaxed text-gray-700;
+}
+
+.dark .blog-content p {
+  @apply text-gray-300;
+}
+
+.blog-content strong {
+  @apply text-navy-dark font-semibold;
+}
+
+.dark .blog-content strong {
+  @apply text-white;
+}
