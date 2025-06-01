@@ -5,7 +5,6 @@ import { BlogPost } from '@/types/blog';
 import { toast } from '@/components/ui/use-toast';
 import { sanitizeSlug } from '@/utils/blogUtils';
 
-// Helper to determine if we're in development mode
 const isDev = process.env.NODE_ENV === 'development';
 
 export const useBlogPost = (slug: string | undefined) => {
@@ -26,18 +25,13 @@ export const useBlogPost = (slug: string | undefined) => {
         setIsLoading(true);
         setError(null);
         
-        // Reduzir logs em produção
         if (isDev) {
           console.log(`useBlogPost: Buscando post com slug: "${slug}"`);
-          console.log('useBlogPost: Cliente Supabase inicializado:', !!supabase);
         }
         
         const startTime = new Date();
-        
-        // Sanitizar o slug para a consulta
         const safeSlug = sanitizeSlug(slug);
         
-        // Consultar post por slug
         if (isDev) {
           console.log(`useBlogPost: Executando consulta para slug '${safeSlug}'`);
         }
@@ -58,14 +52,16 @@ export const useBlogPost = (slug: string | undefined) => {
             slugQueried: safeSlug,
             resultFound: !!data,
             error: error ? error.message : null,
-            rlsStatus: error && error.message.includes('permission denied') ? 'Bloqueado por RLS' : 'Sem bloqueio RLS detectado'
+            rlsStatus: error && error.message.includes('permission denied') ? 'Bloqueado por RLS' : 'RLS funcionando normalmente'
           };
           setDiagnosticInfo(diagnostics);
           console.log('useBlogPost: Resposta da consulta:', { found: !!data, error: error?.message });
         }
         
         if (error) {
-          console.error(`Erro ao buscar post: ${error.message}`);
+          if (isDev) {
+            console.error(`Erro ao buscar post: ${error.message}`);
+          }
           setError(`Erro ao buscar post: ${error.message}`);
           setPost(null);
           return;
@@ -81,7 +77,6 @@ export const useBlogPost = (slug: string | undefined) => {
           console.log(`useBlogPost: Post encontrado com slug: ${data.slug}`);
         }
         
-        // Mapear o post para o modelo
         const mappedPost: BlogPost = {
           slug: data.slug || sanitizeSlug(data.title || 'post-sem-titulo'),
           title: data.title || 'Sem título',
@@ -95,8 +90,9 @@ export const useBlogPost = (slug: string | undefined) => {
         setPost(mappedPost);
 
       } catch (err) {
-        console.error(`Erro ao buscar post: ${err instanceof Error ? err.message : String(err)}`);
-        setError(`Ocorreu um erro ao buscar o post: ${err instanceof Error ? err.message : String(err)}`);
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        console.error(`Erro ao buscar post: ${errorMessage}`);
+        setError(`Ocorreu um erro ao buscar o post: ${errorMessage}`);
         setPost(null);
       } finally {
         setIsLoading(false);

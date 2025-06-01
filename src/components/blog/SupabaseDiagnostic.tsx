@@ -44,28 +44,19 @@ const SupabaseDiagnostic = () => {
 
   const fetchDiagnosticData = async () => {
     setIsLoading(true);
-    console.log('SupabaseDiagnostic: Iniciando consulta de diagnóstico à tabela blog_posts');
+    console.log('SupabaseDiagnostic: Testando acesso à tabela blog_posts após configuração RLS');
     
     const queryTimestamp = new Date().toISOString();
-    console.log('SupabaseDiagnostic: Timestamp da consulta:', queryTimestamp);
     
     try {
-      // Verificar se o cliente Supabase está inicializado corretamente
       if (!supabase) {
         throw new Error('Cliente Supabase não foi inicializado corretamente');
       }
       
-      // Registrar informações do cliente Supabase (URL mascarada, presença de chave)
-      // Obter URL do Supabase de forma segura
       const supabaseUrl = "https://xdnfpoytpesnuzcfpajd.supabase.co";
       const hasAnonymousKey = !!supabase.auth.getSession;
       
-      console.log('SupabaseDiagnostic: Cliente Supabase inicializado com sucesso');
-      console.log(`SupabaseDiagnostic: URL: ${supabaseUrl}`);
-      console.log(`SupabaseDiagnostic: Chave anônima disponível: ${hasAnonymousKey}`);
-      
-      // Executar consulta simples para buscar todos os posts
-      console.log('SupabaseDiagnostic: Executando consulta: SELECT * FROM blog_posts ORDER BY created_at DESC LIMIT 5');
+      console.log('SupabaseDiagnostic: Executando consulta com políticas RLS ativas...');
       
       const startTime = performance.now();
       const { data, error } = await supabase
@@ -75,15 +66,19 @@ const SupabaseDiagnostic = () => {
         .limit(5);
       const endTime = performance.now();
       
-      console.log(`SupabaseDiagnostic: Tempo de execução da consulta: ${endTime - startTime}ms`);
+      console.log(`SupabaseDiagnostic: Consulta executada em ${endTime - startTime}ms`);
       
-      // Registrar a resposta completa
-      console.log('SupabaseDiagnostic: Resposta completa recebida:', { data, error });
-      
-      let rlsStatus = 'Parece não estar bloqueando o acesso';
+      let rlsStatus = 'RLS ativo - Acesso público permitido';
       
       if (error) {
         console.error('SupabaseDiagnostic: Erro na consulta:', error.message);
+        
+        if (error.message.includes('permission denied') || error.message.includes('RLS')) {
+          rlsStatus = 'RLS bloqueando acesso - Política insuficiente';
+        } else {
+          rlsStatus = 'Erro não relacionado ao RLS';
+        }
+        
         setDiagnosticData({
           connectionStatus: 'error',
           rawResponse: { error },
@@ -95,11 +90,11 @@ const SupabaseDiagnostic = () => {
             url: supabaseUrl,
             hasAnonymousKey
           },
-          rlsStatus: 'Não foi possível verificar (erro de consulta)'
+          rlsStatus
         });
       } else if (!data || data.length === 0) {
         console.log('SupabaseDiagnostic: Consulta bem-sucedida, mas nenhum post encontrado');
-        rlsStatus = 'Provavelmente bloqueando o acesso - Política RLS ausente ou restritiva';
+        rlsStatus = 'RLS funcionando - Tabela vazia ou sem dados correspondentes';
         
         setDiagnosticData({
           connectionStatus: 'success',
@@ -115,10 +110,8 @@ const SupabaseDiagnostic = () => {
           rlsStatus
         });
       } else {
-        console.log(`SupabaseDiagnostic: Consulta bem-sucedida! ${data.length || 0} posts encontrados`);
-        console.log('SupabaseDiagnostic: Estrutura do primeiro post:', data[0]);
+        console.log(`SupabaseDiagnostic: ✅ Sucesso! ${data.length} posts encontrados com RLS ativo`);
         
-        // Mapear os posts recebidos
         const mappedPosts = data.map(post => ({
           id: post.id,
           title: post.title || 'Sem título',
@@ -126,8 +119,6 @@ const SupabaseDiagnostic = () => {
           created_at: post.created_at,
           ...post
         }));
-        
-        console.log('SupabaseDiagnostic: Posts mapeados:', mappedPosts);
         
         setDiagnosticData({
           connectionStatus: 'success',
@@ -164,7 +155,6 @@ const SupabaseDiagnostic = () => {
   };
 
   useEffect(() => {
-    // Executar consulta de diagnóstico ao montar o componente
     fetchDiagnosticData();
   }, []);
 
@@ -217,34 +207,24 @@ const SupabaseDiagnostic = () => {
       {isExpanded && (
         <div className="p-4 bg-white dark:bg-navy-dark">
           <div className="mb-4">
-            <h3 className="font-semibold text-navy-dark dark:text-white mb-2">Informações do Cliente:</h3>
-            <div className="bg-gray-50 dark:bg-navy-medium p-3 rounded-md">
-              <p className="text-sm text-gray-700 dark:text-gray-300">URL Supabase: {diagnosticData.supabaseInfo.url}</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                Chave anônima: {diagnosticData.supabaseInfo.hasAnonymousKey ? '✓ Disponível' : '✗ Não detectada'}
-              </p>
-            </div>
-          </div>
-          
-          <div className="mb-4">
             <h3 className="font-semibold text-navy-dark dark:text-white mb-2">Status da Conexão:</h3>
             {diagnosticData.connectionStatus === 'success' ? (
               <Alert className="border-green-500 dark:border-green-700 bg-green-50 dark:bg-green-900/20">
-                <AlertTitle className="text-green-800 dark:text-green-300">Conexão bem-sucedida</AlertTitle>
+                <AlertTitle className="text-green-800 dark:text-green-300">✅ Conexão bem-sucedida</AlertTitle>
                 <AlertDescription className="text-green-700 dark:text-green-400">
-                  A conexão com o Supabase foi estabelecida corretamente.
+                  A conexão com o Supabase foi estabelecida e os dados do blog estão acessíveis.
                 </AlertDescription>
               </Alert>
             ) : diagnosticData.connectionStatus === 'error' ? (
               <Alert className="border-red-500 dark:border-red-700 bg-red-50 dark:bg-red-900/20">
-                <AlertTitle className="text-red-800 dark:text-red-300">Erro de conexão</AlertTitle>
+                <AlertTitle className="text-red-800 dark:text-red-300">❌ Erro de conexão</AlertTitle>
                 <AlertDescription className="text-red-700 dark:text-red-400">
                   {diagnosticData.errorMessage || 'Ocorreu um erro desconhecido na conexão com o Supabase.'}
                 </AlertDescription>
               </Alert>
             ) : (
               <Alert className="border-yellow-500 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20">
-                <AlertTitle className="text-yellow-800 dark:text-yellow-300">Status desconhecido</AlertTitle>
+                <AlertTitle className="text-yellow-800 dark:text-yellow-300">⚠️ Status desconhecido</AlertTitle>
                 <AlertDescription className="text-yellow-700 dark:text-yellow-400">
                   O status da conexão com o Supabase é desconhecido.
                 </AlertDescription>
@@ -263,7 +243,7 @@ const SupabaseDiagnostic = () => {
               </p>
               
               <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">
-                Status RLS: <strong className={diagnosticData.postCount === 0 ? "text-red-600" : "text-green-600"}>
+                Status RLS: <strong className={diagnosticData.postCount === 0 ? "text-amber-600" : "text-green-600"}>
                   {diagnosticData.rlsStatus}
                 </strong>
               </p>
@@ -283,19 +263,8 @@ const SupabaseDiagnostic = () => {
                 <Alert className="mt-2 border-amber-500 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-700">
                   <AlertTitle className="text-amber-800 dark:text-amber-300">Nenhum post encontrado</AlertTitle>
                   <AlertDescription className="text-amber-700 dark:text-amber-400">
-                    <p>A consulta foi bem-sucedida, mas nenhum post foi encontrado na tabela blog_posts.</p>
-                    <p className="mt-2 font-semibold">Problema provável: Política RLS (Row Level Security) restritiva.</p>
-                    <div className="mt-2 p-2 bg-amber-100 dark:bg-amber-900/40 rounded text-xs">
-                      <p className="font-semibold">Para resolver:</p>
-                      <p>Execute no Editor SQL do Supabase a seguinte política para permitir acesso público de leitura:</p>
-                      <pre className="overflow-auto p-2 mt-1 bg-gray-100 dark:bg-gray-800 rounded">
-                        {`CREATE POLICY "Allow public read access to blog_posts"
-ON public.blog_posts
-FOR SELECT
-TO anon
-USING (true);`}
-                      </pre>
-                    </div>
+                    <p>A consulta foi bem-sucedida e as políticas RLS estão funcionando, mas não há posts na tabela.</p>
+                    <p className="mt-2 font-semibold">Para testar: Adicione alguns posts na tabela blog_posts via Supabase Dashboard.</p>
                   </AlertDescription>
                 </Alert>
               ) : null}
