@@ -66,6 +66,14 @@ export const fetchPosts = async (): Promise<BlogPost[]> => {
     }
     
     console.log(`blogService: Encontrados ${posts.length} posts no banco de dados`);
+    
+    // Log específico sobre URLs de imagens
+    posts.forEach((post, index) => {
+      console.log(`blogService: Post ${index + 1} - Título: "${post.title}"`);
+      console.log(`blogService: Post ${index + 1} - imageurl: "${post.imageurl}"`);
+      console.log(`blogService: Post ${index + 1} - imageurl válida: ${!!post.imageurl && post.imageurl.trim() !== ''}`);
+    });
+    
     return mapPostsToModel(posts);
   } catch (err) {
     console.error('blogService: Exceção ao buscar posts:', err);

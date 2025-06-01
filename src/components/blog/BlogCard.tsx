@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { sanitizeSlug } from '@/utils/blogUtils';
 
 interface BlogCardProps { 
   title: string; 
@@ -26,9 +27,33 @@ const BlogCard = ({
   
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
+    console.error(`BlogCard: Falha ao carregar imagem para o post "${title}"`);
+    console.error(`BlogCard: URL original da imagem: "${imageUrl}"`);
+    console.error(`BlogCard: Usando imagem de fallback: "${fallbackImage}"`);
     target.src = fallbackImage;
-    console.warn(`BlogCard: Imagem não carregada para o post "${title}". Usando fallback.`);
   };
+  
+  const handleImageLoad = () => {
+    console.log(`BlogCard: Imagem carregada com sucesso para o post "${title}" - URL: "${imageUrl}"`);
+  };
+  
+  // Log da URL da imagem para debugging
+  React.useEffect(() => {
+    if (imageUrl) {
+      console.log(`BlogCard: Post "${title}" - URL da imagem no banco: "${imageUrl}"`);
+      // Testar se a URL é acessível
+      const img = new Image();
+      img.onload = () => {
+        console.log(`BlogCard: URL da imagem é válida para "${title}"`);
+      };
+      img.onerror = () => {
+        console.error(`BlogCard: URL da imagem é inválida ou inacessível para "${title}": "${imageUrl}"`);
+      };
+      img.src = imageUrl;
+    } else {
+      console.warn(`BlogCard: Post "${title}" não tem URL de imagem definida`);
+    }
+  }, [imageUrl, title]);
   
   // Verifica se o post tem dados válidos
   if (!title) {
@@ -39,18 +64,8 @@ const BlogCard = ({
     console.warn(`BlogCard: Card com título "${title}" tem slug vazio ou inválido.`);
   }
   
-  // Função para sanitizar slugs
-  function sanitizeSlug(inputSlug: string): string {
-    if (!inputSlug) return `post-sem-titulo`;
-    
-    let cleanSlug = inputSlug.trim().toLowerCase();
-    cleanSlug = cleanSlug.replace(/[^\w\-]+/g, '-');
-    cleanSlug = cleanSlug.replace(/\-{2,}/g, '-');
-    cleanSlug = cleanSlug.replace(/^\-+|\-+$/g, '');
-    
-    const finalSlug = cleanSlug || `post-sem-slug`;
-    return finalSlug;
-  }
+  // Determinar qual imagem usar - priorizar imageUrl do banco se válido
+  const imageToUse = imageUrl && imageUrl.trim() !== '' ? imageUrl : fallbackImage;
   
   return (
     <Link 
@@ -62,10 +77,11 @@ const BlogCard = ({
       <div className="bg-white dark:bg-navy-dark rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:translate-y-1 h-full flex flex-col">
         <div className="h-48 overflow-hidden">
           <img 
-            src={imageUrl || fallbackImage} 
+            src={imageToUse} 
             alt={title} 
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
             onError={handleImageError}
+            onLoad={handleImageLoad}
           />
         </div>
         <div className="p-6 flex-1 flex flex-col">

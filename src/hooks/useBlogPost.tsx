@@ -75,6 +75,7 @@ export const useBlogPost = (slug: string | undefined) => {
         
         if (isDev) {
           console.log(`useBlogPost: Post encontrado com slug: ${data.slug}`);
+          console.log(`useBlogPost: URL da imagem do post: "${data.imageurl}"`);
         }
         
         const mappedPost: BlogPost = {
