@@ -1,0 +1,25 @@
+
+/**
+ * Estilos para elementos de formulário no modo escuro
+ * Define a aparência de inputs, selects, textareas e outros controles
+ */
+
+/* Estilos básicos para controles de formulário */
+.dark input, 
+.dark textarea, 
+.dark select {
+  background-color: hsl(var(--navy-medium));
+  color: white;
+  border-color: hsl(var(--navy-light));
+}
+
+/* Classes específicas para formulários */
+.dark .form-input,
+.dark .form-textarea,
+.dark .form-select,
+.dark .form-checkbox,
+.dark .form-radio {
+  background-color: hsl(var(--navy-dark));
+  border-color: hsl(var(--navy-medium));
+  color: white;
+}

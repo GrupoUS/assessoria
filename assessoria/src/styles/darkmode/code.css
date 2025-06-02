@@ -1,0 +1,11 @@
+
+/**
+ * Estilos para blocos e elementos de código no modo escuro
+ * Define a aparência de elementos <pre> e <code>
+ */
+
+.dark pre,
+.dark code {
+  background-color: hsl(var(--navy-darkest));
+  color: #f3f4f6; /* gray-100 */
+}

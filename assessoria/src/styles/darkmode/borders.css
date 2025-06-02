@@ -1,0 +1,11 @@
+
+/**
+ * Estilos para bordas no modo escuro
+ * Ajusta as cores e propriedades das bordas nos diferentes elementos
+ */
+
+/* Bordas em tons claros de cinza */
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: hsl(var(--navy-medium));
+}

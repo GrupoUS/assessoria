@@ -1,0 +1,7 @@
+
+# Netlify Domain Redirect Rules
+# Redirect mauriciosmagalhaes.netlify.app to mauriciosmagalhaes.com
+https://mauriciosmagalhaes.netlify.app/* https://mauriciosmagalhaes.com/:splat 301!
+
+# Handle all other routes by redirecting to index.html for SPA routing
+/*    /index.html   200

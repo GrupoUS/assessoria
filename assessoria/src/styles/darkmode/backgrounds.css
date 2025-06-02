@@ -1,0 +1,27 @@
+
+/**
+ * Estilos para backgrounds no modo escuro
+ * Ajusta as cores de fundo dos diversos elementos e seções
+ */
+
+/* Fundos de seções principais */
+.dark .bg-white {
+  background-color: hsl(var(--navy-dark));
+}
+
+.dark .bg-gray-50 {
+  background-color: hsl(var(--navy-darkest));
+}
+
+/* Backgrounds com diferentes tons de cinza */
+.dark .bg-gray-100 {
+  background-color: hsl(var(--navy-medium));
+}
+
+.dark .bg-gray-200 {
+  background-color: hsl(var(--navy-medium));
+}
+
+.dark .bg-gray-300 {
+  background-color: hsl(var(--navy-light));
+}
